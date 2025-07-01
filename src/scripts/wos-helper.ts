@@ -141,7 +141,7 @@ export class GameSpectator {
         const key = slot.letters.length;
         acc[key] = (acc[key] || 0) + 1;
         return acc;
-      }, {});
+      }, {} as { [key: number]: number });
 
       this.log(`Total Empty Slots: ${emptySlots.length}`, this.wosGameLogId);
 
@@ -422,7 +422,7 @@ export class GameSpectator {
     }
   }
 
-  getMirrorCode(mirrorUrl) {
+  getMirrorCode(mirrorUrl: string) {
     try {
       const url = new URL(mirrorUrl);
       const pathParts = url.pathname.split('/');
@@ -437,7 +437,7 @@ export class GameSpectator {
     }
   }
 
-  connectToWosGame(mirrorUrl) {
+  connectToWosGame(mirrorUrl: string) {
     const gameCode = this.getMirrorCode(mirrorUrl);
     if (!gameCode) {
       this.log('Invalid mirror URL', this.wosGameLogId);
@@ -456,12 +456,12 @@ export class GameSpectator {
       }
     });
 
-    this.wosSocket.on((event, ...args) => {
+    this.wosSocket.on((event: string, ...args: any[]) => {
       this.log(`Event received: ${event}`, this.wosGameLogId);
       this.log(`Data: ${JSON.stringify(args, null, 2)}`, this.wosGameLogId);
     });
 
-    this.wosSocket.on('3', (eventType, data) => {
+    this.wosSocket.on('3', (eventType: any, data: any) => {
       // console.log('[WOS Event] Event received: ', eventType, data);
       wosWorker.postMessage({ eventType, data });
     });
@@ -475,7 +475,7 @@ export class GameSpectator {
       this.log('Attempting to reconnect to WOS game: ' + this.getMirrorCode(mirrorUrl), this.wosGameLogId);
     })
 
-    this.wosSocket.on('connect_error', (error) => {
+    this.wosSocket.on('connect_error', (error: string) => {
       this.log('WOS Connection error: ' + error, this.wosGameLogId);
     });
 
@@ -483,12 +483,12 @@ export class GameSpectator {
       this.log('Disconnected from WOS game server', this.wosGameLogId);
     });
 
-    this.wosSocket.on('error', (error) => {
+    this.wosSocket.on('error', (error: any) => {
       this.log('WOS Socket error: ', this.wosGameLogId);
     });
   }
 
-  connectToTwitch(channel) {
+  connectToTwitch(channel: string) {
     if (!channel.startsWith('#')) {
       channel = '#' + channel;
     }
@@ -505,7 +505,7 @@ export class GameSpectator {
       channels: [channel]
     });
 
-    this.twitchClient.on('message', (channel, tags, message, self) => {
+    this.twitchClient.on('message', (channel: any, tags: { username: string; }, message: string, self: any) => {
       // this.log(`Twitch Chat: ${tags.username}: ${message}`, this.twitchChatLogId);
       twitchWorker.postMessage({
         username: tags.username.toLowerCase(),
@@ -514,11 +514,11 @@ export class GameSpectator {
       });
     });
 
-    this.twitchClient.on('connected', (addr, port) => {
+    this.twitchClient.on('connected', (addr: any, port: any) => {
       this.log(`Connected to Twitch chat for channel: ${channel}`, this.twitchChatLogId);
     });
 
-    this.twitchClient.on('disconnected', (reason) => {
+    this.twitchClient.on('disconnected', (reason: any) => {
       this.log(`Disconnected from Twitch chat: ${reason}`, this.twitchChatLogId);
     });
 
@@ -539,7 +539,7 @@ export class GameSpectator {
     }
   }
 
-  log(message, logId) {
+  log(message: string, logId: string) {
     const logDiv = document.getElementById(logId || 'wos-game-log');
     if (typeof message === 'object') {
       message = JSON.stringify(message, null, 2);

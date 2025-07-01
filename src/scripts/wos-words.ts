@@ -42,7 +42,7 @@ export async function loadWosDictionary() {
     }
 
     const wordsJson = await response.json();
-    wosDictionary = wordsJson.map(word => word.trim());
+    wosDictionary = wordsJson.map((word: string) => word.trim());
     console.log('WOS Dictionary loaded:', wosDictionary.length, 'words');
   } catch (error) {
     console.error('Error loading WOS dictionary:', error);

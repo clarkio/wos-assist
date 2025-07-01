@@ -12,5 +12,9 @@
     "astro": "^5.10.1",
     "socket.io-client": "^2.5.0",
     "tmi.js": "^1.8.5"
+  },
+  "devDependencies": {
+    "@types/socket.io-client": "^1.4.36",
+    "@types/tmi.js": "^1.8.6"
   }
 }

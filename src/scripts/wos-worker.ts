@@ -91,7 +91,7 @@ self.onmessage = function (e: MessageEvent<WosWorkerMessage>) {
   } catch (error) {
     self.postMessage({
       type: 'error',
-      error: error.message
+      error: error instanceof Error ? error.message : String(error)
     });
   }
 };
