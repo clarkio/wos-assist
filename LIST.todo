@@ -1,0 +1,113 @@
+☐ Make the font scale more uniformly when zooming in and out on the webpage @created(Fri 06/27/2025 - 04:07 PM)
+☐ Look into bug where multiple instances of the same word shows up in the possible words list @created(Fri 06/27/2025 - 03:24 PM)
+☐ Add ability to keep track of highest level achieved for that stream/day @created(Fri 06/13/2025 - 04:46 PM)
+☐ Add capability to sort correct words alphabetically via query parameter or button @created(Fri 06/27/2025 - 03:08 PM)
+☐ Move missed words to separate component in the UI @created(Fri 06/27/2025 - 03:08 PM)
+☐ Consider listing correct words in all caps for readability @created(Fri 06/27/2025 - 03:10 PM)
+☐ Add the confetti animation when the board clears @created(Fri 06/27/2025 - 03:17 PM)
+☐ Add a command !record that responds in chat with the latest channel record (suggested by WeaverAnonymous) @created(Fri 05/09/2025 - 03:49 PM)
+☐ statics/records per player if possible --from @kirkd_ @created(Fri 03/14/2025 - 03:35 PM)
+  - This could likely be done using data from WOS event type 4 that has the following data structure:
+  {
+    "stars": 5,
+    "ranking": [
+        {
+            "user": {
+                "id": "smc_may_i",
+                "name": "smc_may_i"
+            },
+            "points": 77
+        },
+        {
+            "user": {
+                "id": "ruggmattbot",
+                "name": "RuggMattBot"
+            },
+            "points": 61
+        },
+        {
+            "user": {
+                "id": "dolphinmermaid",
+                "name": "dolphinmermaid"
+            },
+            "points": 54
+        },
+        {
+            "user": {
+                "id": "clarkio",
+                "name": "Clarkio"
+            },
+            "points": 16
+        },
+        {
+            "user": {
+                "id": "biocow",
+                "name": "Biocow"
+            },
+            "points": 8
+        },
+        {
+            "user": {
+                "id": "streamelements",
+                "name": "StreamElements"
+            },
+            "points": 7
+        },
+        {
+            "user": {
+                "id": "dparvin",
+                "name": "DParvin"
+            },
+            "points": 5
+        }
+    ],
+    "rankingTurn": [
+        {
+            "user": {
+                "id": "smc_may_i",
+                "name": "smc_may_i"
+            },
+            "points": 18
+        },
+        {
+            "user": {
+                "id": "dolphinmermaid",
+                "name": "dolphinmermaid"
+            },
+            "points": 16
+        },
+        {
+            "user": {
+                "id": "ruggmattbot",
+                "name": "RuggMattBot"
+            },
+            "points": 13
+        },
+        {
+            "user": {
+                "id": "streamelements",
+                "name": "StreamElements"
+            },
+            "points": 7
+        },
+        {
+            "user": {
+                "id": "dparvin",
+                "name": "DParvin"
+            },
+            "points": 5
+        }
+    ]
+  }
+☐ Add a server that can connect to Twitch chat and send messages @created(Fri 05/09/2025 - 01:20 PM)
+☐ Add a function to send a message to the chat when the big word is discovered @created(Fri 05/09/2025 - 01:20 PM)
+
+Archive:
+  ✔ Look into if the log of successfully adding a word is accurate. It seems to log words being added that were already there but thankfully are note duplicated @created(Fri 06/27/2025 - 04:36 PM) @done(25-07-02 20:08)
+  ✔ Add capture of words left blank on the board by length and console.log them @created(Fri 06/13/2025 - 05:06 PM) @done(25-06-27 15:21)
+  ✔ Add watermark/made by text to make sure credit is received @created(Fri 06/13/2025 - 04:46 PM) @done(25-06-13 17:05)
+  ✔ If the board is cleared no need to check for missing words @created(Fri 04/11/2025 - 02:50 PM) @done(25-05-02 16:18)
+  ✔ When a word that uses a hidden letter is guessed check the guessed word letters against the currentLevelLetters to determine the hidden letter early in the level @created(Fri 04/04/2025 - 02:42 PM) @done(25-05-02 15:27)
+  ✔ When hidden and fake letters are revealed, update the Letters based on them when the big word hasn't been found yet --from @smc_may_i @done(25-04-04 14:48)
+  ✔ Add a key near "Correct Words" to indicate * meaning @biocow @created(Fri 03/14/2025 - 03:38 PM) @done(25-03-14 16:33)
+  ✔ Show words missed at the end of the round within the "Correct Words" text area with an asterisk (*) next to them @done(25-03-14 16:27)
