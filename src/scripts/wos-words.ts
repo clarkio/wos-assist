@@ -23,6 +23,7 @@ export async function updateWosDictionary(word: string) {
 
     console.log(`Successfully updated dictionary with word: ${word}`);
     wosDictionary.push(word);
+    console.log(`WOS Dictionary now contains ${wosDictionary.length} words.`);
     return response.json();
   } catch (error) {
     console.error('Error updating WOS dictionary:', error);
