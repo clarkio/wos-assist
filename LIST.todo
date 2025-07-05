@@ -2,7 +2,6 @@
 ☐ Look into bug where multiple instances of the same word shows up in the possible words list @created(Fri 06/27/2025 - 03:24 PM)
 ☐ Add ability to keep track of highest level achieved for that stream/day @created(Fri 06/13/2025 - 04:46 PM)
 ☐ Add capability to sort correct words alphabetically via query parameter or button @created(Fri 06/27/2025 - 03:08 PM)
-☐ Move missed words to separate component in the UI @created(Fri 06/27/2025 - 03:08 PM)
 ☐ Consider listing correct words in all caps for readability @created(Fri 06/27/2025 - 03:10 PM)
 ☐ Add the confetti animation when the board clears @created(Fri 06/27/2025 - 03:17 PM)
 ☐ Add a command !record that responds in chat with the latest channel record (suggested by WeaverAnonymous) @created(Fri 05/09/2025 - 03:49 PM)
@@ -103,6 +102,7 @@
 ☐ Add a function to send a message to the chat when the big word is discovered @created(Fri 05/09/2025 - 01:20 PM)
 
 Archive:
+  ✔ Move missed words to separate component in the UI @created(Fri 06/27/2025 - 03:08 PM) @done(25-07-05 17:44)
   ✔ Make the font scale more uniformly when zooming in and out on the webpage @created(Fri 06/27/2025 - 04:07 PM) @done(25-07-05 16:33)
   ✔ Look into if the log of successfully adding a word is accurate. It seems to log words being added that were already there but thankfully are note duplicated @created(Fri 06/27/2025 - 04:36 PM) @done(25-07-02 20:08)
   ✔ Add capture of words left blank on the board by length and console.log them @created(Fri 06/13/2025 - 05:06 PM) @done(25-06-27 15:21)

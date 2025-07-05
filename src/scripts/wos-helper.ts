@@ -110,7 +110,7 @@ export class GameSpectator {
   private handleLevelResults(stars: any) {
     this.log(`Level ${this.currentLevel} ended with ${stars} stars`, this.wosGameLogId);
     console.log(`[WOS Helper] Level ${this.currentLevel} ended`);
-    console.log(`[WOS Helper] Total slots for level ${this.currentLevel}: ${this.currentLevelSlots.length}`);
+    this.log(`[WOS Helper] Total slots for level ${this.currentLevel}: ${this.currentLevelSlots.length}`, this.wosGameLogId);
 
     this.currentLevel += parseInt(stars);
     document.getElementById('level-title')!.innerText =
