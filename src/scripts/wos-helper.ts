@@ -27,6 +27,7 @@ export class GameSpectator {
   twitchClient: any;
   currentLevelBigWord: string = '';
   currentLevelCorrectWords: string[] = [];
+  currentLevelMissedWords: string[] = [];
   wosEventQueue: any[] = [];
   twitchEventQueue: any[] = [];
   currentLevelLetters: string[] = [];
@@ -163,6 +164,12 @@ export class GameSpectator {
     if (wosEventType === 1) {
       this.clearBoard();
       console.log('[WOS Helper] Game Initialized with slots:', slots);
+    } else if (wosEventType === 12) {
+      const missedContainer = document.getElementById('missed-words-log-container');
+      const missedLog = document.getElementById('missed-words-log');
+      this.currentLevelMissedWords = [];
+      if (missedLog) missedLog.innerText = '';
+      if (missedContainer) missedContainer.style.display = 'none';
     }
     this.currentLevelSlots = slots;
     this.log(`Level ${level} ${wosEventType === 1 ? 'Started' : 'In Progress'}`, this.wosGameLogId);
@@ -190,15 +197,22 @@ export class GameSpectator {
     const missingWords = findAllMissingWords(this.currentLevelCorrectWords, knownLetters, minLength);
 
     if (missingWords.length > 0) {
-      missingWords.forEach(word => {
-        this.updateCorrectWordsDisplayed(word + "*");
-      });
+      this.currentLevelMissedWords = missingWords;
+      const container = document.getElementById('missed-words-log-container');
+      const log = document.getElementById('missed-words-log');
+      if (log) {
+        log.innerText = missingWords.join(', ');
+      }
+      if (container) {
+        container.style.display = '';
+      }
     }
   }
 
   private clearBoard() {
     console.log('[WOS Helper] Clearing the correct words and big word');
     this.currentLevelCorrectWords = [];
+    this.currentLevelMissedWords = [];
     this.currentLevelBigWord = '';
     this.lastTwitchMessage = null;
     this.currentLevelSlots = [];
@@ -212,6 +226,10 @@ export class GameSpectator {
     document.getElementById('letters-label')!.innerText = 'Letters:';
     document.getElementById('hidden-letter')!.innerText = '';
     document.getElementById('fake-letter')!.innerText = '';
+    const missedContainer = document.getElementById('missed-words-log-container');
+    const missedLog = document.getElementById('missed-words-log');
+    if (missedLog) missedLog.innerText = '';
+    if (missedContainer) missedContainer.style.display = 'none';
   }
 
   private updateGameState(username: string, letters: string[], index: number, hitMax: boolean) {

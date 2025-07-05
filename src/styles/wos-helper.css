@@ -26,6 +26,11 @@ body {
   align-items: flex-start;
 }
 
+#missed-words-log-container span {
+  display: flex;
+  align-items: flex-start;
+}
+
 /* Add new style for the correct words span */
 #correct-words-log-container span:last-of-type {
   flex-direction: column;
@@ -34,11 +39,33 @@ body {
   gap: 0.25rem; /* Small gap between label and log div */
 }
 
+#missed-words-log-container span:last-of-type {
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 1rem;
+  gap: 0.25rem;
+}
+
 .logs {
   background: #4b1a81;
 }
 
 #correct-words-log {
+  font-size: min(4vw, 24px);
+  max-height: 200px;
+  padding: 10px;
+  border: 1px solid #c79cff;
+  height: calc(100vh - 200px);
+  width: 100%;
+  overflow-y: hidden;
+  font-family: monospace;
+  white-space: pre-wrap;
+  box-sizing: border-box;
+  padding: 1rem;
+  color: #e1e4e8;
+}
+
+#missed-words-log {
   font-size: min(4vw, 24px);
   max-height: 200px;
   padding: 10px;
@@ -64,13 +91,18 @@ summary {
   min-width: 100px;
 }
 
-.level-data-container > div:not(#correct-words-log-container) {
+.level-data-container > div:not(#correct-words-log-container):not(#missed-words-log-container) {
   display: flex;
   align-items: center;
   gap: 1rem;
 }
 
 #correct-words-log {
+  font-size: large;
+  width: 100%;
+}
+
+#missed-words-log {
   font-size: large;
   width: 100%;
 }
