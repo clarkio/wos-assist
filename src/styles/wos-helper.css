@@ -39,9 +39,9 @@ body {
 }
 
 #correct-words-log {
-  font-size: min(4vw, 24px);
+  font-size: 1.5rem;
   max-height: 200px;
-  padding: 10px;
+  padding: 1rem;
   border: 1px solid #c79cff;
   height: calc(100vh - 200px);
   width: 100%;
@@ -49,7 +49,6 @@ body {
   font-family: monospace;
   white-space: pre-wrap;
   box-sizing: border-box;
-  padding: 1rem;
   color: #e1e4e8;
 }
 
@@ -70,10 +69,6 @@ summary {
   gap: 1rem;
 }
 
-#correct-words-log {
-  font-size: large;
-  width: 100%;
-}
 
 .log-container {
   display: flex;
@@ -174,13 +169,19 @@ button {
 #big-word,
 #level-value,
 #hidden-letter {
-  font-size: min(3vw, 30px);
+  font-size: 1.875rem;
   font-weight: bold;
 }
 
 span {
-  font-size: min(3vw, 30px);
+  font-size: 1.875rem;
   font-weight: bold;
+}
+
+.made-by {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
 }
 
 h3 {
