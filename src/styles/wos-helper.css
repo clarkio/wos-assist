@@ -39,7 +39,7 @@ body {
 }
 
 #correct-words-log {
-  font-size: min(4vw, 24px);
+  font-size: 1.5rem;
   max-height: 200px;
   padding: 10px;
   border: 1px solid #c79cff;
@@ -174,12 +174,12 @@ button {
 #big-word,
 #level-value,
 #hidden-letter {
-  font-size: min(3vw, 30px);
+  font-size: 1.875rem;
   font-weight: bold;
 }
 
 span {
-  font-size: min(3vw, 30px);
+  font-size: 1.875rem;
   font-weight: bold;
 }
 
