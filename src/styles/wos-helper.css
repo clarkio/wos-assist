@@ -178,6 +178,12 @@ span {
   font-weight: bold;
 }
 
+.made-by {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
 h3 {
   margin: 10px 0;
 }
