@@ -25,6 +25,11 @@ export class GameSpectator {
   twitchChatLog: Map<string, { message: string; timestamp: number; }>;
   wosSocket: any;
   twitchClient: any;
+  currentChannel: string = '';
+  personalBest: number = 0;
+  pbStorageKey: string = '';
+  dailyBest: number = 0;
+  dailyPbStorageKey: string = '';
   currentLevelBigWord: string = '';
   currentLevelCorrectWords: string[] = [];
   wosEventQueue: any[] = [];
@@ -45,11 +50,62 @@ export class GameSpectator {
     this.startEventProcessors();
   }
 
+  private getTodayKey() {
+    return new Date().toISOString().slice(0, 10);
+  }
+
+  private loadPersonalBests(channel: string) {
+    this.pbStorageKey = `pb_${channel.toLowerCase()}`;
+    const stored = localStorage.getItem(this.pbStorageKey);
+    this.personalBest = stored ? parseInt(stored) : 0;
+
+    this.dailyPbStorageKey = `pb_${channel.toLowerCase()}_${this.getTodayKey()}`;
+    const storedDaily = localStorage.getItem(this.dailyPbStorageKey);
+    this.dailyBest = storedDaily ? parseInt(storedDaily) : 0;
+
+    const pbElement = document.getElementById('pb-value');
+    if (pbElement) {
+      pbElement.innerText = `${this.personalBest}`;
+    }
+    const dailyElement = document.getElementById('daily-pb-value');
+    if (dailyElement) {
+      dailyElement.innerText = `${this.dailyBest}`;
+    }
+  }
+
+  private updatePersonalBests(level: number) {
+    if (level > this.personalBest) {
+      this.personalBest = level;
+      if (this.pbStorageKey) {
+        localStorage.setItem(this.pbStorageKey, String(this.personalBest));
+      }
+      const pbElement = document.getElementById('pb-value');
+      if (pbElement) {
+        pbElement.innerText = `${this.personalBest}`;
+      }
+    }
+
+    if (level > this.dailyBest) {
+      this.dailyBest = level;
+      if (this.dailyPbStorageKey) {
+        localStorage.setItem(this.dailyPbStorageKey, String(this.dailyBest));
+      }
+      const dailyElement = document.getElementById('daily-pb-value');
+      if (dailyElement) {
+        dailyElement.innerText = `${this.dailyBest}`;
+      }
+    }
+  }
+
   private async startEventProcessors() {
     // Set up WOS worker message handler
     wosWorker.onmessage = async (e) => {
       if (e.data.type === 'wos_event') {
-        const { wosEventType, wosEventName, username, letters, hitMax, stars, level, falseLetters, hiddenLetters, slots, index } = e.data;
+        const { wosEventType, wosEventName, username, letters, hitMax, stars, level, falseLetters, hiddenLetters, slots, index, record } = e.data;
+
+        if (typeof record === 'number') {
+          this.updatePersonalBests(record);
+        }
 
         const message = username ? `:${username} - ${letters.join('')} - Big Word: ${hitMax}` : '';
         console.log(`[WOS Event] <${wosEventName}>${message}`);
@@ -112,6 +168,7 @@ export class GameSpectator {
     console.log(`[WOS Helper] Level ${this.currentLevel} ended`);
 
     this.currentLevel += parseInt(stars);
+    this.updatePersonalBests(this.currentLevel);
     document.getElementById('level-title')!.innerText =
       `Next Level:`;
     document.getElementById('level-value')!.innerText =
@@ -167,6 +224,7 @@ export class GameSpectator {
     this.currentLevelSlots = slots;
     this.log(`Level ${level} ${wosEventType === 1 ? 'Started' : 'In Progress'}`, this.wosGameLogId);
     this.currentLevel = parseInt(level);
+    this.updatePersonalBests(this.currentLevel);
     document.getElementById('level-title')!.innerText =
       `Level:`;
     document.getElementById('level-value')!.innerText =
@@ -492,6 +550,9 @@ export class GameSpectator {
     if (!channel.startsWith('#')) {
       channel = '#' + channel;
     }
+
+    this.currentChannel = channel.replace('#', '');
+    this.loadPersonalBests(this.currentChannel);
 
     if (this.twitchClient) {
       this.disconnectTwitch();
