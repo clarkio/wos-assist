@@ -387,9 +387,15 @@ export class GameSpectator {
   private updateCorrectWordsDisplayed(word: string) {
     this.currentLevelCorrectWords.push(word);
     this.currentLevelCorrectWords.sort((a, b) => a.replace('*', '').length - b.replace('*', '').length);
-    // Update correct words display
-    document.getElementById('correct-words-log')!.innerText =
-      this.currentLevelCorrectWords.join(', ');
+
+    const formattedWords = this.currentLevelCorrectWords.map(w => {
+      return w.endsWith('*') ? `<strong>${w}</strong>` : w;
+    });
+
+    const logEl = document.getElementById('correct-words-log');
+    if (logEl) {
+      (logEl as HTMLElement).innerHTML = formattedWords.join(', ');
+    }
   }
 
   calculateHiddenLetters(bigWord: string) {
