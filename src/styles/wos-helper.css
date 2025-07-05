@@ -41,7 +41,7 @@ body {
 #correct-words-log {
   font-size: 1.5rem;
   max-height: 200px;
-  padding: 10px;
+  padding: 1rem;
   border: 1px solid #c79cff;
   height: calc(100vh - 200px);
   width: 100%;
@@ -49,7 +49,6 @@ body {
   font-family: monospace;
   white-space: pre-wrap;
   box-sizing: border-box;
-  padding: 1rem;
   color: #e1e4e8;
 }
 
@@ -70,10 +69,6 @@ summary {
   gap: 1rem;
 }
 
-#correct-words-log {
-  font-size: large;
-  width: 100%;
-}
 
 .log-container {
   display: flex;
