@@ -25,6 +25,7 @@ export interface WosWorkerResult {
   letters: string[];
   stars: number;
   level: number;
+  record?: number;
   hitMax: boolean;
   falseLetters: string[];
   hiddenLetters: string[];
@@ -47,11 +48,31 @@ self.onmessage = function (e: MessageEvent<WosWorkerMessage>) {
       letters: data.letters || [],
       stars: data.stars || 0,
       level: data.level || 0,
+      record: undefined,
       hitMax: data.hitMax || false,
       falseLetters: data.falseLetters || [],
       hiddenLetters: data.hiddenLetters || [],
       slots: data.slots || [],
     };
+
+    const recordKeys = [
+      'record',
+      'recordLevel',
+      'bestLevel',
+      'best',
+      'topLevel',
+      'levelRecord',
+      'maxLevel',
+    ];
+    for (const key of recordKeys) {
+      if (data && data[key] !== undefined) {
+        const val = parseInt(data[key]);
+        if (!isNaN(val)) {
+          result.record = val;
+          break;
+        }
+      }
+    }
 
     // console.log(`[WOS Worker] Event Type: ${eventType}`, data);
 
