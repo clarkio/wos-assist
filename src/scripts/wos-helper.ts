@@ -110,6 +110,7 @@ export class GameSpectator {
   private handleLevelResults(stars: any) {
     this.log(`Level ${this.currentLevel} ended with ${stars} stars`, this.wosGameLogId);
     console.log(`[WOS Helper] Level ${this.currentLevel} ended`);
+    this.log(`[WOS Helper] Total slots for level ${this.currentLevel}: ${this.currentLevelSlots.length}`, this.wosGameLogId);
 
     this.currentLevel += parseInt(stars);
     document.getElementById('level-title')!.innerText =
@@ -386,9 +387,15 @@ export class GameSpectator {
   private updateCorrectWordsDisplayed(word: string) {
     this.currentLevelCorrectWords.push(word);
     this.currentLevelCorrectWords.sort((a, b) => a.replace('*', '').length - b.replace('*', '').length);
-    // Update correct words display
-    document.getElementById('correct-words-log')!.innerText =
-      this.currentLevelCorrectWords.join(', ');
+
+    const formattedWords = this.currentLevelCorrectWords.map(w => {
+      return w.endsWith('*') ? `<strong>${w}</strong>` : w;
+    });
+
+    const logEl = document.getElementById('correct-words-log');
+    if (logEl) {
+      (logEl as HTMLElement).innerHTML = formattedWords.join(', ');
+    }
   }
 
   sortCorrectWordsAlphabetically() {
