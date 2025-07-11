@@ -385,8 +385,25 @@ export class GameSpectator {
 
   private updateCorrectWordsDisplayed(word: string) {
     this.currentLevelCorrectWords.push(word);
-    this.currentLevelCorrectWords.sort((a, b) => a.replace('*', '').length - b.replace('*', '').length);
-    // Update correct words display
+    this.sortCorrectWordsByLength();
+    this.updateCorrectWordsLog();
+  }
+
+  sortCorrectWordsAlphabetically() {
+    this.currentLevelCorrectWords.sort((a, b) =>
+      a.replace('*', '').localeCompare(b.replace('*', ''))
+    );
+    this.updateCorrectWordsLog();
+  }
+
+  sortCorrectWordsByLength() {
+    this.currentLevelCorrectWords.sort(
+      (a, b) => a.replace('*', '').length - b.replace('*', '').length
+    );
+    this.updateCorrectWordsLog();
+  }
+
+  private updateCorrectWordsLog() {
     document.getElementById('correct-words-log')!.innerText =
       this.currentLevelCorrectWords.join(', ');
   }
