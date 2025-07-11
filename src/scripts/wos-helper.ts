@@ -398,6 +398,14 @@ export class GameSpectator {
     }
   }
 
+  sortCorrectWordsAlphabetically() {
+    this.currentLevelCorrectWords.sort((a, b) =>
+      a.replace('*', '').localeCompare(b.replace('*', ''))
+    );
+    document.getElementById('correct-words-log')!.innerText =
+      this.currentLevelCorrectWords.join(', ');
+  }
+
   calculateHiddenLetters(bigWord: string) {
     const bigWordLetters = bigWord.split(' ').map(letter => letter.toLowerCase());
     console.log(`Big Word Letters: ${bigWordLetters.join(' ')}`, this.wosGameLogId);
