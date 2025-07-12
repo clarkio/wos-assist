@@ -207,7 +207,7 @@ export class GameSpectator {
     this.currentLevelFakeLetters = [];
     this.currentLevelEmptySlotsCount = {};
     this.twitchChatLog.clear();
-    document.getElementById('correct-words-log')!.innerText = '';
+    document.getElementById('correct-words-log')!.innerHTML = '';
     document.getElementById('letters')!.innerText = '';
     document.getElementById('letters-label')!.innerText = 'Letters:';
     document.getElementById('hidden-letter')!.innerText = '';
@@ -397,15 +397,43 @@ export class GameSpectator {
   }
 
   sortCorrectWordsByLength() {
-    this.currentLevelCorrectWords.sort(
-      (a, b) => a.replace('*', '').length - b.replace('*', '').length
-    );
+    this.currentLevelCorrectWords.sort((a, b) => {
+      const lenDiff =
+        a.replace('*', '').length - b.replace('*', '').length;
+      if (lenDiff !== 0) return lenDiff;
+      return a.replace('*', '').localeCompare(b.replace('*', ''));
+    });
     this.updateCorrectWordsLog();
   }
 
   private updateCorrectWordsLog() {
-    document.getElementById('correct-words-log')!.innerText =
-      this.currentLevelCorrectWords.join(', ');
+    const container = document.getElementById('correct-words-log')!;
+    container.innerHTML = '';
+    const groups: { [length: number]: string[] } = {};
+    this.currentLevelCorrectWords.forEach(word => {
+      const len = word.replace('*', '').length;
+      if (!groups[len]) {
+        groups[len] = [];
+      }
+      groups[len].push(word);
+    });
+
+    Object.keys(groups)
+      .map(n => parseInt(n, 10))
+      .sort((a, b) => a - b)
+      .forEach(len => {
+        const section = document.createElement('div');
+        section.className = 'correct-words-section';
+        const header = document.createElement('div');
+        header.className = 'correct-words-section-title';
+        header.innerText = `${len} Letters:`;
+        const words = document.createElement('div');
+        words.className = 'correct-words-section-list';
+        words.innerText = groups[len].join(', ');
+        section.appendChild(header);
+        section.appendChild(words);
+        container.appendChild(section);
+      });
   }
 
   calculateHiddenLetters(bigWord: string) {

@@ -53,6 +53,18 @@ body {
   color: #e1e4e8;
 }
 
+.correct-words-section {
+  margin-bottom: 0.5rem;
+}
+
+.correct-words-section-title {
+  font-weight: bold;
+}
+
+.correct-words-section-list {
+  margin-left: 1rem;
+}
+
 summary {
   cursor: pointer;
   padding: 10px;
