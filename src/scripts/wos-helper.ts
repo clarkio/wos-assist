@@ -39,10 +39,10 @@ export class GameSpectator {
   isProcessingTwitch: boolean = false;
   currentLevelHiddenLetters: string[] = [];
   currentLevelFakeLetters: string[] = [];
-  currentLevelSlots: { letters: string[], user?: string, hitMax: boolean }[] = [];
-  currentLevelEmptySlotsCount: { [key: number]: number } = {};
+  currentLevelSlots: { letters: string[], user?: string, hitMax: boolean; }[] = [];
+  currentLevelEmptySlotsCount: { [key: number]: number; } = {};
 
-  constructor() {
+  constructor () {
     this.twitchChatLog = new Map();
     this.wosSocket = null;
     this.twitchClient = null;
@@ -54,13 +54,14 @@ export class GameSpectator {
     return new Date().toISOString().slice(0, 10);
   }
 
-  private loadPersonalBests(channel: string) {
+  private loadChannelRecords(channel: string) {
     this.pbStorageKey = `pb_${channel.toLowerCase()}`;
     const stored = localStorage.getItem(this.pbStorageKey);
     this.personalBest = stored ? parseInt(stored) : 0;
 
     this.dailyPbStorageKey = `pb_${channel.toLowerCase()}_${this.getTodayKey()}`;
     const storedDaily = localStorage.getItem(this.dailyPbStorageKey);
+    console.log('Stored Daily Best Value:', storedDaily);
     this.dailyBest = storedDaily ? parseInt(storedDaily) : 0;
 
     const pbElement = document.getElementById('pb-value');
@@ -73,18 +74,7 @@ export class GameSpectator {
     }
   }
 
-  private updatePersonalBests(level: number) {
-    if (level > this.personalBest) {
-      this.personalBest = level;
-      if (this.pbStorageKey) {
-        localStorage.setItem(this.pbStorageKey, String(this.personalBest));
-      }
-      const pbElement = document.getElementById('pb-value');
-      if (pbElement) {
-        pbElement.innerText = `${this.personalBest}`;
-      }
-    }
-
+  private updateChannelDailyRecord(level: number) {
     if (level > this.dailyBest) {
       this.dailyBest = level;
       if (this.dailyPbStorageKey) {
@@ -97,14 +87,27 @@ export class GameSpectator {
     }
   }
 
+  private updateChannelAllTimeRecord(record: number) {
+    if (record > this.personalBest) {
+      this.personalBest = record;
+      if (this.pbStorageKey) {
+        localStorage.setItem(this.pbStorageKey, String(this.personalBest));
+      }
+      const pbElement = document.getElementById('pb-value');
+      if (pbElement) {
+        pbElement.innerText = `${this.personalBest}`;
+      }
+    }
+  }
+
   private async startEventProcessors() {
     // Set up WOS worker message handler
     wosWorker.onmessage = async (e) => {
       if (e.data.type === 'wos_event') {
         const { wosEventType, wosEventName, username, letters, hitMax, stars, level, falseLetters, hiddenLetters, slots, index, record } = e.data;
 
-        if (typeof record === 'number') {
-          this.updatePersonalBests(record);
+        if (record && typeof record === 'number') {
+          this.updateChannelAllTimeRecord(record);
         }
 
         const message = username ? `:${username} - ${letters.join('')} - Big Word: ${hitMax}` : '';
@@ -168,7 +171,7 @@ export class GameSpectator {
     console.log(`[WOS Helper] Level ${this.currentLevel} ended`);
 
     this.currentLevel += parseInt(stars);
-    this.updatePersonalBests(this.currentLevel);
+    this.updateChannelDailyRecord(this.currentLevel);
     document.getElementById('level-title')!.innerText =
       `Next Level:`;
     document.getElementById('level-value')!.innerText =
@@ -198,7 +201,7 @@ export class GameSpectator {
         const key = slot.letters.length;
         acc[key] = (acc[key] || 0) + 1;
         return acc;
-      }, {} as { [key: number]: number });
+      }, {} as { [key: number]: number; });
 
       this.log(`Total Empty Slots: ${emptySlots.length}`, this.wosGameLogId);
 
@@ -224,7 +227,8 @@ export class GameSpectator {
     this.currentLevelSlots = slots;
     this.log(`Level ${level} ${wosEventType === 1 ? 'Started' : 'In Progress'}`, this.wosGameLogId);
     this.currentLevel = parseInt(level);
-    this.updatePersonalBests(this.currentLevel);
+    this.updateChannelAllTimeRecord(this.currentLevel);
+    this.updateChannelDailyRecord(this.currentLevel);
     document.getElementById('level-title')!.innerText =
       `Level:`;
     document.getElementById('level-value')!.innerText =
@@ -531,7 +535,7 @@ export class GameSpectator {
     this.wosSocket.on('reconnect_attempt', () => {
       this.wosSocket.io.opts.query.uid = this.getMirrorCode(mirrorUrl);
       this.log('Attempting to reconnect to WOS game: ' + this.getMirrorCode(mirrorUrl), this.wosGameLogId);
-    })
+    });
 
     this.wosSocket.on('connect_error', (error: string) => {
       this.log('WOS Connection error: ' + error, this.wosGameLogId);
@@ -552,7 +556,7 @@ export class GameSpectator {
     }
 
     this.currentChannel = channel.replace('#', '');
-    this.loadPersonalBests(this.currentChannel);
+    this.loadChannelRecords(this.currentChannel);
 
     if (this.twitchClient) {
       this.disconnectTwitch();

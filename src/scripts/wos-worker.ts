@@ -14,6 +14,7 @@ export interface WosWorkerMessage {
     hiddenLetters?: string[];
     slots?: any[];
     index?: number;
+    record?: number;
   };
 }
 
@@ -55,25 +56,6 @@ self.onmessage = function (e: MessageEvent<WosWorkerMessage>) {
       slots: data.slots || [],
     };
 
-    const recordKeys = [
-      'record',
-      'recordLevel',
-      'bestLevel',
-      'best',
-      'topLevel',
-      'levelRecord',
-      'maxLevel',
-    ];
-    for (const key of recordKeys) {
-      if (data && data[key] !== undefined) {
-        const val = parseInt(data[key]);
-        if (!isNaN(val)) {
-          result.record = val;
-          break;
-        }
-      }
-    }
-
     // console.log(`[WOS Worker] Event Type: ${eventType}`, data);
 
     if (eventType === 1) {
@@ -104,6 +86,7 @@ self.onmessage = function (e: MessageEvent<WosWorkerMessage>) {
     } else if (eventType === 12) {
       currentLevel = data.level!;
       result.wosEventName = 'Game Connected';
+      result.record = data.record;
       self.postMessage(result);
     } else {
       console.log(`[WOS Worker] Unhandled WOS event type: ${eventType}`);
