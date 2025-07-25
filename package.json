@@ -9,6 +9,7 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@tmi.js/chat": "^0.4.1",
     "astro": "^5.10.1",
     "socket.io-client": "^2.5.0",
     "tmi.js": "^1.8.5"

@@ -1,4 +1,4 @@
-import tmi from 'tmi.js';
+import tmi, { type Client as tmiClient } from '@tmi.js/chat';
 import io from 'socket.io-client';
 
 import { findAllMissingWords, loadWosDictionary, updateWosDictionary } from './wos-words';
@@ -24,7 +24,7 @@ export class GameSpectator {
   currentLevel: number = 0;
   twitchChatLog: Map<string, { message: string; timestamp: number; }>;
   wosSocket: any;
-  twitchClient: any;
+  twitchClient: tmiClient | void = undefined;
   currentLevelBigWord: string = '';
   currentLevelCorrectWords: string[] = [];
   wosEventQueue: any[] = [];
@@ -40,7 +40,6 @@ export class GameSpectator {
   constructor() {
     this.twitchChatLog = new Map();
     this.wosSocket = null;
-    this.twitchClient = null;
     loadWosDictionary();
     this.startEventProcessors();
   }
@@ -505,31 +504,30 @@ export class GameSpectator {
     }
 
     this.twitchClient = new tmi.Client({
-      connection: {
-        secure: true,
-        reconnect: true
-      },
       channels: [channel]
     });
 
-    this.twitchClient.on('message', (channel: any, tags: { username: string; }, message: string, self: any) => {
-      // this.log(`Twitch Chat: ${tags.username}: ${message}`, this.twitchChatLogId);
+    this.twitchClient.on('message', (e) => {
       twitchWorker.postMessage({
-        username: tags.username.toLowerCase(),
-        message: message.toLowerCase(),
+        username: e.user.login.toLowerCase(),
+        message: e.message.text.toLowerCase(),
         timestamp: Date.now()
       });
     });
 
-    this.twitchClient.on('connected', (addr: any, port: any) => {
+    this.twitchClient.on('connect', () => {
       this.log(`Connected to Twitch chat for channel: ${channel}`, this.twitchChatLogId);
     });
 
-    this.twitchClient.on('disconnected', (reason: any) => {
+    this.twitchClient.on('close', (reason: any) => {
       this.log(`Disconnected from Twitch chat: ${reason}`, this.twitchChatLogId);
     });
 
-    this.twitchClient.connect().catch(console.error);
+    try {
+      this.twitchClient.connect();
+    } catch (error) {
+      this.log(`Error connecting to Twitch chat: ${error}`, this.twitchChatLogId);
+    }
   }
 
   disconnect() {
@@ -541,8 +539,8 @@ export class GameSpectator {
 
   disconnectTwitch() {
     if (this.twitchClient) {
-      this.twitchClient.disconnect();
-      this.twitchClient = null;
+      this.twitchClient.close();
+      this.twitchClient = undefined;
     }
   }
 
