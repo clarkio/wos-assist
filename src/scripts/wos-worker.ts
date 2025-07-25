@@ -14,6 +14,7 @@ export interface WosWorkerMessage {
     hiddenLetters?: string[];
     slots?: any[];
     index?: number;
+    record?: number;
   };
 }
 
@@ -25,6 +26,7 @@ export interface WosWorkerResult {
   letters: string[];
   stars: number;
   level: number;
+  record?: number;
   hitMax: boolean;
   falseLetters: string[];
   hiddenLetters: string[];
@@ -47,6 +49,7 @@ self.onmessage = function (e: MessageEvent<WosWorkerMessage>) {
       letters: data.letters || [],
       stars: data.stars || 0,
       level: data.level || 0,
+      record: undefined,
       hitMax: data.hitMax || false,
       falseLetters: data.falseLetters || [],
       hiddenLetters: data.hiddenLetters || [],
@@ -83,6 +86,7 @@ self.onmessage = function (e: MessageEvent<WosWorkerMessage>) {
     } else if (eventType === 12) {
       currentLevel = data.level!;
       result.wosEventName = 'Game Connected';
+      result.record = data.record;
       self.postMessage(result);
     } else {
       console.log(`[WOS Worker] Unhandled WOS event type: ${eventType}`);
