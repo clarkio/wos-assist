@@ -224,6 +224,12 @@ h3 {
   font-size: 1rem;
   font-weight: 900;
   letter-spacing: 0.1ch;
+  text-align: center;
+  white-space: nowrap;
+}
+
+#level-title.long {
+  font-size: 0.6rem;
 }
 
 #level-value {
