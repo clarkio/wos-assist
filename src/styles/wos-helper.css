@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
 html {
   background-color: #420072;
   color: #dacfe6;
@@ -195,3 +198,72 @@ span {
 h3 {
   margin: 10px 0;
 }
+
+#overlay {
+  display: flex;
+  gap: 0.5rem;
+  font-family: 'Inter', sans-serif;
+  font-variant-numeric: tabular-nums;
+}
+
+#level-current {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #410071;
+  width: 5.25rem;
+  height: 5.25rem;
+  font-size: 1.5rem;
+  box-sizing: border-box;
+  border: 0.1875rem solid #fff;
+  border-radius: 0.75rem;
+}
+
+#level-title {
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: 0.1ch;
+  text-align: center;
+  white-space: nowrap;
+}
+
+#level-title.long {
+  font-size: 0.6rem;
+}
+
+#level-value {
+  font-size: 2.25rem;
+  font-weight: 700;
+}
+
+#level-record-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.level-record {
+  background: #000;
+  font-size: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 0.5rem;
+  border: 0.1875rem solid #fff;
+  border-radius: 0.75rem;
+  box-sizing: border-box;
+}
+
+.level-record .icon {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+}
+
+.level-record-value {
+  font-weight: 800;
+}
+
