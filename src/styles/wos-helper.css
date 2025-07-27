@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
 html {
   background-color: #420072;
   color: #dacfe6;
@@ -194,4 +196,21 @@ span {
 
 h3 {
   margin: 10px 0;
+}
+
+.digital-counter {
+  display: inline-block;
+  font-family: 'Share Tech Mono', monospace;
+  background: #000;
+  color: #0f0;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  min-width: 3ch;
+  text-align: center;
+  box-shadow: 0 0 5px #0f0;
+}
+
+#pb-title,
+#daily-pb-title {
+  margin-right: 0.5rem;
 }
