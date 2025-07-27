@@ -69,7 +69,6 @@ summary {
   gap: 1rem;
 }
 
-
 .log-container {
   display: flex;
   gap: 20px;
@@ -122,7 +121,16 @@ button {
   gap: 10px 10px;
 }
 
+.wos-main-grid:has(.iframe-container:empty) {
+  grid-template-columns: 1fr;
+}
+
+.wos-main-grid.chat-hidden .level-data-grid-container {
+  grid-column: 1 / -1; /* spans both columns */
+}
+
 .level-data-grid-container {
+  display: grid;
   grid-column: 1 / 1;
   grid-row: 1 / 1;
   margin: 20px;

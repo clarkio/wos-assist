@@ -165,10 +165,13 @@ import Twitch from '../components/Icons/Twitch.astro'
       const twitchChatWidget = document.getElementById(
         'twitch-chat-widget'
       ) as HTMLIFrameElement
+      const grid = document.querySelector('.wos-main-grid') as HTMLElement;
       if (isChatEnabled) {
         twitchChatWidget.style.display = ''
+        grid.classList.remove('chat-hidden');
       } else {
         twitchChatWidget.style.display = 'none'
+        grid.classList.add('chat-hidden');
       }
     }
 
