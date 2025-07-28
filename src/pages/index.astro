@@ -53,9 +53,34 @@ import Twitch from '../components/Icons/Twitch.astro'
     <div class="level-data-grid-container">
       <div class="grid-item">
         <div class="level-data-container">
-          <div>
-            <span id="level-title">Level:</span>
-            <span id="level-value"></span>
+          <div id="overlay">
+            <div id="level-current">
+              <span id="level-title">LEVEL</span>
+              <span id="level-value"></span>
+            </div>
+            <div id="level-record-container">
+              <div class="level-record">
+                <span class="icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="75%" height="75%" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" fill="currentcolor">
+                    <path d="M12 6a7 7 0 1 0 0 14 7 7 0 0 0 0-14zm1 8h-2V8h2v6z" opacity=".3" />
+                    <path d="M9 1h6v2H9z" />
+                    <path d="m19 7 1-1-1-1-1 1a9 9 0 0 0-15 7 9 9 0 1 0 16-6zm-7 13a7 7 0 1 1 0-14 7 7 0 0 1 0 14z" />
+                    <path d="M11 8h2v6h-2z" />
+                  </svg>
+                </span>
+                <span id="pb-value" class="level-record-value"></span>
+              </div>
+              <div class="level-record">
+                <span class="icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="75%" height="75%" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" fill="currentcolor">
+                    <path fill="none" d="M0 0h24v24H0z" />
+                    <path d="M12 14c-2 0-3-1-3-3V5h6v6c0 2-1 3-3 3z" opacity=".3" />
+                    <path d="M19 5h-2V3H7v2H5L3 7v1c0 3 2 5 4 5 1 1 2 3 4 3v3H7v2h10v-2h-4v-3c2 0 3-2 4-3 2 0 4-2 4-5V7l-2-2zM5 8V7h2v4L5 8zm7 6c-2 0-3-1-3-3V5h6v6c0 2-1 3-3 3zm7-6-2 3V7h2v1z" />
+                  </svg>
+                </span>
+                <span id="daily-pb-value" class="level-record-value"></span>
+              </div>
+            </div>
           </div>
           <div>
             <span id="hidden-letter-label">Hidden Letters:</span>

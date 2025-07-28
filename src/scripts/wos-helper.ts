@@ -194,10 +194,10 @@ export class GameSpectator {
 
     this.currentLevel += parseInt(stars);
     this.updateChannelDailyRecord(this.currentLevel);
-    document.getElementById('level-title')!.innerText =
-      `Next Level:`;
-    document.getElementById('level-value')!.innerText =
-      `${this.currentLevel}`;
+    const levelTitleEl = document.getElementById('level-title')!;
+    levelTitleEl.innerText = 'NEXT LEVEL';
+    levelTitleEl.classList.add('long');
+    document.getElementById('level-value')!.innerText = `${this.currentLevel}`;
 
     if (stars === 5) {
       // Level completed successfully with all words found on the board (CLEAR)
@@ -251,10 +251,10 @@ export class GameSpectator {
     this.currentLevel = parseInt(level);
     this.updateChannelAllTimeRecord(this.currentLevel);
     this.updateChannelDailyRecord(this.currentLevel);
-    document.getElementById('level-title')!.innerText =
-      `Level:`;
-    document.getElementById('level-value')!.innerText =
-      `${level}`;
+    const levelTitleEl = document.getElementById('level-title')!;
+    levelTitleEl.innerText = 'LEVEL';
+    levelTitleEl.classList.remove('long');
+    document.getElementById('level-value')!.innerText = `${level}`;
     document.getElementById('letters-label')!.innerText = 'Letters:';
     if (letters.length > 0) {
       this.currentLevelLetters = letters;
