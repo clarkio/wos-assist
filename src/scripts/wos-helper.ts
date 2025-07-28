@@ -30,6 +30,8 @@ export class GameSpectator {
   pbStorageKey: string = '';
   dailyBest: number = 0;
   dailyPbStorageKey: string = '';
+  dailyClears: number = 0;
+  dailyClearsStorageKey: string = '';
   currentLevelBigWord: string = '';
   currentLevelCorrectWords: string[] = [];
   wosEventQueue: any[] = [];
@@ -63,6 +65,10 @@ export class GameSpectator {
     console.log('Stored Daily Best Value:', storedDaily);
     this.dailyBest = storedDaily ? parseInt(storedDaily) : 0;
 
+    this.dailyClearsStorageKey = `clears_${channel.toLowerCase()}_${this.getTodayKey()}`;
+    const storedClears = localStorage.getItem(this.dailyClearsStorageKey);
+    this.dailyClears = storedClears ? parseInt(storedClears) : 0;
+
     const pbElement = document.getElementById('pb-value');
     if (pbElement) {
       pbElement.innerText = `${this.personalBest}`;
@@ -70,6 +76,11 @@ export class GameSpectator {
     const dailyElement = document.getElementById('daily-pb-value');
     if (dailyElement) {
       dailyElement.innerText = `${this.dailyBest}`;
+    }
+
+    const clearElement = document.getElementById('daily-clear-value');
+    if (clearElement) {
+      clearElement.innerText = `${this.dailyClears}`;
     }
   }
 
@@ -96,6 +107,17 @@ export class GameSpectator {
       if (pbElement) {
         pbElement.innerText = `${this.personalBest}`;
       }
+    }
+  }
+
+  private recordBoardClear() {
+    this.dailyClears += 1;
+    if (this.dailyClearsStorageKey) {
+      localStorage.setItem(this.dailyClearsStorageKey, String(this.dailyClears));
+    }
+    const clearElement = document.getElementById('daily-clear-value');
+    if (clearElement) {
+      clearElement.innerText = `${this.dailyClears}`;
     }
   }
 
@@ -179,7 +201,7 @@ export class GameSpectator {
 
     if (stars === 5) {
       // Level completed successfully with all words found on the board (CLEAR)
-      // Play the clear.wav audio file found in the public folder
+      this.recordBoardClear();
       const audio = new Audio('/assets/clear.mp3');
       audio.play().catch((error) => {
         console.error('Error playing audio:', error);
