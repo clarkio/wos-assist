@@ -43,10 +43,11 @@ body {
 
 #correct-words-log {
   font-size: 1.5rem;
-  max-height: 200px;
+  /* max-height: 200px; */
   padding: 1rem;
   border: 1px solid #c79cff;
-  height: calc(100vh - 200px);
+  /* height: calc(100vh - 200px); */
+  height: 100%;
   width: 100%;
   overflow-y: hidden;
   font-family: monospace;
@@ -119,43 +120,75 @@ button {
 
 .wos-main-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr auto min-content;
+  grid-template-columns: min-content 1fr;
+  grid-template-rows: max-content min-content;
   gap: 10px 10px;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .wos-main-grid:has(.iframe-container:empty) {
   grid-template-columns: 1fr;
 }
 
-.wos-main-grid:has(.iframe-container:empty) .level-data-grid-container {
-  grid-row: 1 / 3; /* spans rows 1 and 2 */
-}
-
 .wos-main-grid.chat-hidden .level-data-grid-container {
   grid-column: 1 / -1; /* spans both columns */
 }
 
+.wos-main-grid.widget-mode {
+  grid-template-rows: 1fr;
+}
+
 .level-data-grid-container {
   display: grid;
-  grid-column: 1 / 1;
+  grid-column: 2 / 2;
   grid-row: 1 / 1;
   margin: 20px;
   min-width: 320px;
   /* height: 50vh; */
 }
 
-.twitch-chat-frame {
+.player-level-data-grid-container {
+  display: grid;
   grid-column: 2 / 2;
-  grid-row: 1 / 3;
+  grid-row: 1 / 1;
+  grid-template-columns: 0.6fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  margin: 20px;
+  min-width: 320px;
+  /* height: 50vh; */
+}
+
+.player-level-data-container {
+  min-width: 320px;
+}
+
+.grid-top-row-left-column {
+  grid-column: 1 / 1;
+  grid-row: 1 / 1;
+}
+
+.grid-top-row-right-column {
+  grid-column: 2 / 2;
+  grid-row: 1 / 1;
+}
+
+.grid-bottom-row-fill-horizontal {
+  grid-column: 1 / -1;
+  grid-row: 2 / 2;
+  display: flex;
+  flex-direction: column;
+}
+
+.twitch-chat-frame {
+  grid-column: 1 / 1;
+  grid-row: 1 / -1;
   margin: 10px;
   /* width: 100%;
   height: 80vh; */
 }
 
 .iframe-container {
-  grid-column: 1 / 1;
+  grid-column: 1 / 3;
   grid-row: 2 / 2;
   min-height: 50vh;
   /* width: 100%;
@@ -163,15 +196,16 @@ button {
 }
 
 #wos-helper-logs {
-  grid-column: 1 / 3;
+  grid-column: 1 / -1;
   grid-row: 3 / 3;
 }
 
 #twitch-chat-widget {
   width: 100%;
-  height: 90vh;
+  height: auto;
+  /* height: 90vh; */
   min-width: 320px;
-  min-height: 500px;
+  min-height: 100%;
   border: none;
 }
 
