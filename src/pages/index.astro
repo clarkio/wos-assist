@@ -2,6 +2,9 @@
 import Logo from '../components/Icons/Logo.astro'
 import WosBaseLayout from '../layouts/WosBaseLayout.astro'
 import Twitch from '../components/Icons/Twitch.astro'
+import TwitchLoginButton from '../components/TwitchLoginButton.astro'
+import UserProfile from '../components/UserProfile.astro'
+import BotAuthorization from '../components/BotAuthorization.astro'
 ---
 
 <WosBaseLayout
@@ -17,6 +20,18 @@ import Twitch from '../components/Icons/Twitch.astro'
     </a>
 
     <h2>Clarkio's Words on Stream Tool</h2>
+  </div>
+
+  <!-- Authentication Section -->
+  <div class="auth-section">
+    <div id="login-section" class="login-section">
+      <h3>Connect Your Twitch Account</h3>
+      <p>Login with your Twitch account to authorize chatbots for your channel.</p>
+      <TwitchLoginButton />
+    </div>
+
+    <UserProfile class="user-profile-container" />
+    <BotAuthorization class="bot-auth-container" />
   </div>
   <details id="wos-helper-controls">
     <summary>Show/Hide Controls</summary>
@@ -131,6 +146,7 @@ import Twitch from '../components/Icons/Twitch.astro'
 <script>
   import { GameSpectator } from '../scripts/wos-helper'
   import { removeUnnecessaryElements } from '../scripts/wos-widget'
+  import { authService } from '../scripts/auth-service'
 
   const twitchConnectBtn = document.getElementById(
     'twitch-connect-btn'
@@ -165,9 +181,36 @@ import Twitch from '../components/Icons/Twitch.astro'
 
   const spectator = new GameSpectator()
 
-  document.addEventListener('DOMContentLoaded', () => {
+  // Authentication UI management
+  function updateAuthUI() {
+    const loginSection = document.getElementById('login-section');
+    const isAuthenticated = authService.isAuthenticated();
+
+    if (loginSection) {
+      loginSection.style.display = isAuthenticated ? 'none' : 'block';
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', async () => {
+    // Handle OAuth callback if we're on the callback page (fallback)
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('code')) {
+      // Redirect to dedicated callback page
+      window.location.href = '/callback' + window.location.search;
+      return;
+    }
+
+    // Update auth UI based on current state
+    updateAuthUI();    // Listen for auth state changes
+    window.addEventListener('userLoggedIn', () => {
+      updateAuthUI();
+    });
+
+    window.addEventListener('userLoggedOut', () => {
+      updateAuthUI();
+    });
+
     // check for query parameters in the url
-    const urlParams = new URLSearchParams(window.location.search)
     if (urlParams.has('mirrorUrl')) {
       const url = urlParams.get('mirrorUrl') || ''
       const mirrorUrlInput = document.getElementById(
@@ -240,5 +283,67 @@ import Twitch from '../components/Icons/Twitch.astro'
   :global(.widget-mode .wrapper) {
     max-width: 100% !important;
     padding: 0 !important;
+  }
+
+  /* Authentication Section Styles */
+  .auth-section {
+    margin: 2rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .login-section {
+    padding: 2rem;
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1rem;
+    text-align: center;
+    backdrop-filter: blur(10px);
+  }
+
+  .login-section h3 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #ffffff;
+  }
+
+  .login-section p {
+    margin: 0 0 1.5rem 0;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.6;
+  }
+
+  .user-profile-container,
+  .bot-auth-container {
+    max-width: 100%;
+  }
+
+  /* Dark theme adjustments */
+  :global(.dark) .login-section {
+    background-color: rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  /* Hide auth section in widget mode */
+  :global(.widget-mode) .auth-section {
+    display: none;
+  }
+
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .auth-section {
+      margin: 1rem 0;
+      gap: 1rem;
+    }
+
+    .login-section {
+      padding: 1.5rem;
+    }
+
+    .login-section h3 {
+      font-size: 1.25rem;
+    }
   }
 </style>
