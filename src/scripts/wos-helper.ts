@@ -519,7 +519,7 @@ export class GameSpectator {
 
         const titleEl = document.createElement('div');
         titleEl.className = 'word-group__title';
-        titleEl.textContent = `${length} Letter${length === 1 ? '' : 's'}`;
+        titleEl.textContent = `${length}:`;
         groupEl.appendChild(titleEl);
 
         const wordsContainer = document.createElement('div');
@@ -538,6 +538,22 @@ export class GameSpectator {
       });
 
     logEl.appendChild(fragment);
+
+    const logContainer = logEl as HTMLElement;
+    const hasOverflow = logContainer.scrollHeight > logContainer.clientHeight;
+
+    if (hasOverflow) {
+      const overflowDistance = logContainer.scrollHeight - logContainer.clientHeight;
+      logContainer.style.setProperty('--scroll-amount', `${-overflowDistance}px`);
+
+      // Restart the animation so new content begins from the top each update
+      logContainer.classList.remove('auto-scroll');
+      void logContainer.offsetHeight;
+      logContainer.classList.add('auto-scroll');
+    } else {
+      logContainer.style.setProperty('--scroll-amount', '0px');
+      logContainer.classList.remove('auto-scroll');
+    }
   }
 
   calculateHiddenLetters(bigWord: string) {
