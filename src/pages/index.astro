@@ -110,7 +110,7 @@ import Twitch from '../components/Icons/Twitch.astro'
       <iframe id="twitch-chat-widget" src=""></iframe>
     </div>
     <div class="iframe-container" id="wos-board" style="display: none;">
-      <iframe id="wos-board-iframe" src=""></iframe>
+      <iframe id="wos-board-iframe" src="" loading="lazy"></iframe>
     </div>
     <details id="wos-helper-logs">
       <summary>Show/Hide Logs</summary>
@@ -132,6 +132,33 @@ import Twitch from '../components/Icons/Twitch.astro'
   import { GameSpectator } from '../scripts/wos-helper'
   import { removeUnnecessaryElements } from '../scripts/wos-widget'
 
+  const boardContainer = document.getElementById('wos-board') as HTMLDivElement | null
+  const boardIframe = document.getElementById('wos-board-iframe') as HTMLIFrameElement | null
+  let currentMirrorUrl = ''
+
+  const isBoardVisible = () =>
+    boardContainer ? window.getComputedStyle(boardContainer).display !== 'none' : false
+
+  const loadBoardIframeIfVisible = () => {
+    if (!boardIframe || !currentMirrorUrl || !isBoardVisible()) {
+      return
+    }
+
+    if (boardIframe.getAttribute('src') !== currentMirrorUrl) {
+      boardIframe.setAttribute('src', currentMirrorUrl)
+    }
+  }
+
+  const clearBoardIframe = () => {
+    if (!boardIframe) {
+      return
+    }
+
+    if (boardIframe.hasAttribute('src')) {
+      boardIframe.removeAttribute('src')
+    }
+  }
+
   const twitchConnectBtn = document.getElementById(
     'twitch-connect-btn'
   ) as HTMLButtonElement
@@ -152,15 +179,18 @@ import Twitch from '../components/Icons/Twitch.astro'
     'wos-connect-btn'
   ) as HTMLButtonElement
   wosConnectBtn.addEventListener('click', () => {
-    const mirrorUrl = (document.getElementById('mirrorUrl') as HTMLInputElement)
-      .value
+    const mirrorUrlInput = document.getElementById('mirrorUrl') as HTMLInputElement
+    const mirrorUrl = mirrorUrlInput.value.trim()
+    currentMirrorUrl = mirrorUrl
     spectator.connectToWosGame(mirrorUrl)
+    loadBoardIframeIfVisible()
   })
   const wosDisconnectBtn = document.getElementById(
     'wos-discconnect-btn'
   ) as HTMLButtonElement
   wosDisconnectBtn.addEventListener('click', () => {
     spectator.disconnect()
+    clearBoardIframe()
   })
 
   const spectator = new GameSpectator()
@@ -174,10 +204,8 @@ import Twitch from '../components/Icons/Twitch.astro'
         'mirrorUrl'
       ) as HTMLInputElement
       mirrorUrlInput.value = url
-      const iframe = document.getElementById(
-        'wos-board-iframe'
-      ) as HTMLIFrameElement
-      iframe.src = url
+      currentMirrorUrl = url.trim()
+      loadBoardIframeIfVisible()
       console.log(url)
     }
 
@@ -186,13 +214,13 @@ import Twitch from '../components/Icons/Twitch.astro'
       const twitchChatWidget = document.getElementById(
         'twitch-chat-widget'
       ) as HTMLIFrameElement
-      const grid = document.querySelector('.wos-main-grid') as HTMLElement;
+      const grid = document.querySelector('.wos-main-grid') as HTMLElement
       if (isChatEnabled) {
         twitchChatWidget.style.display = ''
-        grid.classList.remove('chat-hidden');
+        grid.classList.remove('chat-hidden')
       } else {
         twitchChatWidget.style.display = 'none'
-        grid.classList.add('chat-hidden');
+        grid.classList.add('chat-hidden')
       }
     }
 
@@ -209,7 +237,8 @@ import Twitch from '../components/Icons/Twitch.astro'
       twitchChatWidget.src = `https://www.twitch.tv/embed/${twitchChannel}/chat?darkpopout&parent=${location.hostname}`
     }
     const mirrorUrl = (document.getElementById('mirrorUrl') as HTMLInputElement)
-      .value
+      .value.trim()
+    currentMirrorUrl = mirrorUrl
     spectator.connectToWosGame(mirrorUrl)
     const channel = (
       document.getElementById('twitchChannel') as HTMLInputElement
@@ -225,12 +254,18 @@ import Twitch from '../components/Icons/Twitch.astro'
     }
 
     if (urlParams.has('board')) {
-      const isBoardVisible = urlParams.get('board')?.toLowerCase() === 'true'
-      if (isBoardVisible) {
-        document.getElementById('wos-board')!.style.display = ''
-      } else {
-        document.getElementById('wos-board')!.style.display = 'none'
+      const boardEnabled = urlParams.get('board')?.toLowerCase() === 'true'
+      if (boardContainer) {
+        if (boardEnabled) {
+          boardContainer.style.display = ''
+          loadBoardIframeIfVisible()
+        } else {
+          boardContainer.style.display = 'none'
+          clearBoardIframe()
+        }
       }
+    } else {
+      clearBoardIframe()
     }
   })
 </script>
