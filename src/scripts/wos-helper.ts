@@ -469,16 +469,75 @@ export class GameSpectator {
 
   private updateCorrectWordsDisplayed(word: string) {
     this.currentLevelCorrectWords.push(word);
-    this.currentLevelCorrectWords.sort((a, b) => a.replace('*', '').length - b.replace('*', '').length);
 
-    const formattedWords = this.currentLevelCorrectWords.map(w => {
-      return w.endsWith('*') ? `<strong>${w}</strong>` : w;
+    const sortedWords = [...this.currentLevelCorrectWords].sort((a, b) => {
+      const aWord = a.replace('*', '');
+      const bWord = b.replace('*', '');
+      const lengthDiff = aWord.length - bWord.length;
+
+      if (lengthDiff !== 0) {
+        return lengthDiff;
+      }
+
+      const alphabeticalDiff = aWord.toLowerCase().localeCompare(bWord.toLowerCase());
+      if (alphabeticalDiff !== 0) {
+        return alphabeticalDiff;
+      }
+
+      if (a.endsWith('*') !== b.endsWith('*')) {
+        return a.endsWith('*') ? 1 : -1;
+      }
+
+      return 0;
     });
 
+    this.currentLevelCorrectWords = sortedWords;
+
+    const groupedWords = sortedWords.reduce((map, currentWord) => {
+      const key = currentWord.replace('*', '').length;
+      if (!map.has(key)) {
+        map.set(key, [] as string[]);
+      }
+      map.get(key)!.push(currentWord);
+      return map;
+    }, new Map<number, string[]>());
+
     const logEl = document.getElementById('correct-words-log');
-    if (logEl) {
-      (logEl as HTMLElement).innerHTML = formattedWords.join(', ');
+    if (!logEl) {
+      return;
     }
+
+    (logEl as HTMLElement).innerHTML = '';
+
+    const fragment = document.createDocumentFragment();
+
+    Array.from(groupedWords.entries())
+      .sort((a, b) => a[0] - b[0])
+      .forEach(([length, words]) => {
+        const groupEl = document.createElement('div');
+        groupEl.className = 'word-group';
+
+        const titleEl = document.createElement('div');
+        titleEl.className = 'word-group__title';
+        titleEl.textContent = `${length} Letter${length === 1 ? '' : 's'}`;
+        groupEl.appendChild(titleEl);
+
+        const wordsContainer = document.createElement('div');
+        wordsContainer.className = 'word-group__words';
+
+        words.forEach(current => {
+          const displayWord = current.replace('*', '').toUpperCase();
+          const wordEl = document.createElement('span');
+          wordEl.className = `correct-word${current.endsWith('*') ? ' missing-word' : ''}`;
+          wordEl.textContent = `${displayWord}${current.endsWith('*') ? '*' : ''}`;
+          wordsContainer.appendChild(wordEl);
+        });
+
+        groupEl.appendChild(wordsContainer);
+        fragment.appendChild(groupEl);
+      });
+
+    logEl.appendChild(fragment);
   }
 
   calculateHiddenLetters(bigWord: string) {
