@@ -711,9 +711,11 @@ export class GameSpectator {
     if (typeof message === 'object') {
       message = JSON.stringify(message, null, 2);
     }
-    logDiv!.innerText += `${message}\n`;
+    if (logDiv) {
+      logDiv!.innerText += `${message}\n`;
+      logDiv!.scrollTop = logDiv!.scrollHeight;
+    }
     console.log(message);
-    logDiv!.scrollTop = logDiv!.scrollHeight;
   }
 
   // private async processWosEvent(event: { type: number; data: any; }) {
