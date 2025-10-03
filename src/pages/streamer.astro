@@ -11,7 +11,7 @@ import Twitch from '../components/Icons/Twitch.astro';
 >
   <div class='streamer-wos-main-grid'>
     <div class='streamer-wos-board-container' id='wos-board'>
-      <iframe id='wos-board-iframe' src='' loading='lazy'></iframe>
+      <iframe id='streamer-wos-board-iframe' src='' loading='lazy'></iframe>
     </div>
     <div class='streamer-channel-data-container'>
       <div id='overlay'>
@@ -68,10 +68,11 @@ import Twitch from '../components/Icons/Twitch.astro';
     <div class='streamer-twitch-chat-frame'>
       <iframe id='streamer-twitch-chat-widget' src=''></iframe>
     </div>
+    <div class='streamer-bottom-container'>
     <div id='streamer-correct-words-log-container'>
       <span>Correct Words: (* potential words missed)</span>
       <div id='correct-words-log'>
-        <!-- <div class='word-group'>
+        <div class='word-group'>
           <div class='word-group__title'>4:</div><div class='word-group__words'>
             <span class='correct-word'>DOGS</span>
             <span class='correct-word'>DOGS</span>
@@ -124,7 +125,7 @@ import Twitch from '../components/Icons/Twitch.astro';
             <span class='correct-word'>AAGOODIES</span>
             <span class='correct-word'>AAGOODIES</span>
           </div>
-        </div> -->
+        </div>
       </div>
     </div>
     <div class='streamer-level-data-grid-container'>
@@ -148,6 +149,7 @@ import Twitch from '../components/Icons/Twitch.astro';
         </div>
       </div>
     </div>
+    </div>
   </div>
 </WosBaseLayout>
 
@@ -158,7 +160,7 @@ import Twitch from '../components/Icons/Twitch.astro';
     'wos-board'
   ) as HTMLDivElement | null;
   const boardIframe = document.getElementById(
-    'wos-board-iframe'
+    'streamer-wos-board-iframe'
   ) as HTMLIFrameElement | null;
   let currentMirrorUrl = '';
   let twitchChannel = 'clarkio';
