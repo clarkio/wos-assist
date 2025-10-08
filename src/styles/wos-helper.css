@@ -254,12 +254,19 @@ button {
   border: none;
 }
 
-.letters,
 #big-word,
-.level-value,
-.hidden-letter {
+.level-value {
   font-size: 1.875rem;
   font-weight: bold;
+}
+
+/* .hidden-letter {
+  font-size: 1.875rem;
+} */
+
+.letters,
+.letters-label {
+  font-size: 3.0rem;
 }
 
 span {

@@ -46,7 +46,7 @@
 .streamer-level-data-grid-container {
   display: grid;
   grid-column: span 2 / span 2;
-  align-items: center;
+  padding-top: 40px;
 }
 
 .streamer-wos-main-grid:has(.iframe-container:empty) {
@@ -184,12 +184,20 @@
   transform: scale(1.07)
 }
 
-.letters,
 #big-word,
-.level-value,
-.hidden-letter {
+.level-value {
   font-size: 1.875rem;
   font-weight: bold;
+}
+
+.hidden-letter-label,
+.hidden-letter {
+  font-size: 2.75rem;
+}
+
+.fake-letter-label,
+.fake-letter {
+  font-size: 2.75rem;
 }
 
 .letters,
