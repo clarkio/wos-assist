@@ -254,10 +254,10 @@ button {
   border: none;
 }
 
-#letters,
+.letters,
 #big-word,
-#level-value,
-#hidden-letter {
+.level-value,
+.hidden-letter {
   font-size: 1.875rem;
   font-weight: bold;
 }
@@ -277,14 +277,14 @@ h3 {
   margin: 10px 0;
 }
 
-#overlay {
+.overlay {
   display: flex;
   gap: 0.5rem;
   font-family: 'Inter', sans-serif;
   font-variant-numeric: tabular-nums;
 }
 
-#level-current {
+.level-current {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -303,7 +303,7 @@ h3 {
   white-space: nowrap;
 }
 
-#level-title {
+.level-title {
   font-size: 1rem;
   font-weight: 900;
   letter-spacing: 0.1ch;
@@ -311,16 +311,16 @@ h3 {
   white-space: nowrap;
 }
 
-#level-title.long {
+.level-title.long {
   font-size: 0.6rem;
 }
 
-#level-value {
+.level-value {
   font-size: 2.25rem;
   font-weight: 700;
 }
 
-#level-record-container {
+.level-record-container {
   display: flex;
   flex-direction: column;
   justify-content: center;

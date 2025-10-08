@@ -14,12 +14,12 @@ import Twitch from '../components/Icons/Twitch.astro';
       <iframe id='streamer-wos-board-iframe' src='' loading='lazy'></iframe>
     </div>
     <div class='streamer-channel-data-container'>
-      <div id='overlay'>
-        <div id='level-current'>
-          <span id='level-title'>LEVEL</span>
-          <span id='level-value'></span>
+      <div id='overlay' class='overlay'>
+        <div id='level-current' class='level-current'>
+          <span id='level-title' class='level-title'>LEVEL</span>
+          <span id='level-value' class='level-value'></span>
         </div>
-        <div id='level-record-container'>
+        <div id='level-record-container' class='level-record-container'>
           <div class='level-record'>
             <span class='icon'>
               <svg
@@ -69,86 +69,102 @@ import Twitch from '../components/Icons/Twitch.astro';
       <iframe id='streamer-twitch-chat-widget' src=''></iframe>
     </div>
     <div class='streamer-bottom-container'>
-    <div id='streamer-correct-words-log-container'>
-      <span>Correct Words: (* potential words missed)</span>
-      <div id='correct-words-log'>
-        <div class='word-group'>
-          <div class='word-group__title'>4:</div><div class='word-group__words'>
-            <span class='correct-word'>DOGS</span>
-            <span class='correct-word'>DOGS</span>
-            <span class='correct-word'>DOGS</span>
-            <span class='correct-word'>DOGS</span>
-            <span class='correct-word'>DOGS</span>
-            <span class='correct-word'>DOGS</span>
-            <span class='correct-word'>DOGS</span>
-            <span class='correct-word'>DOGS</span>
-            <span class='correct-word'>DOGS</span>
-            <span class='correct-word'>DOGS</span>
+      <div id='streamer-correct-words-log-container'>
+        <span>Correct Words: (* potential words missed)</span>
+        <div id='correct-words-log'>
+          <div class='word-group'>
+            <div class='word-group__title'>4:</div><div
+              class='word-group__words'
+            >
+              <span class='correct-word'>DOGS</span>
+              <span class='correct-word'>DOGS</span>
+              <span class='correct-word'>DOGS</span>
+              <span class='correct-word'>DOGS</span>
+              <span class='correct-word'>DOGS</span>
+              <span class='correct-word'>DOGS</span>
+              <span class='correct-word'>DOGS</span>
+              <span class='correct-word'>DOGS</span>
+              <span class='correct-word'>DOGS</span>
+              <span class='correct-word'>DOGS</span>
+            </div>
           </div>
-        </div>
-        <div class='word-group'>
-          <div class='word-group__title'>5:</div><div class='word-group__words'>
-            <span class='correct-word'>DOGES</span>
-            <span class='correct-word'>DOGES</span>
-            <span class='correct-word'>DOGES</span>
-            <span class='correct-word'>DOGES</span>
-            <span class='correct-word'>DOGES</span>
-            <span class='correct-word'>DOGES</span>
-            <span class='correct-word'>DOGES</span>
-            <span class='correct-word'>DOGES</span>
+          <div class='word-group'>
+            <div class='word-group__title'>5:</div><div
+              class='word-group__words'
+            >
+              <span class='correct-word'>DOGES</span>
+              <span class='correct-word'>DOGES</span>
+              <span class='correct-word'>DOGES</span>
+              <span class='correct-word'>DOGES</span>
+              <span class='correct-word'>DOGES</span>
+              <span class='correct-word'>DOGES</span>
+              <span class='correct-word'>DOGES</span>
+              <span class='correct-word'>DOGES</span>
+            </div>
           </div>
-        </div>
-        <div class='word-group'>
-          <div class='word-group__title'>6:</div><div class='word-group__words'>
-            <span class='correct-word'>DOGIES</span>
-            <span class='correct-word'>GOODIE</span>
-            <span class='correct-word'>GOOSED</span>
+          <div class='word-group'>
+            <div class='word-group__title'>6:</div><div
+              class='word-group__words'
+            >
+              <span class='correct-word'>DOGIES</span>
+              <span class='correct-word'>GOODIE</span>
+              <span class='correct-word'>GOOSED</span>
+            </div>
           </div>
-        </div>
-        <div class='word-group'>
-          <div class='word-group__title'>7:</div><div class='word-group__words'>
-            <span class='correct-word'>GOODIES</span>
-            <span class='correct-word'>GOODIES</span>
-            <span class='correct-word'>GOODIES</span>
+          <div class='word-group'>
+            <div class='word-group__title'>7:</div><div
+              class='word-group__words'
+            >
+              <span class='correct-word'>GOODIES</span>
+              <span class='correct-word'>GOODIES</span>
+              <span class='correct-word'>GOODIES</span>
+            </div>
           </div>
-        </div>
-        <div class='word-group'>
-          <div class='word-group__title'>8:</div><div class='word-group__words'>
-            <span class='correct-word'>AGOODIES</span>
-            <span class='correct-word'>AGOODIES</span>
-            <span class='correct-word'>AGOODIES</span>
+          <div class='word-group'>
+            <div class='word-group__title'>8:</div><div
+              class='word-group__words'
+            >
+              <span class='correct-word'>AGOODIES</span>
+              <span class='correct-word'>AGOODIES</span>
+              <span class='correct-word'>AGOODIES</span>
+            </div>
           </div>
-        </div>
-        <div class='word-group'>
-          <div class='word-group__title'>9:</div><div class='word-group__words'>
-            <span class='correct-word'>AAGOODIES</span>
-            <span class='correct-word'>AAGOODIES</span>
-            <span class='correct-word'>AAGOODIES</span>
+          <div class='word-group'>
+            <div class='word-group__title'>9:</div><div
+              class='word-group__words'
+            >
+              <span class='correct-word'>AAGOODIES</span>
+              <span class='correct-word'>AAGOODIES</span>
+              <span class='correct-word'>AAGOODIES</span>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class='streamer-level-data-grid-container'>
-      <div class='level-data-container'>
-        <div>
-          <span id='letters-label'>Letters:</span>
-          <span id='letters'></span>
-        </div>
-        <div>
-          <span id='hidden-letter-label'>Hidden Letters:</span>
-          <span id='hidden-letter'></span>
-        </div>
-        <div>
-          <span id='fake-letter-label'>Fake Letters:</span>
-          <span id='fake-letter'></span>
-        </div>
-        <span class='made-by'>Made by: <Twitch /> clarkio</span>
-        <div>
-          <span id='daily-clear-title'>Today's Clears:</span>
-          <span id='daily-clear-value'></span>
+      <div class='streamer-level-data-grid-container'>
+        <div class='level-data-container'>
+          <div>
+            <span id='letters-label' class='letters-label'>Letters:</span>
+            <span id='letters' class='letters'></span>
+          </div>
+          <div>
+            <span id='hidden-letter-label' class='hidden-letter-label'
+              >Hidden Letters:</span
+            >
+            <span id='hidden-letter' class='hidden-letter'></span>
+          </div>
+          <div>
+            <span id='fake-letter-label' class='fake-letter-label'
+              >Fake Letters:</span
+            >
+            <span id='fake-letter' class='fake-letter'></span>
+          </div>
+          <span class='made-by'>Made by: <Twitch /> clarkio</span>
+          <div>
+            <span id='daily-clear-title'>Today's Clears:</span>
+            <span id='daily-clear-value'></span>
+          </div>
         </div>
       </div>
-    </div>
     </div>
   </div>
 </WosBaseLayout>
