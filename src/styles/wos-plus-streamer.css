@@ -1,5 +1,5 @@
 /* WOS Streamer Page Styles */
-@import './wos-shared.css';
+@import "./wos-shared.css";
 
 /* Streamer Page Specific Styles */
 .streamer-wos-main-grid {
@@ -50,7 +50,24 @@
 .streamer-level-data-grid-container {
   display: grid;
   grid-column: span 2 / span 2;
-  padding-top: 40px;
+  padding: 0.5rem;
+  color: var(--text-muted);
+  /* border-radius: var(--border-radius);
+  border: 5px solid var(--border-primary); */
+  width: 100%;
+  height: 100%;
+  /* max-height: 313px; */
+}
+
+.level-data-container {
+  padding: 0.5rem;
+  border-radius: var(--border-radius);
+  border: 5px solid var(--border-primary);
+  background: var(--bg-overlay);
+}
+
+.level-data-container label {
+  min-width: 100px;
 }
 
 .streamer-wos-main-grid:has(.iframe-container:empty) {
@@ -67,14 +84,10 @@
   align-items: center;
   justify-content: center;
   padding: 0.35rem 0.65rem;
-  font-family: 'Fira Code', monospace;
+  font-family: "Fira Code", monospace;
   font-size: 1.25rem;
   font-weight: 600;
   color: #f5efff;
-}
-
-.level-data-container label {
-  min-width: 100px;
 }
 
 #streamer-twitch-chat-widget {
@@ -90,22 +103,22 @@
   position: absolute;
   inset: 0;
   transform-origin: center center;
-  transform: scale(1.07)
+  transform: scale(1.07);
 }
 
 .hidden-letter-label,
 .hidden-letter {
-  font-size: 2.75rem;
+  font-size: 2.5rem;
 }
 
 .fake-letter-label,
 .fake-letter {
-  font-size: 2.75rem;
+  font-size: 2.5rem;
 }
 
 .letters,
 .letters-label {
-  font-size: 3.4rem;
+  font-size: 2.5rem;
 }
 
 /* Level current override for streamer page */

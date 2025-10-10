@@ -45,21 +45,20 @@ body {
 .correct-words-log {
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
-  scroll-behavior: smooth;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+  overflow: hidden;
   height: 100%;
   min-height: 225px;
-  max-height: 269px;
+  /* max-height: 269px; */
   width: 1275px;
   font-family: var(--font-mono);
   box-sizing: border-box;
   color: var(--text-muted);
   border-radius: var(--border-radius);
-  border: 1px solid var(--border-primary);
+  border: 5px solid var(--border-primary);
+  padding: 0.5rem;
   background: var(--bg-overlay);
-  --scroll-amount: 0px;
+  container-type: inline-size;
+  container-name: word-log;
 }
 
 .correct-words-log::-webkit-scrollbar {
@@ -68,10 +67,6 @@ body {
 
 .correct-words-log.auto-scroll {
   overflow-y: hidden;
-}
-
-.correct-words-log.auto-scroll > * {
-  animation: autoScroll 16s ease-in-out infinite;
 }
 
 @keyframes autoScroll {
@@ -94,7 +89,6 @@ body {
 .word-group {
   display: flex;
   flex-direction: row;
-  padding: 0.5rem;
   align-items: center;
   border-bottom: 1px solid var(--border-secondary);
 }
@@ -111,7 +105,7 @@ body {
 .word-group__words {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 0.25rem;
 }
 
 /* Correct Word Styles */
@@ -119,9 +113,10 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.35rem 0.65rem;
+  padding-right: 0.5rem;
   font-family: var(--font-code);
-  font-size: 1.4rem;
+  /* font-size: 2.0rem; */
+  font-size: clamp(1.75rem, 3cqi, 2.75rem); /* Scales based on container width */
   font-weight: 600;
   letter-spacing: 0.08em;
   color: var(--text-lightest);
@@ -135,6 +130,10 @@ body {
 }
 
 /* Level Data Components */
+.level-data-container {
+  position: relative;
+}
+
 .level-data-container label {
   min-width: 100px;
 }
@@ -143,6 +142,8 @@ body {
   display: flex;
   align-items: center;
   gap: 1rem;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 /* Overlay Components */

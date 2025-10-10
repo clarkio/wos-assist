@@ -109,7 +109,19 @@
   font-size: 3.0rem;
 }
 
+.daily-clear-container {
+  position: absolute;
+  bottom: 0.5rem;
+  left: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
 .made-by {
+  position: absolute;
+  bottom: 0.5rem;
+  right: 0.5rem;
   display: inline-flex;
   align-items: center;
   gap: 0.25rem;
