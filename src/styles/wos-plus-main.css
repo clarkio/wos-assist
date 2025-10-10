@@ -81,7 +81,7 @@
   height: 50vh; */
 }
 
-#wos-helper-logs {
+.wos-plus-logs {
   grid-column: 1 / 3;
   grid-row: 3 / 3;
 }

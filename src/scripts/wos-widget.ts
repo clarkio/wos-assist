@@ -1,8 +1,8 @@
 async function removeUnnecessaryElements() {
   const header = document.querySelector('header');
   const footer = document.querySelector('footer');
-  const wosHelperControls = document.getElementById('wos-helper-controls');
-  const wosHelperLogs = document.getElementById('wos-helper-logs');
+  const wosHelperControls = document.getElementById('wos-plus-controls');
+  const wosHelperLogs = document.getElementById('wos-plus-logs');
   const siteHeader = document.getElementById('logo-container-id');
 
   if (header) {

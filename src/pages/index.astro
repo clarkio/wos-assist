@@ -5,8 +5,8 @@ import Twitch from "../components/Icons/Twitch.astro";
 ---
 
 <WosBaseLayout
-  title="Clarkio's Words on Stream Tool"
-  description="Clarkio's Words on Stream Tool"
+  title="WoS Plus by Clarkio"
+  description="A Words on Stream Tool made by Clarkio to help streamers and viewers play together."
   keywords="clarkio, words on stream, wos, twitch, streaming, helper, wordsonstream, tool"
 >
   <div id="logo-container-id" class="logo-container">
@@ -18,7 +18,7 @@ import Twitch from "../components/Icons/Twitch.astro";
 
     <h2>Clarkio's Words on Stream Tool</h2>
   </div>
-  <details id="wos-helper-controls">
+  <details id="wos-plus-controls" class="wos-plus-controls">
     <summary>Show/Hide Controls</summary>
     <div class="controls">
       <p>
@@ -205,7 +205,7 @@ import Twitch from "../components/Icons/Twitch.astro";
     <div class="iframe-container" id="wos-board" style="display: none;">
       <iframe id="wos-board-iframe" src="" loading="lazy"></iframe>
     </div>
-    <details id="wos-helper-logs">
+    <details id="wos-plus-logs" class="wos-plus-logs">
       <summary>Show/Hide Logs</summary>
       <div class="log-container">
         <div>
@@ -222,7 +222,7 @@ import Twitch from "../components/Icons/Twitch.astro";
 </WosBaseLayout>
 
 <script>
-  import { GameSpectator } from "../scripts/wos-helper";
+  import { GameSpectator } from "../scripts/wos-plus-main";
   import { removeUnnecessaryElements } from "../scripts/wos-widget";
 
   const boardContainer = document.getElementById(
