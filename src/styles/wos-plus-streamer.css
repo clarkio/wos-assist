@@ -64,7 +64,7 @@
   color: #dacfe6;
 }
 
-#correct-words-log {
+.correct-words-log {
   display: flex;
   flex-direction: column;
   overflow-y: auto;
@@ -80,19 +80,19 @@
   color: #e1e4e8;
   border-radius: 8px;
   border: 1px solid rgba(199, 156, 255, 0.4);
-  background: rgba(12, 0, 28, 0.35);
+  background: rgba(12, 0, 28, 0.90);
   --scroll-amount: 0px;
 }
 
-#correct-words-log::-webkit-scrollbar {
+.correct-words-log::-webkit-scrollbar {
   display: none;
 }
 
-#correct-words-log.auto-scroll {
+.correct-words-log.auto-scroll {
   overflow-y: hidden;
 }
 
-#correct-words-log.auto-scroll>* {
+.correct-words-log.auto-scroll>* {
   animation: autoScroll 16s ease-in-out infinite;
 }
 

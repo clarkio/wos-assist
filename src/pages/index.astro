@@ -1,26 +1,26 @@
 ---
-import Logo from '../components/Icons/Logo.astro';
-import WosBaseLayout from '../layouts/WosBaseLayout.astro';
-import Twitch from '../components/Icons/Twitch.astro';
+import Logo from "../components/Icons/Logo.astro";
+import WosBaseLayout from "../layouts/WosBaseLayout.astro";
+import Twitch from "../components/Icons/Twitch.astro";
 ---
 
 <WosBaseLayout
   title="Clarkio's Words on Stream Tool"
   description="Clarkio's Words on Stream Tool"
-  keywords='clarkio, words on stream, wos, twitch, streaming, helper, wordsonstream, tool'
+  keywords="clarkio, words on stream, wos, twitch, streaming, helper, wordsonstream, tool"
 >
-  <div id='logo-container-id' class='logo-container'>
-    <a href='/'>
-      <div class='logo dark'>
-        <Logo name='Logo' />
+  <div id="logo-container-id" class="logo-container">
+    <a href="/">
+      <div class="logo dark">
+        <Logo name="Logo" />
       </div>
     </a>
 
     <h2>Clarkio's Words on Stream Tool</h2>
   </div>
-  <details id='wos-helper-controls'>
+  <details id="wos-helper-controls">
     <summary>Show/Hide Controls</summary>
-    <div class='controls'>
+    <div class="controls">
       <p>
         If you're not providing the WOS Mirror Link and Twitch Channel use the
         following form to set up the game. In the Mirror Link input enter the
@@ -32,98 +32,98 @@ import Twitch from '../components/Icons/Twitch.astro';
       </p>
       <div>
         <label>WOS Mirror Link:</label>
-        <input type='text' id='mirrorUrl' placeholder='Enter WOS mirror link' />
-        <button id='wos-connect-btn'>Connect WOS</button>
-        <button id='wos-discconnect-btn'>Disconnect WOS</button>
+        <input type="text" id="mirrorUrl" placeholder="Enter WOS mirror link" />
+        <button id="wos-connect-btn">Connect WOS</button>
+        <button id="wos-discconnect-btn">Disconnect WOS</button>
       </div>
       <div>
         <label>Twitch Channel:</label>
         <input
-          type='text'
-          id='twitchChannel'
-          placeholder='Enter channel name'
+          type="text"
+          id="twitchChannel"
+          placeholder="Enter channel name"
         />
-        <button id='twitch-connect-btn'>Connect Twitch</button>
-        <button id='twitch-disconnect-btn'>Disconnect Twitch</button>
+        <button id="twitch-connect-btn">Connect Twitch</button>
+        <button id="twitch-disconnect-btn">Disconnect Twitch</button>
       </div>
     </div>
   </details>
 
-  <div class='wos-main-grid'>
-    <div class='level-data-grid-container'>
-      <div class='grid-item'>
-        <div class='level-data-container'>
-          <div id='overlay' class='overlay'>
-            <div id='level-current' class='level-current'>
-              <span id='level-title' class='level-title'>LEVEL</span>
-              <span id='level-value' class='level-value'></span>
+  <div class="wos-main-grid">
+    <div class="level-data-grid-container">
+      <div class="grid-item">
+        <div class="level-data-container">
+          <div id="overlay" class="overlay">
+            <div id="level-current" class="level-current">
+              <span id="level-title" class="level-title">LEVEL</span>
+              <span id="level-value" class="level-value"></span>
             </div>
-            <div id='level-record-container' class='level-record-container'>
-              <div class='level-record'>
-                <span class='icon'>
+            <div id="level-record-container" class="level-record-container">
+              <div class="level-record">
+                <span class="icon">
                   <svg
-                    xmlns='http://www.w3.org/2000/svg'
-                    width='75%'
-                    height='75%'
-                    viewBox='0 0 24 24'
-                    preserveAspectRatio='xMidYMid meet'
-                    fill='currentcolor'
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="75%"
+                    height="75%"
+                    viewBox="0 0 24 24"
+                    preserveAspectRatio="xMidYMid meet"
+                    fill="currentcolor"
                   >
                     <path
-                      d='M12 6a7 7 0 1 0 0 14 7 7 0 0 0 0-14zm1 8h-2V8h2v6z'
-                      opacity='.3'></path>
-                    <path d='M9 1h6v2H9z'></path>
+                      d="M12 6a7 7 0 1 0 0 14 7 7 0 0 0 0-14zm1 8h-2V8h2v6z"
+                      opacity=".3"></path>
+                    <path d="M9 1h6v2H9z"></path>
                     <path
-                      d='m19 7 1-1-1-1-1 1a9 9 0 0 0-15 7 9 9 0 1 0 16-6zm-7 13a7 7 0 1 1 0-14 7 7 0 0 1 0 14z'
+                      d="m19 7 1-1-1-1-1 1a9 9 0 0 0-15 7 9 9 0 1 0 16-6zm-7 13a7 7 0 1 1 0-14 7 7 0 0 1 0 14z"
                     ></path>
-                    <path d='M11 8h2v6h-2z'></path>
+                    <path d="M11 8h2v6h-2z"></path>
                   </svg>
                 </span>
-                <span id='pb-value' class='level-record-value'></span>
+                <span id="pb-value" class="level-record-value"></span>
               </div>
-              <div class='level-record'>
-                <span class='icon'>
+              <div class="level-record">
+                <span class="icon">
                   <svg
-                    xmlns='http://www.w3.org/2000/svg'
-                    width='75%'
-                    height='75%'
-                    viewBox='0 0 24 24'
-                    preserveAspectRatio='xMidYMid meet'
-                    fill='currentcolor'
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="75%"
+                    height="75%"
+                    viewBox="0 0 24 24"
+                    preserveAspectRatio="xMidYMid meet"
+                    fill="currentcolor"
                   >
-                    <path fill='none' d='M0 0h24v24H0z'></path>
+                    <path fill="none" d="M0 0h24v24H0z"></path>
                     <path
-                      d='M12 14c-2 0-3-1-3-3V5h6v6c0 2-1 3-3 3z'
-                      opacity='.3'></path>
+                      d="M12 14c-2 0-3-1-3-3V5h6v6c0 2-1 3-3 3z"
+                      opacity=".3"></path>
                     <path
-                      d='M19 5h-2V3H7v2H5L3 7v1c0 3 2 5 4 5 1 1 2 3 4 3v3H7v2h10v-2h-4v-3c2 0 3-2 4-3 2 0 4-2 4-5V7l-2-2zM5 8V7h2v4L5 8zm7 6c-2 0-3-1-3-3V5h6v6c0 2-1 3-3 3zm7-6-2 3V7h2v1z'
+                      d="M19 5h-2V3H7v2H5L3 7v1c0 3 2 5 4 5 1 1 2 3 4 3v3H7v2h10v-2h-4v-3c2 0 3-2 4-3 2 0 4-2 4-5V7l-2-2zM5 8V7h2v4L5 8zm7 6c-2 0-3-1-3-3V5h6v6c0 2-1 3-3 3zm7-6-2 3V7h2v1z"
                     ></path>
                   </svg>
                 </span>
-                <span id='daily-pb-value' class='level-record-value'></span>
+                <span id="daily-pb-value" class="level-record-value"></span>
               </div>
             </div>
           </div>
           <div>
-            <span id='hidden-letter-label' class='hidden-letter-label'
+            <span id="hidden-letter-label" class="hidden-letter-label"
               >Hidden Letters:</span
             >
-            <span id='hidden-letter' class='hidden-letter'></span>
+            <span id="hidden-letter" class="hidden-letter"></span>
           </div>
           <div>
-            <span id='fake-letter-label' class='fake-letter-label'
+            <span id="fake-letter-label" class="fake-letter-label"
               >Fake Letters:</span
             >
-            <span id='fake-letter' class='fake-letter'></span>
+            <span id="fake-letter" class="fake-letter"></span>
           </div>
           <div>
-            <span id='letters-label' class='letters-label'>Letters:</span>
-            <span id='letters' class='letters'></span>
+            <span id="letters-label" class="letters-label">Letters:</span>
+            <span id="letters" class="letters"></span>
           </div>
-          <span class='made-by'>Made by: <Twitch /> clarkio</span>
-          <div id='correct-words-log-container'>
+          <span class="made-by">Made by: <Twitch /> clarkio</span>
+          <div id="correct-words-log-container">
             <span>Correct Words: (* potential words missed)</span>
-            <div id='correct-words-log'>
+            <div id="correct-words-log" class="correct-words-log">
               <!-- <div class="word-group">
                 <div class="word-group__title">4:</div><div
                   class="word-group__words"
@@ -193,28 +193,28 @@ import Twitch from '../components/Icons/Twitch.astro';
             </div>
           </div>
           <div>
-            <span id='daily-clear-title'>Today's Clears:</span>
-            <span id='daily-clear-value'></span>
+            <span id="daily-clear-title">Today's Clears:</span>
+            <span id="daily-clear-value"></span>
           </div>
         </div>
       </div>
     </div>
-    <div class='twitch-chat-frame'>
-      <iframe id='twitch-chat-widget' src=''></iframe>
+    <div class="twitch-chat-frame">
+      <iframe id="twitch-chat-widget" src=""></iframe>
     </div>
-    <div class='iframe-container' id='wos-board' style='display: none;'>
-      <iframe id='wos-board-iframe' src='' loading='lazy'></iframe>
+    <div class="iframe-container" id="wos-board" style="display: none;">
+      <iframe id="wos-board-iframe" src="" loading="lazy"></iframe>
     </div>
-    <details id='wos-helper-logs'>
+    <details id="wos-helper-logs">
       <summary>Show/Hide Logs</summary>
-      <div class='log-container'>
+      <div class="log-container">
         <div>
           <h3>WOS Event Log:</h3>
-          <div id='wos-game-log' class='logs'></div>
+          <div id="wos-game-log" class="logs"></div>
         </div>
         <div>
           <h3>Twitch Chat Log:</h3>
-          <div id='twitch-chat-log' class='logs'></div>
+          <div id="twitch-chat-log" class="logs"></div>
         </div>
       </div>
     </details>
@@ -222,20 +222,20 @@ import Twitch from '../components/Icons/Twitch.astro';
 </WosBaseLayout>
 
 <script>
-  import { GameSpectator } from '../scripts/wos-helper';
-  import { removeUnnecessaryElements } from '../scripts/wos-widget';
+  import { GameSpectator } from "../scripts/wos-helper";
+  import { removeUnnecessaryElements } from "../scripts/wos-widget";
 
   const boardContainer = document.getElementById(
-    'wos-board'
+    "wos-board"
   ) as HTMLDivElement | null;
   const boardIframe = document.getElementById(
-    'wos-board-iframe'
+    "wos-board-iframe"
   ) as HTMLIFrameElement | null;
-  let currentMirrorUrl = '';
+  let currentMirrorUrl = "";
 
   const isBoardVisible = () =>
     boardContainer
-      ? window.getComputedStyle(boardContainer).display !== 'none'
+      ? window.getComputedStyle(boardContainer).display !== "none"
       : false;
 
   const loadBoardIframeIfVisible = () => {
@@ -243,8 +243,8 @@ import Twitch from '../components/Icons/Twitch.astro';
       return;
     }
 
-    if (boardIframe.getAttribute('src') !== currentMirrorUrl) {
-      boardIframe.setAttribute('src', currentMirrorUrl);
+    if (boardIframe.getAttribute("src") !== currentMirrorUrl) {
+      boardIframe.setAttribute("src", currentMirrorUrl);
     }
   };
 
@@ -253,33 +253,33 @@ import Twitch from '../components/Icons/Twitch.astro';
       return;
     }
 
-    if (boardIframe.hasAttribute('src')) {
-      boardIframe.removeAttribute('src');
+    if (boardIframe.hasAttribute("src")) {
+      boardIframe.removeAttribute("src");
     }
   };
 
   const twitchConnectBtn = document.getElementById(
-    'twitch-connect-btn'
+    "twitch-connect-btn"
   ) as HTMLButtonElement;
-  twitchConnectBtn.addEventListener('click', () => {
+  twitchConnectBtn.addEventListener("click", () => {
     const channel = (
-      document.getElementById('twitchChannel') as HTMLInputElement
+      document.getElementById("twitchChannel") as HTMLInputElement
     ).value;
     spectator.connectToTwitch(channel);
   });
   const twitchDisconnectBtn = document.getElementById(
-    'twitch-disconnect-btn'
+    "twitch-disconnect-btn"
   ) as HTMLButtonElement;
-  twitchDisconnectBtn.addEventListener('click', () => {
+  twitchDisconnectBtn.addEventListener("click", () => {
     spectator.disconnectTwitch();
   });
 
   const wosConnectBtn = document.getElementById(
-    'wos-connect-btn'
+    "wos-connect-btn"
   ) as HTMLButtonElement;
-  wosConnectBtn.addEventListener('click', () => {
+  wosConnectBtn.addEventListener("click", () => {
     const mirrorUrlInput = document.getElementById(
-      'mirrorUrl'
+      "mirrorUrl"
     ) as HTMLInputElement;
     const mirrorUrl = mirrorUrlInput.value.trim();
     currentMirrorUrl = mirrorUrl;
@@ -287,22 +287,22 @@ import Twitch from '../components/Icons/Twitch.astro';
     loadBoardIframeIfVisible();
   });
   const wosDisconnectBtn = document.getElementById(
-    'wos-discconnect-btn'
+    "wos-discconnect-btn"
   ) as HTMLButtonElement;
-  wosDisconnectBtn.addEventListener('click', () => {
+  wosDisconnectBtn.addEventListener("click", () => {
     spectator.disconnect();
     clearBoardIframe();
   });
 
   const spectator = new GameSpectator();
 
-  document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener("DOMContentLoaded", () => {
     // check for query parameters in the url
     const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.has('mirrorUrl')) {
-      const url = urlParams.get('mirrorUrl') || '';
+    if (urlParams.has("mirrorUrl")) {
+      const url = urlParams.get("mirrorUrl") || "";
       const mirrorUrlInput = document.getElementById(
-        'mirrorUrl'
+        "mirrorUrl"
       ) as HTMLInputElement;
       mirrorUrlInput.value = url;
       currentMirrorUrl = url.trim();
@@ -310,59 +310,59 @@ import Twitch from '../components/Icons/Twitch.astro';
       console.log(url);
     }
 
-    if (urlParams.has('chat')) {
-      const isChatEnabled = urlParams.get('chat')?.toLowerCase() === 'true';
+    if (urlParams.has("chat")) {
+      const isChatEnabled = urlParams.get("chat")?.toLowerCase() === "true";
       const twitchChatWidget = document.getElementById(
-        'twitch-chat-widget'
+        "twitch-chat-widget"
       ) as HTMLIFrameElement;
-      const grid = document.querySelector('.wos-main-grid') as HTMLElement;
+      const grid = document.querySelector(".wos-main-grid") as HTMLElement;
       if (isChatEnabled) {
-        twitchChatWidget.style.display = '';
-        grid.classList.remove('chat-hidden');
+        twitchChatWidget.style.display = "";
+        grid.classList.remove("chat-hidden");
       } else {
-        twitchChatWidget.style.display = 'none';
-        grid.classList.add('chat-hidden');
+        twitchChatWidget.style.display = "none";
+        grid.classList.add("chat-hidden");
       }
     }
 
-    if (urlParams.has('twitchChannel')) {
-      const twitchChannel = urlParams.get('twitchChannel') || 'clarkio';
+    if (urlParams.has("twitchChannel")) {
+      const twitchChannel = urlParams.get("twitchChannel") || "clarkio";
       const twitchChannelInput = document.getElementById(
-        'twitchChannel'
+        "twitchChannel"
       ) as HTMLInputElement;
       twitchChannelInput.value = twitchChannel;
 
       const twitchChatWidget = document.getElementById(
-        'twitch-chat-widget'
+        "twitch-chat-widget"
       ) as HTMLIFrameElement;
       twitchChatWidget.src = `https://www.twitch.tv/embed/${twitchChannel}/chat?darkpopout&parent=${location.hostname}`;
     }
     const mirrorUrl = (
-      document.getElementById('mirrorUrl') as HTMLInputElement
+      document.getElementById("mirrorUrl") as HTMLInputElement
     ).value.trim();
     currentMirrorUrl = mirrorUrl;
     spectator.connectToWosGame(mirrorUrl);
     const channel = (
-      document.getElementById('twitchChannel') as HTMLInputElement
+      document.getElementById("twitchChannel") as HTMLInputElement
     ).value;
     spectator.connectToTwitch(channel);
 
-    if (urlParams.has('widget')) {
-      const isWidget = urlParams.get('widget')?.toLowerCase() === 'true';
+    if (urlParams.has("widget")) {
+      const isWidget = urlParams.get("widget")?.toLowerCase() === "true";
       if (isWidget) {
-        document.body.classList.add('widget-mode');
+        document.body.classList.add("widget-mode");
         removeUnnecessaryElements();
       }
     }
 
-    if (urlParams.has('board')) {
-      const boardEnabled = urlParams.get('board')?.toLowerCase() === 'true';
+    if (urlParams.has("board")) {
+      const boardEnabled = urlParams.get("board")?.toLowerCase() === "true";
       if (boardContainer) {
         if (boardEnabled) {
-          boardContainer.style.display = '';
+          boardContainer.style.display = "";
           loadBoardIframeIfVisible();
         } else {
-          boardContainer.style.display = 'none';
+          boardContainer.style.display = "none";
           clearBoardIframe();
         }
       }
