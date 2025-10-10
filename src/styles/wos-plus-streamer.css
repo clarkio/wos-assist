@@ -1,3 +1,7 @@
+/* WOS Streamer Page Styles */
+@import './wos-shared.css';
+
+/* Streamer Page Specific Styles */
 .streamer-wos-main-grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 0.5fr 0.5fr;
@@ -57,115 +61,20 @@
   grid-column: 1 / -1;
 }
 
-#correct-words-log-container>span {
-  font-size: 1.25rem;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  color: #dacfe6;
-}
-
-.correct-words-log {
-  display: flex;
-  flex-direction: column;
-  overflow-y: auto;
-  scroll-behavior: smooth;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  height: 100%;
-  min-height: 225px;
-  max-height: 269px;
-  width: 1275px;
-  font-family: 'Share Tech Mono', monospace;
-  box-sizing: border-box;
-  color: #e1e4e8;
-  border-radius: 8px;
-  border: 1px solid rgba(199, 156, 255, 0.4);
-  background: rgba(12, 0, 28, 0.90);
-  --scroll-amount: 0px;
-}
-
-.correct-words-log::-webkit-scrollbar {
-  display: none;
-}
-
-.correct-words-log.auto-scroll {
-  overflow-y: hidden;
-}
-
-.correct-words-log.auto-scroll>* {
-  animation: autoScroll 16s ease-in-out infinite;
-}
-
-@keyframes autoScroll {
-
-  0%,
-  25% {
-    transform: translateY(0);
-  }
-
-  50%,
-  75% {
-    transform: translateY(var(--scroll-amount));
-  }
-
-  100% {
-    transform: translateY(0);
-  }
-}
-
-.word-group {
-  display: flex;
-  flex-direction: row;
-  padding: 0.5rem;
-  align-items: center;
-  border-bottom: 1px solid rgba(199, 156, 255, 0.2);
-}
-
-.word-group__title {
-  font-size: 2rem;
-  font-weight: 700;
-  padding-right: 5px;
-  vertical-align: center;
-  text-transform: uppercase;
-  color: #f2e8ff;
-}
-
-.word-group__words {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
+/* Streamer-specific overrides */
 .streamer-correct-word {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   padding: 0.35rem 0.65rem;
-  /* border-radius: 6px; */
-  /* background: rgba(119, 54, 198, 0.35); */
-  /* border: 1px solid rgba(199, 156, 255, 0.35); */
   font-family: 'Fira Code', monospace;
   font-size: 1.25rem;
   font-weight: 600;
-  /* letter-spacing: 0.08em; */
   color: #f5efff;
-}
-
-.correct-word.missing-word {
-  background: rgba(217, 84, 144, 0.2);
-  border-color: rgba(255, 99, 146, 0.65);
-  text-transform: uppercase;
-  color: #ff9ebb;
 }
 
 .level-data-container label {
   min-width: 100px;
-}
-
-.level-data-container>div:not(#correct-words-log-container) {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
 }
 
 #streamer-twitch-chat-widget {
@@ -184,12 +93,6 @@
   transform: scale(1.07)
 }
 
-#big-word,
-.level-value {
-  font-size: 1.875rem;
-  font-weight: bold;
-}
-
 .hidden-letter-label,
 .hidden-letter {
   font-size: 2.75rem;
@@ -205,75 +108,7 @@
   font-size: 3.4rem;
 }
 
-.overlay {
-  display: flex;
-  gap: 0.5rem;
-  font-family: 'Inter', sans-serif;
-  font-variant-numeric: tabular-nums;
-}
-
+/* Level current override for streamer page */
 .level-current {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background: #410071;
   height: 5.25rem;
-  font-size: 1.5rem;
-  box-sizing: border-box;
-  border: 0.1875rem solid #fff;
-  border-radius: 0.75rem;
-  padding: 0 1rem;
-  width: fit-content;
-  min-width: 7.5rem;
-  /* Optional: ensures reasonable minimum width */
-  transition: width 0.2s;
-  white-space: nowrap;
-}
-
-.level-title {
-  font-size: 1rem;
-  font-weight: 900;
-  letter-spacing: 0.1ch;
-  text-align: center;
-  white-space: nowrap;
-}
-
-.level-title.long {
-  font-size: 0.6rem;
-}
-
-.level-value {
-  font-size: 2.25rem;
-  font-weight: 700;
-}
-
-.level-record-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 0.5rem;
-}
-
-.level-record {
-  background: #000;
-  font-size: 1.25rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-right: 0.5rem;
-  border: 0.1875rem solid #fff;
-  border-radius: 0.75rem;
-  box-sizing: border-box;
-}
-
-.level-record .icon {
-  display: grid;
-  place-items: center;
-  width: 2rem;
-  height: 2rem;
-}
-
-.level-record-value {
-  font-weight: 800;
 }
