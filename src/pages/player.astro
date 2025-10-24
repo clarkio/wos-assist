@@ -241,29 +241,34 @@ import SettingsDialog from '../components/SettingsDialog.astro';
   // Initialize dialog API reference
   let settingsDialog: any = null;
 
-  const initializeSettingsDialog = () => {
+  const initializeSettingsDialog = (event?: Event) => {
     const dialog = document.getElementById(
       'player-settings'
     ) as HTMLDialogElement;
 
     if (dialog && (dialog as any).__api) {
       settingsDialog = (dialog as any).__api;
-
-      // Set up save callback
-      settingsDialog.onSave((data: Record<string, any>) => {
-        const params = new URLSearchParams(window.location.search);
-
-        if (data.mirrorUrl) {
-          params.set('mirrorUrl', data.mirrorUrl);
-        }
-        if (data.twitchChannel) {
-          params.set('twitchChannel', data.twitchChannel);
-        }
-
-        // Reload the page with new parameters
-        window.location.search = params.toString();
-      });
     }
+  };
+
+  // Separate function to set up save callback
+  const setupDialogCallbacks = () => {
+    if (!settingsDialog) return;
+
+    // Set up save callback
+    settingsDialog.onSave((data: Record<string, any>) => {
+      const params = new URLSearchParams(window.location.search);
+
+      if (data.mirrorUrl) {
+        params.set('mirrorUrl', data.mirrorUrl);
+      }
+      if (data.twitchChannel) {
+        params.set('twitchChannel', data.twitchChannel);
+      }
+
+      // Reload the page with new parameters
+      window.location.href = window.location.pathname + '?' + params.toString();
+    });
   };
 
   const checkRequiredParams = () => {
@@ -292,12 +297,20 @@ import SettingsDialog from '../components/SettingsDialog.astro';
         }
       }
 
-      // Open the dialog after a short delay to ensure proper rendering
-      setTimeout(() => {
-        if (settingsDialog) {
+      // Ensure dialog is ready and set up callbacks before opening
+      const attemptOpenDialog = () => {
+        const dialog = document.getElementById('player-settings') as HTMLDialogElement;
+        if (dialog && (dialog as any).__api) {
+          settingsDialog = (dialog as any).__api;
+          setupDialogCallbacks();
           settingsDialog.open();
+        } else {
+          // If dialog not ready, try again shortly
+          setTimeout(attemptOpenDialog, 50);
         }
-      }, 100);
+      };
+      
+      setTimeout(attemptOpenDialog, 100);
 
       return false;
     }
@@ -305,19 +318,27 @@ import SettingsDialog from '../components/SettingsDialog.astro';
     return true;
   };
 
-  document.addEventListener('DOMContentLoaded', () => {
+  // Function to initialize the page
+  const initializePage = () => {
+    // Reset dialog reference on each navigation
+    settingsDialog = null;
+    
     // Initialize settings dialog
-    const dialog = document.getElementById('player-settings');
+    const dialog = document.getElementById('player-settings') as HTMLDialogElement;
     if (dialog) {
-      dialog.addEventListener('dialog-ready', initializeSettingsDialog);
-      // Also try immediate initialization in case event already fired
-      initializeSettingsDialog();
+      // Try to get the API immediately if it exists
+      if ((dialog as any).__api) {
+        settingsDialog = (dialog as any).__api;
+      } else {
+        // If not ready yet, wait for the event
+        dialog.addEventListener('dialog-ready', initializeSettingsDialog, { once: true });
+      }
     }
 
     // check for query parameters in the url
     const urlParams = new URLSearchParams(window.location.search);
 
-    // Check if required parameters are present
+    // Check if required parameters are present (this will trigger dialog if needed)
     const hasRequiredParams = checkRequiredParams();
 
     if (urlParams.has('mirrorUrl')) {
@@ -372,7 +393,11 @@ import SettingsDialog from '../components/SettingsDialog.astro';
     } else {
       loadBoardIframeIfVisible();
     }
-  });
+  };
+
+  // Listen for both events to handle initial load and navigation
+  document.addEventListener('DOMContentLoaded', initializePage);
+  document.addEventListener('astro:page-load', initializePage);
 </script>
 
 <style>

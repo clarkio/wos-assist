@@ -92,27 +92,27 @@ pre {
 }
 
 /* Dark Mode Support */
-html.dark {
+/* html.dark {
   background-color: var(--bg-dark);
-}
+} */
 
-.dark h1 {
+.dark .landing-page h1 {
   color: rgb(255 255 255 / 0.75);
 }
 
-.dark p,
-.dark h2,
-.dark h3,
-.dark h4,
-.dark label,
-.dark span,
-.dark li {
+.dark .landing-page p,
+.dark .landing-page h2,
+.dark .landing-page h3,
+.dark .landing-page h4,
+.dark .landing-page label,
+.dark .landing-page span,
+.dark .landing-page li {
   color: rgb(255 255 255 / 0.5);
 }
 
-.dark h2 a,
-.dark li a,
-.dark a {
+.dark .landing-page h2 a,
+.dark .landing-page li a,
+.dark .landing-page a {
   color: rgb(255 255 255 / 0.75);
 }
 

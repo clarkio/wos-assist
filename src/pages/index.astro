@@ -14,7 +14,7 @@ import Twitch from "../components/Icons/Twitch.astro";
     <header class="header">
       <div class="header-content">
         <div class="logo-section">
-          <span class="brand-name">WoS<span class="plus">+</span></span>
+          <span class="brand-name" id="brand-name">WoS<span class="plus">+</span></span>
         </div>
       </div>
     </header>
@@ -30,8 +30,9 @@ import Twitch from "../components/Icons/Twitch.astro";
           Words on Stream<span class="gradient-text">+</span>
         </h1>
         <p class="hero-subtitle">
-          Enhance your Words on Stream experience with powerful tools for players
-          and additional features for streamers hosting the game on their channel.
+          Enhance your Words on Stream experience with powerful tools for
+          players and additional features for streamers hosting the game on
+          their channel.
         </p>
         <div class="hero-cta">
           <div class="launch-menu-container">
@@ -74,7 +75,9 @@ import Twitch from "../components/Icons/Twitch.astro";
                 </svg>
                 <div>
                   <div class="launch-menu-title">Player View</div>
-                  <div class="launch-menu-desc">Track words and improve your game</div>
+                  <div class="launch-menu-desc">
+                    Track words and improve your game
+                  </div>
                 </div>
               </a>
               <a href="/streamer" class="launch-menu-item">
@@ -91,7 +94,9 @@ import Twitch from "../components/Icons/Twitch.astro";
                 </svg>
                 <div>
                   <div class="launch-menu-title">Streamer View</div>
-                  <div class="launch-menu-desc">Enhanced layout for streaming</div>
+                  <div class="launch-menu-desc">
+                    Enhanced layout for streaming
+                  </div>
                 </div>
               </a>
             </div>
@@ -150,8 +155,8 @@ import Twitch from "../components/Icons/Twitch.astro";
           <div class="feature-icon">📊</div>
           <h3 class="feature-title">Word History Log</h3>
           <p class="feature-description">
-            Keep track of all correct words found, organized by length in alphabetical order. Never lose
-            track of what's been discovered.
+            Keep track of all correct words found, organized by length in
+            alphabetical order. Never lose track of what's been discovered.
           </p>
         </div>
 
@@ -159,8 +164,8 @@ import Twitch from "../components/Icons/Twitch.astro";
           <div class="feature-icon">🏆</div>
           <h3 class="feature-title">Personal Records</h3>
           <p class="feature-description">
-            Monitor your personal best levels reached and daily clear records. Challenge
-            yourself to beat your high scores.
+            Monitor your personal best levels reached and daily clear records.
+            Challenge yourself to beat your high scores.
           </p>
         </div>
 
@@ -188,7 +193,9 @@ import Twitch from "../components/Icons/Twitch.astro";
     <section class="how-it-works">
       <div class="section-header">
         <h2 class="section-title">Get started in seconds</h2>
-        <p class="section-subtitle">Three simple steps to enhance your gameplay</p>
+        <p class="section-subtitle">
+          Three simple steps to enhance your gameplay
+        </p>
       </div>
 
       <div class="steps">
@@ -206,7 +213,7 @@ import Twitch from "../components/Icons/Twitch.astro";
           <div class="step-number">2</div>
           <h3 class="step-title">Connect to WoS+</h3>
           <p class="step-description">
-            Paste the link into WoS+ and enter to your Twitch channel name.
+            Paste the mirror link into WoS+ and enter your Twitch channel name.
           </p>
         </div>
 
@@ -216,7 +223,8 @@ import Twitch from "../components/Icons/Twitch.astro";
           <div class="step-number">3</div>
           <h3 class="step-title">Start Playing!</h3>
           <p class="step-description">
-            Enjoy real-time tracking, word history, and all the enhanced features.
+            Enjoy real-time tracking, word history, and all the enhanced
+            features.
           </p>
         </div>
       </div>
@@ -260,8 +268,11 @@ import Twitch from "../components/Icons/Twitch.astro";
         </div>
         <div class="footer-links">
           <a href="/streamer" class="footer-link">Streamer View</a>
-          <a href="https://wos.gg" target="_blank" rel="noopener" class="footer-link"
-            >Words on Stream</a
+          <a
+            href="https://wos.gg"
+            target="_blank"
+            rel="noopener"
+            class="footer-link">Words on Stream</a
           >
           <a
             href="https://twitch.tv/clarkio"
@@ -284,6 +295,7 @@ import Twitch from "../components/Icons/Twitch.astro";
   .landing-page {
     min-height: 100vh;
     overflow-x: hidden;
+    background-color: var(--bg-dark);
   }
 
   /* Header */
@@ -322,6 +334,12 @@ import Twitch from "../components/Icons/Twitch.astro";
   }
 
   .brand-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  #brand-name {
     font-size: 1.5rem;
     font-weight: 700;
     color: rgba(255, 255, 255, 0.9);
@@ -651,7 +669,11 @@ import Twitch from "../components/Icons/Twitch.astro";
     max-width: 1200px;
     margin: 0 auto;
     padding: 6rem 2rem;
-    background: linear-gradient(135deg, rgba(139, 92, 246, 0.05) 0%, rgba(236, 72, 153, 0.05) 100%);
+    background: linear-gradient(
+      135deg,
+      rgba(139, 92, 246, 0.05) 0%,
+      rgba(236, 72, 153, 0.05) 100%
+    );
     border-radius: 2rem;
   }
 
@@ -908,42 +930,43 @@ import Twitch from "../components/Icons/Twitch.astro";
 </style>
 
 <script>
-  document.addEventListener('astro:page-load', () => {
-    const launchMenuTrigger = document.getElementById('launch-menu-trigger');
-    const launchMenuDropdown = document.querySelector('.launch-menu-dropdown');
+  document.addEventListener("astro:page-load", () => {
+    const launchMenuTrigger = document.getElementById("launch-menu-trigger");
+    const launchMenuDropdown = document.querySelector(".launch-menu-dropdown");
 
     if (!launchMenuTrigger || !launchMenuDropdown) return;
 
     // Toggle menu on click
-    launchMenuTrigger.addEventListener('click', (e) => {
+    launchMenuTrigger.addEventListener("click", (e) => {
       e.stopPropagation();
-      const isActive = launchMenuTrigger.classList.contains('active');
-      
+      const isActive = launchMenuTrigger.classList.contains("active");
+
       if (isActive) {
-        launchMenuTrigger.classList.remove('active');
-        launchMenuDropdown.classList.remove('show');
+        launchMenuTrigger.classList.remove("active");
+        launchMenuDropdown.classList.remove("show");
       } else {
-        launchMenuTrigger.classList.add('active');
-        launchMenuDropdown.classList.add('show');
+        launchMenuTrigger.classList.add("active");
+        launchMenuDropdown.classList.add("show");
       }
     });
 
     // Close menu when clicking outside
-    document.addEventListener('click', (e) => {
-      if (!launchMenuTrigger.contains(e.target as Node) && 
-          !launchMenuDropdown.contains(e.target as Node)) {
-        launchMenuTrigger.classList.remove('active');
-        launchMenuDropdown.classList.remove('show');
+    document.addEventListener("click", (e) => {
+      if (
+        !launchMenuTrigger.contains(e.target as Node) &&
+        !launchMenuDropdown.contains(e.target as Node)
+      ) {
+        launchMenuTrigger.classList.remove("active");
+        launchMenuDropdown.classList.remove("show");
       }
     });
 
     // Close menu on Escape key
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        launchMenuTrigger.classList.remove('active');
-        launchMenuDropdown.classList.remove('show');
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        launchMenuTrigger.classList.remove("active");
+        launchMenuDropdown.classList.remove("show");
       }
     });
   });
 </script>
-
