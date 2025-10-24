@@ -5,377 +5,945 @@ import Twitch from "../components/Icons/Twitch.astro";
 ---
 
 <WosBaseLayout
-  title="WoS Plus by Clarkio"
-  description="A Words on Stream Tool made by Clarkio to help streamers and viewers play together."
-  keywords="clarkio, words on stream, wos, twitch, streaming, helper, wordsonstream, tool"
+  title="WoS+ | Words on Stream Plus"
+  description="Enhance your Words on Stream experience with WoS+. The ultimate tool for players and streamers to elevate their gameplay."
+  keywords="words on stream, wos, wos plus, twitch, streaming, game helper, wordsonstream, tool, clarkio"
 >
-  <div id="logo-container-id" class="logo-container">
-    <a href="/">
-      <div class="logo dark">
-        <Logo name="Logo" />
+  <div class="landing-page">
+    <!-- Header/Navigation -->
+    <header class="header">
+      <div class="header-content">
+        <div class="logo-section">
+          <span class="brand-name">WoS<span class="plus">+</span></span>
+        </div>
       </div>
-    </a>
+    </header>
 
-    <h2>Clarkio's Words on Stream Tool</h2>
-  </div>
-  <details id="wos-plus-controls" class="wos-plus-controls">
-    <summary>Show/Hide Controls</summary>
-    <div class="controls">
-      <p>
-        If you're not providing the WOS Mirror Link and Twitch Channel use the
-        following form to set up the game. In the Mirror Link input enter the
-        full mirror link URL (example:
-        https://wos.gg/r/aaa-bbbb-cccc123-dd321-eeeee123). In the Twitch Channel
-        input enter just the channel username you want to connect to for the
-        chat messages. After entering these values make sure to click the
-        Connect buttons for each.
-      </p>
-      <div>
-        <label>WOS Mirror Link:</label>
-        <input type="text" id="mirrorUrl" placeholder="Enter WOS mirror link" />
-        <button id="wos-connect-btn">Connect WOS</button>
-        <button id="wos-discconnect-btn">Disconnect WOS</button>
-      </div>
-      <div>
-        <label>Twitch Channel:</label>
-        <input
-          type="text"
-          id="twitchChannel"
-          placeholder="Enter channel name"
-        />
-        <button id="twitch-connect-btn">Connect Twitch</button>
-        <button id="twitch-disconnect-btn">Disconnect Twitch</button>
-      </div>
-    </div>
-  </details>
-
-  <div class="wos-main-grid">
-    <div class="level-data-grid-container">
-      <div class="grid-item">
-        <div class="level-data-container">
-          <div id="overlay" class="overlay">
-            <div id="level-current" class="level-current">
-              <span id="level-title" class="level-title">LEVEL</span>
-              <span id="level-value" class="level-value"></span>
-            </div>
-            <div id="level-record-container" class="level-record-container">
-              <div class="level-record">
-                <span class="icon">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="75%"
-                    height="75%"
-                    viewBox="0 0 24 24"
-                    preserveAspectRatio="xMidYMid meet"
-                    fill="currentcolor"
-                  >
-                    <path
-                      d="M12 6a7 7 0 1 0 0 14 7 7 0 0 0 0-14zm1 8h-2V8h2v6z"
-                      opacity=".3"></path>
-                    <path d="M9 1h6v2H9z"></path>
-                    <path
-                      d="m19 7 1-1-1-1-1 1a9 9 0 0 0-15 7 9 9 0 1 0 16-6zm-7 13a7 7 0 1 1 0-14 7 7 0 0 1 0 14z"
-                    ></path>
-                    <path d="M11 8h2v6h-2z"></path>
-                  </svg>
-                </span>
-                <span id="pb-value" class="level-record-value"></span>
-              </div>
-              <div class="level-record">
-                <span class="icon">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="75%"
-                    height="75%"
-                    viewBox="0 0 24 24"
-                    preserveAspectRatio="xMidYMid meet"
-                    fill="currentcolor"
-                  >
-                    <path fill="none" d="M0 0h24v24H0z"></path>
-                    <path
-                      d="M12 14c-2 0-3-1-3-3V5h6v6c0 2-1 3-3 3z"
-                      opacity=".3"></path>
-                    <path
-                      d="M19 5h-2V3H7v2H5L3 7v1c0 3 2 5 4 5 1 1 2 3 4 3v3H7v2h10v-2h-4v-3c2 0 3-2 4-3 2 0 4-2 4-5V7l-2-2zM5 8V7h2v4L5 8zm7 6c-2 0-3-1-3-3V5h6v6c0 2-1 3-3 3zm7-6-2 3V7h2v1z"
-                    ></path>
-                  </svg>
-                </span>
-                <span id="daily-pb-value" class="level-record-value"></span>
-              </div>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <Twitch width={75} height={75} />
+          <span>Built for Twitch Streamers & Players</span>
+        </div>
+        <h1 class="hero-title">
+          Words on Stream<span class="gradient-text">+</span>
+        </h1>
+        <p class="hero-subtitle">
+          Enhance your Words on Stream experience with powerful tools for players
+          and additional features for streamers hosting the game on their channel.
+        </p>
+        <div class="hero-cta">
+          <div class="launch-menu-container">
+            <button id="launch-menu-trigger" class="btn btn-primary">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+              </svg>
+              Launch Tool
+              <svg
+                class="chevron-icon"
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                fill="currentColor"
+              >
+                <path
+                  d="M4.427 6.573l3.396 3.396a.25.25 0 00.354 0l3.396-3.396A.25.25 0 0011.396 6H4.604a.25.25 0 00-.177.573z"
+                ></path>
+              </svg>
+            </button>
+            <div class="launch-menu-dropdown">
+              <a href="/player" class="launch-menu-item">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                <div>
+                  <div class="launch-menu-title">Player View</div>
+                  <div class="launch-menu-desc">Track words and improve your game</div>
+                </div>
+              </a>
+              <a href="/streamer" class="launch-menu-item">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path d="M23 7l-7 5 7 5V7z"></path>
+                  <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
+                </svg>
+                <div>
+                  <div class="launch-menu-title">Streamer View</div>
+                  <div class="launch-menu-desc">Enhanced layout for streaming</div>
+                </div>
+              </a>
             </div>
           </div>
-          <div>
-            <span id="hidden-letter-label" class="hidden-letter-label"
-              >Hidden Letters:</span
+          <a href="#features" class="btn btn-secondary">
+            Learn More
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
             >
-            <span id="hidden-letter" class="hidden-letter"></span>
-          </div>
-          <div>
-            <span id="fake-letter-label" class="fake-letter-label"
-              >Fake Letters:</span
-            >
-            <span id="fake-letter" class="fake-letter"></span>
-          </div>
-          <div>
-            <span id="letters-label" class="letters-label">Letters:</span>
-            <span id="letters" class="letters"></span>
-          </div>
-          <span class="made-by">Made by: <Twitch /> clarkio</span>
-          <div id="correct-words-log-container">
-            <span>Correct Words: (* potential words missed)</span>
-            <div id="correct-words-log" class="correct-words-log">
-              <!-- <div class="word-group">
-                <div class="word-group__title">4:</div><div
-                  class="word-group__words"
-                >
-                  <span class="correct-word">DOGS</span>
-                  <span  class="correct-word">DOGS</span>
-                  <span  class="correct-word">DOGS</span>
-                  <span  class="correct-word">DOGS</span>
-                  <span  class="correct-word">DOGS</span>
-                  <span  class="correct-word">DOGS</span>
-                  <span  class="correct-word">DOGS</span>
-                  <span  class="correct-word">DOGS</span>
-                  <span  class="correct-word">DOGS</span>
-                  <span  class="correct-word">DOGS</span>
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="floating-card card-1">
+          <div class="card-icon">📝</div>
+          <div class="card-text">Track correct words</div>
+        </div>
+        <div class="floating-card card-2">
+          <div class="card-icon">⏱️</div>
+          <div class="card-text">Personal best times</div>
+        </div>
+        <div class="floating-card card-3">
+          <div class="card-icon">🎮</div>
+          <div class="card-text">Live game state</div>
+        </div>
+      </div>
+    </section>
 
-                </div>
-              </div>
-              <div class="word-group">
-                <div class="word-group__title">5:</div><div
-                  class="word-group__words"
-                >
-                  <span class="correct-word">DOGES</span>
-                  <span class="correct-word">DOGES</span>
-                  <span class="correct-word">DOGES</span>
-                  <span class="correct-word">DOGES</span>
-                  <span class="correct-word">DOGES</span>
-                  <span class="correct-word">DOGES</span>
-                  <span class="correct-word">DOGES</span>
-                  <span class="correct-word">DOGES</span>
-                </div>
-              </div><div class="word-group">
-                <div class="word-group__title">6:</div><div
-                  class="word-group__words"
-                >
-                  <span class="correct-word">DOGIES</span>
-                  <span class="correct-word">GOODIE</span>
-                  <span class="correct-word">GOOSED</span>
-                </div>
-              </div>
-              <div class="word-group">
-                <div class="word-group__title">7:</div><div
-                  class="word-group__words"
-                >
-                  <span class="correct-word">GOODIES</span>
-                  <span class="correct-word">GOODIES</span>
-                  <span class="correct-word">GOODIES</span>
-                </div>
-              </div>
-              <div class="word-group">
-                <div class="word-group__title">8:</div><div
-                  class="word-group__words"
-                >
-                  <span class="correct-word">AGOODIES</span>
-                  <span class="correct-word">AGOODIES</span>
-                  <span class="correct-word">AGOODIES</span>
-                </div>
-              </div>
-              <div class="word-group">
-                <div class="word-group__title">9:</div><div
-                  class="word-group__words"
-                >
-                  <span class="correct-word">AAGOODIES</span>
-                  <span class="correct-word">AAGOODIES</span>
-                  <span class="correct-word">AAGOODIES</span>
-                </div>
-              </div> -->
-            </div>
-          </div>
-          <div>
-            <span id="daily-clear-title">Today's Clears:</span>
-            <span id="daily-clear-value"></span>
-          </div>
+    <!-- Features Section -->
+    <section id="features" class="features">
+      <div class="section-header">
+        <h2 class="section-title">Everything you need to level up</h2>
+        <p class="section-subtitle">
+          Powerful features designed for both players and streamers
+        </p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🎯</div>
+          <h3 class="feature-title">Real-time Game Tracking</h3>
+          <p class="feature-description">
+            Automatically track current level, letters, hidden letters, and fake
+            letters in real-time as you play.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">📊</div>
+          <h3 class="feature-title">Word History Log</h3>
+          <p class="feature-description">
+            Keep track of all correct words found, organized by length in alphabetical order. Never lose
+            track of what's been discovered.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🏆</div>
+          <h3 class="feature-title">Personal Records</h3>
+          <p class="feature-description">
+            Monitor your personal best levels reached and daily clear records. Challenge
+            yourself to beat your high scores.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">💬</div>
+          <h3 class="feature-title">Twitch Chat Integration</h3>
+          <p class="feature-description">
+            Connect directly to Twitch chat to track chat participation and
+            coordinate with other players.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">📺</div>
+          <h3 class="feature-title">Streamer Dashboard</h3>
+          <p class="feature-description">
+            Enhanced view for streamers with a minimal layout, perfect for OBS
+            integration and stream overlays.
+          </p>
         </div>
       </div>
-    </div>
-    <div class="twitch-chat-frame">
-      <iframe id="twitch-chat-widget" src=""></iframe>
-    </div>
-    <div class="iframe-container" id="wos-board" style="display: none;">
-      <iframe id="wos-board-iframe" src="" loading="lazy"></iframe>
-    </div>
-    <details id="wos-plus-logs" class="wos-plus-logs">
-      <summary>Show/Hide Logs</summary>
-      <div class="log-container">
-        <div>
-          <h3>WOS Event Log:</h3>
-          <div id="wos-game-log" class="logs"></div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works">
+      <div class="section-header">
+        <h2 class="section-title">Get started in seconds</h2>
+        <p class="section-subtitle">Three simple steps to enhance your gameplay</p>
+      </div>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <h3 class="step-title">Get Your Mirror Link</h3>
+          <p class="step-description">
+            Copy the Words on Stream mirror link from your active game session.
+          </p>
         </div>
-        <div>
-          <h3>Twitch Chat Log:</h3>
-          <div id="twitch-chat-log" class="logs"></div>
+
+        <div class="step-connector"></div>
+
+        <div class="step">
+          <div class="step-number">2</div>
+          <h3 class="step-title">Connect to WoS+</h3>
+          <p class="step-description">
+            Paste the link into WoS+ and enter to your Twitch channel name.
+          </p>
+        </div>
+
+        <div class="step-connector"></div>
+
+        <div class="step">
+          <div class="step-number">3</div>
+          <h3 class="step-title">Start Playing!</h3>
+          <p class="step-description">
+            Enjoy real-time tracking, word history, and all the enhanced features.
+          </p>
         </div>
       </div>
-    </details>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+      <div class="cta-content">
+        <h2 class="cta-title">Ready to enhance your experience?</h2>
+        <p class="cta-subtitle">
+          Join streamers and players using WoS+ to take their Words on Stream
+          gameplay to the next level.
+        </p>
+        <a href="/streamer" class="btn btn-primary btn-large">
+          Get Started Now
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <div class="logo-section">
+            <span class="brand-name small">WoS<span class="plus">+</span></span>
+          </div>
+          <p class="footer-tagline">
+            Enhancing Words on Stream, one word at a time.
+          </p>
+        </div>
+        <div class="footer-links">
+          <a href="/streamer" class="footer-link">Streamer View</a>
+          <a href="https://wos.gg" target="_blank" rel="noopener" class="footer-link"
+            >Words on Stream</a
+          >
+          <a
+            href="https://twitch.tv/clarkio"
+            target="_blank"
+            rel="noopener"
+            class="footer-link"
+          >
+            <Twitch /> clarkio
+          </a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>Made with 💜 by <a href="https://twitch.tv/clarkio">clarkio</a></p>
+      </div>
+    </footer>
   </div>
 </WosBaseLayout>
 
+<style>
+  .landing-page {
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Header */
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(22, 22, 37, 0.8);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .logo-section {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .logo {
+    width: 40px;
+    height: 40px;
+  }
+
+  .logo.small {
+    width: 32px;
+    height: 32px;
+  }
+
+  .brand-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .brand-name.small {
+    font-size: 1.25rem;
+  }
+
+  .brand-name .plus {
+    color: #8b5cf6;
+    font-weight: 800;
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  /* Hero Section */
+  .hero {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    min-height: calc(100vh - 80px);
+  }
+
+  .hero-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: rgba(139, 92, 246, 0.1);
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    border-radius: 2rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #8b5cf6;
+    width: fit-content;
+  }
+
+  .hero-title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    line-height: 1.1;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.95);
+  }
+
+  .gradient-text {
+    background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 4.5rem;
+    margin-left: 0.25rem;
+    vertical-align: baseline;
+    line-height: 1;
+  }
+
+  .hero-subtitle {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.6);
+    margin: 0;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  /* Launch Menu */
+  .launch-menu-container {
+    position: relative;
+  }
+
+  #launch-menu-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .chevron-icon {
+    transition: transform 0.2s ease;
+  }
+
+  #launch-menu-trigger.active .chevron-icon {
+    transform: rotate(180deg);
+  }
+
+  .launch-menu-dropdown {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    left: 0;
+    min-width: 280px;
+    background: #1e1e2e;
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    border-radius: 0.75rem;
+    box-shadow:
+      0 10px 25px rgba(0, 0, 0, 0.3),
+      0 0 0 1px rgba(139, 92, 246, 0.1);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-0.5rem);
+    transition: all 0.2s ease;
+    z-index: 100;
+    overflow: hidden;
+  }
+
+  .launch-menu-dropdown.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .launch-menu-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.9);
+    transition: all 0.2s ease;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .launch-menu-item:last-child {
+    border-bottom: none;
+  }
+
+  .launch-menu-item:hover {
+    background: rgba(139, 92, 246, 0.1);
+  }
+
+  .launch-menu-item svg {
+    flex-shrink: 0;
+    margin-top: 0.125rem;
+  }
+
+  .launch-menu-title {
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
+    color: rgba(255, 255, 255, 0.95);
+  }
+
+  .launch-menu-desc {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.5);
+    line-height: 1.3;
+  }
+
+  /* Buttons */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.75rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    border: none;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+    color: white;
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: #8b5cf6;
+    border: 2px solid #8b5cf6;
+  }
+
+  .btn-secondary:hover {
+    background: rgba(139, 92, 246, 0.1);
+  }
+
+  .btn-large {
+    padding: 1.125rem 2.25rem;
+    font-size: 1.125rem;
+  }
+
+  /* Hero Visual */
+  .hero-visual {
+    position: relative;
+    height: 400px;
+  }
+
+  .floating-card {
+    position: absolute;
+    background: #1e1e2e;
+    padding: 1.25rem 1.5rem;
+    border-radius: 1rem;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .card-icon {
+    font-size: 2rem;
+  }
+
+  .card-text {
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .card-1 {
+    top: 20%;
+    left: 10%;
+    animation-delay: 0s;
+  }
+
+  .card-2 {
+    top: 50%;
+    right: 5%;
+    animation-delay: 1s;
+  }
+
+  .card-3 {
+    bottom: 15%;
+    left: 20%;
+    animation-delay: 2s;
+  }
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+
+  /* Features Section */
+  .features {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 6rem 2rem;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 0 0 1rem 0;
+    color: rgba(255, 255, 255, 0.95);
+  }
+
+  .section-subtitle {
+    font-size: 1.125rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin: 0;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+  }
+
+  .feature-card {
+    padding: 2rem;
+    background: #1e1e2e;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1rem;
+    transition: all 0.3s ease;
+  }
+
+  .feature-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+  }
+
+  .feature-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .feature-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0 0 0.75rem 0;
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .feature-description {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.6);
+    margin: 0;
+  }
+
+  /* How It Works Section */
+  .how-it-works {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 6rem 2rem;
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.05) 0%, rgba(236, 72, 153, 0.05) 100%);
+    border-radius: 2rem;
+  }
+
+  .steps {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .step {
+    flex: 1;
+    min-width: 250px;
+    text-align: center;
+  }
+
+  .step-number {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 700;
+    border-radius: 50%;
+  }
+
+  .step-connector {
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, #8b5cf6 0%, #ec4899 100%);
+    margin-top: -100px;
+  }
+
+  .step-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0 0 0.75rem 0;
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .step-description {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin: 0;
+  }
+
+  /* CTA Section */
+  .cta-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 6rem 2rem;
+  }
+
+  .cta-content {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+    border-radius: 2rem;
+    color: white;
+  }
+
+  .cta-title {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 0 0 1rem 0;
+  }
+
+  .cta-subtitle {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.125rem;
+    margin: 0 0 2rem 0;
+    opacity: 0.9;
+  }
+
+  .cta-content .btn-primary {
+    background: white;
+    color: #8b5cf6;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  .cta-content .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Footer */
+  .footer {
+    background: #0f0f1a;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    gap: 2rem;
+  }
+
+  .footer-brand {
+    flex: 1;
+  }
+
+  .footer-tagline {
+    margin: 1rem 0 0 0;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.875rem;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .footer-link {
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .footer-link:hover {
+    color: #8b5cf6;
+  }
+
+  .footer-bottom {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1.5rem 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+  }
+
+  .footer-bottom p {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.875rem;
+  }
+
+  .footer-bottom a {
+    color: #8b5cf6;
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .footer-bottom a:hover {
+    text-decoration: underline;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 968px) {
+    .hero {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+      padding: 3rem 1.5rem;
+    }
+
+    .hero-visual {
+      height: 300px;
+    }
+
+    .hero-title {
+      font-size: 2.5rem;
+    }
+
+    .gradient-text {
+      font-size: 3.25rem;
+    }
+
+    .section-title {
+      font-size: 2rem;
+    }
+
+    .cta-title {
+      font-size: 2rem;
+    }
+
+    .step-connector {
+      display: none;
+    }
+
+    .footer-content {
+      flex-direction: column;
+    }
+
+    .footer-links {
+      flex-direction: column;
+      gap: 1rem;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .header-content {
+      padding: 1rem 1rem;
+    }
+
+    .hero {
+      padding: 2rem 1rem;
+    }
+
+    .hero-title {
+      font-size: 2rem;
+    }
+
+    .gradient-text {
+      font-size: 2.75rem;
+    }
+
+    .hero-subtitle {
+      font-size: 1rem;
+    }
+
+    .hero-cta {
+      flex-direction: column;
+    }
+
+    .btn {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .features {
+      padding: 3rem 1rem;
+    }
+
+    .how-it-works {
+      padding: 3rem 1rem;
+    }
+
+    .cta-section {
+      padding: 3rem 1rem;
+    }
+
+    .cta-content {
+      padding: 2rem 1rem;
+    }
+
+    .features-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
 <script>
-  import { GameSpectator } from "../scripts/wos-plus-main";
-  import { removeUnnecessaryElements } from "../scripts/wos-widget";
+  document.addEventListener('astro:page-load', () => {
+    const launchMenuTrigger = document.getElementById('launch-menu-trigger');
+    const launchMenuDropdown = document.querySelector('.launch-menu-dropdown');
 
-  const boardContainer = document.getElementById(
-    "wos-board"
-  ) as HTMLDivElement | null;
-  const boardIframe = document.getElementById(
-    "wos-board-iframe"
-  ) as HTMLIFrameElement | null;
-  let currentMirrorUrl = "";
+    if (!launchMenuTrigger || !launchMenuDropdown) return;
 
-  const isBoardVisible = () =>
-    boardContainer
-      ? window.getComputedStyle(boardContainer).display !== "none"
-      : false;
-
-  const loadBoardIframeIfVisible = () => {
-    if (!boardIframe || !currentMirrorUrl || !isBoardVisible()) {
-      return;
-    }
-
-    if (boardIframe.getAttribute("src") !== currentMirrorUrl) {
-      boardIframe.setAttribute("src", currentMirrorUrl);
-    }
-  };
-
-  const clearBoardIframe = () => {
-    if (!boardIframe) {
-      return;
-    }
-
-    if (boardIframe.hasAttribute("src")) {
-      boardIframe.removeAttribute("src");
-    }
-  };
-
-  const twitchConnectBtn = document.getElementById(
-    "twitch-connect-btn"
-  ) as HTMLButtonElement;
-  twitchConnectBtn.addEventListener("click", () => {
-    const channel = (
-      document.getElementById("twitchChannel") as HTMLInputElement
-    ).value;
-    spectator.connectToTwitch(channel);
-  });
-  const twitchDisconnectBtn = document.getElementById(
-    "twitch-disconnect-btn"
-  ) as HTMLButtonElement;
-  twitchDisconnectBtn.addEventListener("click", () => {
-    spectator.disconnectTwitch();
-  });
-
-  const wosConnectBtn = document.getElementById(
-    "wos-connect-btn"
-  ) as HTMLButtonElement;
-  wosConnectBtn.addEventListener("click", () => {
-    const mirrorUrlInput = document.getElementById(
-      "mirrorUrl"
-    ) as HTMLInputElement;
-    const mirrorUrl = mirrorUrlInput.value.trim();
-    currentMirrorUrl = mirrorUrl;
-    spectator.connectToWosGame(mirrorUrl);
-    loadBoardIframeIfVisible();
-  });
-  const wosDisconnectBtn = document.getElementById(
-    "wos-discconnect-btn"
-  ) as HTMLButtonElement;
-  wosDisconnectBtn.addEventListener("click", () => {
-    spectator.disconnect();
-    clearBoardIframe();
-  });
-
-  const spectator = new GameSpectator();
-
-  document.addEventListener("DOMContentLoaded", () => {
-    // check for query parameters in the url
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.has("mirrorUrl")) {
-      const url = urlParams.get("mirrorUrl") || "";
-      const mirrorUrlInput = document.getElementById(
-        "mirrorUrl"
-      ) as HTMLInputElement;
-      mirrorUrlInput.value = url;
-      currentMirrorUrl = url.trim();
-      loadBoardIframeIfVisible();
-      console.log(url);
-    }
-
-    if (urlParams.has("chat")) {
-      const isChatEnabled = urlParams.get("chat")?.toLowerCase() === "true";
-      const twitchChatWidget = document.getElementById(
-        "twitch-chat-widget"
-      ) as HTMLIFrameElement;
-      const grid = document.querySelector(".wos-main-grid") as HTMLElement;
-      if (isChatEnabled) {
-        twitchChatWidget.style.display = "";
-        grid.classList.remove("chat-hidden");
+    // Toggle menu on click
+    launchMenuTrigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isActive = launchMenuTrigger.classList.contains('active');
+      
+      if (isActive) {
+        launchMenuTrigger.classList.remove('active');
+        launchMenuDropdown.classList.remove('show');
       } else {
-        twitchChatWidget.style.display = "none";
-        grid.classList.add("chat-hidden");
+        launchMenuTrigger.classList.add('active');
+        launchMenuDropdown.classList.add('show');
       }
-    }
+    });
 
-    if (urlParams.has("twitchChannel")) {
-      const twitchChannel = urlParams.get("twitchChannel") || "clarkio";
-      const twitchChannelInput = document.getElementById(
-        "twitchChannel"
-      ) as HTMLInputElement;
-      twitchChannelInput.value = twitchChannel;
-
-      const twitchChatWidget = document.getElementById(
-        "twitch-chat-widget"
-      ) as HTMLIFrameElement;
-      twitchChatWidget.src = `https://www.twitch.tv/embed/${twitchChannel}/chat?darkpopout&parent=${location.hostname}`;
-    }
-    const mirrorUrl = (
-      document.getElementById("mirrorUrl") as HTMLInputElement
-    ).value.trim();
-    currentMirrorUrl = mirrorUrl;
-    spectator.connectToWosGame(mirrorUrl);
-    const channel = (
-      document.getElementById("twitchChannel") as HTMLInputElement
-    ).value;
-    spectator.connectToTwitch(channel);
-
-    if (urlParams.has("widget")) {
-      const isWidget = urlParams.get("widget")?.toLowerCase() === "true";
-      if (isWidget) {
-        document.body.classList.add("widget-mode");
-        removeUnnecessaryElements();
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!launchMenuTrigger.contains(e.target as Node) && 
+          !launchMenuDropdown.contains(e.target as Node)) {
+        launchMenuTrigger.classList.remove('active');
+        launchMenuDropdown.classList.remove('show');
       }
-    }
+    });
 
-    if (urlParams.has("board")) {
-      const boardEnabled = urlParams.get("board")?.toLowerCase() === "true";
-      if (boardContainer) {
-        if (boardEnabled) {
-          boardContainer.style.display = "";
-          loadBoardIframeIfVisible();
-        } else {
-          boardContainer.style.display = "none";
-          clearBoardIframe();
-        }
+    // Close menu on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        launchMenuTrigger.classList.remove('active');
+        launchMenuDropdown.classList.remove('show');
       }
-    } else {
-      clearBoardIframe();
-    }
+    });
   });
 </script>
 
-<style>
-  /* Override wrapper max-width when in widget mode */
-  :global(.widget-mode .wrapper) {
-    max-width: 100% !important;
-    padding: 0 !important;
-  }
-</style>

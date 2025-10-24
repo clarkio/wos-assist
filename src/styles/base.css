@@ -63,7 +63,7 @@ h4 {
 }
 
 p {
-  color: #333;
+  color: var(--text-primary);
 }
 
 img {

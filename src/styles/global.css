@@ -4,15 +4,13 @@
 
 body {
   margin: 0;
-}
-
-html.dark {
   background-color: #161625;
 }
 
 html {
   font-family: 'Inter', sans-serif;
   line-height: 1.4;
+  background-color: #161625;
 }
 
 .wrapper {
@@ -20,51 +18,35 @@ html {
   margin: auto;
   padding: 1rem;
 }
-h1 {
-  color: rgb(0, 0, 255);
-}
 
 h1 {
+  color: rgb(255 255 255 / 0.75);
   font-size: 1.5rem;
 }
 
 h2 {
   font-size: 1.25rem;
+  color: rgb(255 255 255 / 0.5);
 }
 
 h3,
 h4 {
   font-size: 1rem;
-}
-
-.dark h1 {
-  color: rgb(255 255 255 / 0.75);
-}
-
-.dark p,
-.dark h2,
-.dark h3,
-.dark h4,
-.dark label,
-.dark span,
-.dark li {
   color: rgb(255 255 255 / 0.5);
 }
 
-.dark h2 a,
-.dark li a,
-.dark a {
-  color: rgb(255 255 255 / 0.75);
+p,
+label,
+span,
+li {
+  color: rgb(255 255 255 / 0.5);
 }
 
+h2 a,
 li a,
-p a {
+a {
+  color: rgb(255 255 255 / 0.75);
   font-weight: 600;
-  color: #000;
-}
-
-p {
-  color: #333;
 }
 
 pre {
