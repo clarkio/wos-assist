@@ -2,6 +2,7 @@
 import '../styles/wos-plus-streamer.css';
 import WosBaseLayout from '../layouts/WosBaseLayout.astro';
 import Twitch from '../components/Icons/Twitch.astro';
+import SettingsDialog from '../components/SettingsDialog.astro';
 ---
 
 <WosBaseLayout
@@ -9,6 +10,35 @@ import Twitch from '../components/Icons/Twitch.astro';
   description="Clarkio's Words on Stream Tool"
   keywords='clarkio, words on stream, wos, twitch, streaming, helper, wordsonstream, tool'
 >
+  <SettingsDialog id='streamer-settings' title='Streamer Settings'>
+    <form id='streamer-settings-form' class='settings-form'>
+      <div class='form-group'>
+        <label for='streamer-mirror-url-input'>Mirror URL</label>
+        <input
+          type='url'
+          id='streamer-mirror-url-input'
+          name='mirrorUrl'
+          placeholder='https://example.com/game-mirror'
+          required
+        />
+        <small class='form-help'
+          >The URL to the Words on Stream game mirror</small
+        >
+      </div>
+      <div class='form-group'>
+        <label for='streamer-twitch-channel-input'>Twitch Channel</label>
+        <input
+          type='text'
+          id='streamer-twitch-channel-input'
+          name='twitchChannel'
+          placeholder='clarkio'
+          required
+        />
+        <small class='form-help'>The Twitch channel name to connect to</small>
+      </div>
+    </form>
+  </SettingsDialog>
+
   <div class='streamer-wos-main-grid'>
     <div class='streamer-wos-board-container' id='wos-board'>
       <iframe id='streamer-wos-board-iframe' src='' loading='lazy'></iframe>
@@ -208,9 +238,87 @@ import Twitch from '../components/Icons/Twitch.astro';
 
   const spectator = new GameSpectator();
 
+  // Initialize dialog API reference
+  let settingsDialog: any = null;
+
+  const initializeSettingsDialog = () => {
+    const dialog = document.getElementById(
+      'streamer-settings'
+    ) as HTMLDialogElement;
+
+    if (dialog && (dialog as any).__api) {
+      settingsDialog = (dialog as any).__api;
+
+      // Set up save callback
+      settingsDialog.onSave((data: Record<string, any>) => {
+        const params = new URLSearchParams(window.location.search);
+
+        if (data.mirrorUrl) {
+          params.set('mirrorUrl', data.mirrorUrl);
+        }
+        if (data.twitchChannel) {
+          params.set('twitchChannel', data.twitchChannel);
+        }
+
+        // Reload the page with new parameters
+        window.location.search = params.toString();
+      });
+    }
+  };
+
+  const checkRequiredParams = () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const hasMirrorUrl = urlParams.has('mirrorUrl');
+    const hasTwitchChannel = urlParams.has('twitchChannel');
+
+    // If either parameter is missing, show the settings dialog
+    if (!hasMirrorUrl || !hasTwitchChannel) {
+      // Pre-populate any existing values
+      if (hasMirrorUrl) {
+        const mirrorUrlInput = document.getElementById(
+          'streamer-mirror-url-input'
+        ) as HTMLInputElement;
+        if (mirrorUrlInput) {
+          mirrorUrlInput.value = urlParams.get('mirrorUrl') || '';
+        }
+      }
+
+      if (hasTwitchChannel) {
+        const twitchChannelInput = document.getElementById(
+          'streamer-twitch-channel-input'
+        ) as HTMLInputElement;
+        if (twitchChannelInput) {
+          twitchChannelInput.value = urlParams.get('twitchChannel') || '';
+        }
+      }
+
+      // Open the dialog after a short delay to ensure proper rendering
+      setTimeout(() => {
+        if (settingsDialog) {
+          settingsDialog.open();
+        }
+      }, 100);
+
+      return false;
+    }
+
+    return true;
+  };
+
   document.addEventListener('DOMContentLoaded', () => {
+    // Initialize settings dialog
+    const dialog = document.getElementById('streamer-settings');
+    if (dialog) {
+      dialog.addEventListener('dialog-ready', initializeSettingsDialog);
+      // Also try immediate initialization in case event already fired
+      initializeSettingsDialog();
+    }
+
     // check for query parameters in the url
     const urlParams = new URLSearchParams(window.location.search);
+
+    // Check if required parameters are present
+    const hasRequiredParams = checkRequiredParams();
     if (urlParams.has('mirrorUrl')) {
       const url = urlParams.get('mirrorUrl') || '';
       currentMirrorUrl = url.trim();
@@ -242,8 +350,12 @@ import Twitch from '../components/Icons/Twitch.astro';
       ) as HTMLIFrameElement;
       twitchChatWidget.src = `https://www.twitch.tv/embed/${twitchChannel}/chat?darkpopout&parent=${location.hostname}`;
     }
-    spectator.connectToWosGame(currentMirrorUrl);
-    spectator.connectToTwitch(twitchChannel);
+
+    // Only connect if we have required parameters
+    if (hasRequiredParams) {
+      spectator.connectToWosGame(currentMirrorUrl);
+      spectator.connectToTwitch(twitchChannel);
+    }
 
     if (urlParams.has('board')) {
       const boardEnabled = urlParams.get('board')?.toLowerCase() === 'true';
@@ -267,5 +379,55 @@ import Twitch from '../components/Icons/Twitch.astro';
   :global(.widget-mode .wrapper) {
     max-width: 100% !important;
     padding: 0 !important;
+  }
+
+  /* Settings form styles */
+  .settings-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .form-group label {
+    color: var(--text-lightest, #f5efff);
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    padding: 0.75rem;
+    border: 1px solid var(--border-primary, rgba(199, 156, 255, 0.4));
+    border-radius: 6px;
+    background: var(--bg-tertiary, #4b1a81);
+    color: var(--text-primary, #dacfe6);
+    font-size: 1rem;
+    font-family: var(--font-main, 'Inter', sans-serif);
+    transition: all 0.2s ease;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: var(--accent-violet, #c79cff);
+    background: var(--bg-dark, #161625);
+  }
+
+  .form-group input::placeholder {
+    color: rgba(218, 207, 230, 0.5);
+  }
+
+  .form-help {
+    color: rgba(218, 207, 230, 0.7);
+    font-size: 0.85rem;
+    font-style: italic;
   }
 </style>

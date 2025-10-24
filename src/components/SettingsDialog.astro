@@ -1,0 +1,300 @@
+---
+/**
+ * Reusable Settings Dialog Component
+ * A modal popup for configuring application settings
+ */
+export interface Props {
+  id?: string;
+  title?: string;
+}
+
+const { id = 'settings-dialog', title = 'Settings' } = Astro.props;
+---
+
+<dialog id={id} class='settings-dialog'>
+  <div class='settings-dialog__content'>
+    <div class='settings-dialog__header'>
+      <h2 class='settings-dialog__title'>{title}</h2>
+      <button
+        type='button'
+        class='settings-dialog__close'
+        aria-label='Close dialog'
+      >
+        <svg
+          xmlns='http://www.w3.org/2000/svg'
+          width='24'
+          height='24'
+          viewBox='0 0 24 24'
+          fill='none'
+          stroke='currentColor'
+          stroke-width='2'
+          stroke-linecap='round'
+          stroke-linejoin='round'
+        >
+          <line x1='18' y1='6' x2='6' y2='18'></line>
+          <line x1='6' y1='6' x2='18' y2='18'></line>
+        </svg>
+      </button>
+    </div>
+    <div class='settings-dialog__body'>
+      <slot />
+    </div>
+    <div class='settings-dialog__footer'>
+      <button type='button' class='btn btn--secondary settings-dialog__cancel'>
+        Cancel
+      </button>
+      <button type='button' class='btn btn--primary settings-dialog__save'>
+        Save
+      </button>
+    </div>
+  </div>
+</dialog>
+
+<style>
+  .settings-dialog {
+    border: none;
+    padding: 0;
+    background: transparent;
+    max-width: 90vw;
+    max-height: 90vh;
+    border-radius: var(--border-radius, 8px);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+  }
+
+  .settings-dialog::backdrop {
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+  }
+
+  .settings-dialog__content {
+    background: var(--bg-primary, #420072);
+    border: 2px solid var(--border-primary, rgba(199, 156, 255, 0.4));
+    border-radius: var(--border-radius, 8px);
+    color: var(--text-primary, #dacfe6);
+    min-width: 400px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .settings-dialog__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--border-secondary, rgba(199, 156, 255, 0.2));
+  }
+
+  .settings-dialog__title {
+    margin: 0;
+    font-size: 1.5rem;
+    color: var(--text-lightest, #f5efff);
+  }
+
+  .settings-dialog__close {
+    background: transparent;
+    border: none;
+    color: var(--text-primary, #dacfe6);
+    cursor: pointer;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+  }
+
+  .settings-dialog__close:hover {
+    background: var(--bg-tertiary, #4b1a81);
+    color: var(--text-lightest, #f5efff);
+  }
+
+  .settings-dialog__body {
+    padding: 1.5rem;
+    flex: 1;
+    overflow-y: auto;
+  }
+
+  .settings-dialog__footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    padding: 1.5rem;
+    border-top: 1px solid var(--border-secondary, rgba(199, 156, 255, 0.2));
+  }
+
+  .btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+    font-family: var(--font-main, 'Inter', sans-serif);
+  }
+
+  .btn--primary {
+    background: var(--bg-secondary, #7736c6);
+    color: var(--text-lightest, #f5efff);
+  }
+
+  .btn--primary:hover {
+    background: var(--accent-violet, #c79cff);
+    color: var(--accent-purple, #410071);
+  }
+
+  .btn--secondary {
+    background: transparent;
+    color: var(--text-primary, #dacfe6);
+    border: 1px solid var(--border-primary, rgba(199, 156, 255, 0.4));
+  }
+
+  .btn--secondary:hover {
+    background: var(--bg-tertiary, #4b1a81);
+    color: var(--text-lightest, #f5efff);
+    border-color: var(--accent-violet, #c79cff);
+  }
+
+  @media (max-width: 480px) {
+    .settings-dialog__content {
+      min-width: 90vw;
+    }
+
+    .settings-dialog__header {
+      padding: 1rem;
+    }
+
+    .settings-dialog__body {
+      padding: 1rem;
+    }
+
+    .settings-dialog__footer {
+      padding: 1rem;
+      flex-direction: column;
+    }
+
+    .btn {
+      width: 100%;
+    }
+  }
+</style>
+
+<script is:inline define:vars={{ dialogId: id }}>
+  (function() {
+    // Wait for DOM to be ready
+    function initDialog() {
+      const dialog = document.getElementById(dialogId);
+      
+      if (!dialog) {
+        console.error('Dialog not found:', dialogId);
+        return;
+      }
+
+      const closeBtn = dialog.querySelector('.settings-dialog__close');
+      const cancelBtn = dialog.querySelector('.settings-dialog__cancel');
+      const saveBtn = dialog.querySelector('.settings-dialog__save');
+
+      let saveCallback = null;
+      let cancelCallback = null;
+
+      const getData = () => {
+        const inputs = dialog.querySelectorAll('input, select, textarea');
+        const data = {};
+
+        inputs.forEach((input) => {
+          if (input.name) {
+            if (input instanceof HTMLInputElement) {
+              if (input.type === 'checkbox') {
+                data[input.name] = input.checked;
+              } else if (input.type === 'radio') {
+                if (input.checked) {
+                  data[input.name] = input.value;
+                }
+              } else {
+                data[input.name] = input.value;
+              }
+            } else {
+              data[input.name] = input.value;
+            }
+          }
+        });
+
+        return data;
+      };
+
+      const close = () => {
+        dialog.close();
+      };
+
+      const open = () => {
+        dialog.showModal();
+      };
+
+      if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+          if (cancelCallback) {
+            cancelCallback();
+          }
+          close();
+        });
+      }
+
+      if (cancelBtn) {
+        cancelBtn.addEventListener('click', () => {
+          if (cancelCallback) {
+            cancelCallback();
+          }
+          close();
+        });
+      }
+
+      if (saveBtn) {
+        saveBtn.addEventListener('click', () => {
+          const data = getData();
+          if (saveCallback) {
+            saveCallback(data);
+          }
+          close();
+        });
+      }
+
+      // Close on backdrop click
+      dialog.addEventListener('click', (e) => {
+        if (e.target === dialog) {
+          if (cancelCallback) {
+            cancelCallback();
+          }
+          close();
+        }
+      });
+
+      // Expose API
+      const api = {
+        open,
+        close,
+        onSave: (callback) => {
+          saveCallback = callback;
+        },
+        onCancel: (callback) => {
+          cancelCallback = callback;
+        },
+        getData,
+      };
+
+      // Store API on the dialog element
+      dialog.__api = api;
+
+      // Also dispatch a custom event when ready
+      dialog.dispatchEvent(
+        new CustomEvent('dialog-ready', { detail: api, bubbles: true })
+      );
+    }
+
+    // Initialize immediately if DOM is ready, otherwise wait
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initDialog);
+    } else {
+      initDialog();
+    }
+  })();
+</script>
