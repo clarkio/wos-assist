@@ -24,6 +24,40 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
+}
+
+.settings-button {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  background: var(--bg-tertiary, #4b1a81);
+  border: 2px solid var(--border-primary, rgba(199, 156, 255, 0.4));
+  border-radius: 8px;
+  color: var(--text-primary, #dacfe6);
+  padding: 0.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+
+.settings-button:hover {
+  background: var(--bg-secondary, #7736c6);
+  border-color: var(--accent-violet, #c79cff);
+  color: var(--text-lightest, #f5efff);
+  transform: scale(1.05);
+}
+
+.settings-button:active {
+  transform: scale(0.95);
+}
+
+.settings-button svg {
+  width: 24px;
+  height: 24px;
 }
 
 .player-twitch-chat-frame {

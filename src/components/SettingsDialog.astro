@@ -258,6 +258,20 @@ const { id = 'settings-dialog', title = 'Settings' } = Astro.props;
         });
       }
 
+      // Handle Enter key press to trigger save
+      dialog.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && dialog.open) {
+          // Prevent default form submission
+          e.preventDefault();
+          // Trigger save
+          const data = getData();
+          if (saveCallback) {
+            saveCallback(data);
+          }
+          close();
+        }
+      });
+
       // Close on backdrop click
       dialog.addEventListener('click', (e) => {
         if (e.target === dialog) {
