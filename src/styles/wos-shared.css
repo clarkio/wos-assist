@@ -155,11 +155,11 @@ body {
 }
 
 .level-current {
+  background: #000; 
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: var(--accent-purple);
   font-size: 1.5rem;
   box-sizing: border-box;
   border: 0.1875rem solid #fff;

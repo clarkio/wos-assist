@@ -1,0 +1,150 @@
+/* WOS Player Page Styles */
+@import "./wos-shared.css";
+
+/* Player Page Specific Styles */
+.player-wos-main-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 0.5fr 0.5fr;
+  grid-template-rows: 0.25fr 1fr 1fr 1fr;
+  gap: 5px;
+  width: 100vw;
+  max-height: 100vh;
+}
+
+.player-wos-board-container {
+  grid-column: span 3 / span 3;
+  grid-row: span 3 / span 3;
+  position: relative;
+  overflow: hidden;
+}
+
+.player-channel-data-container {
+  grid-column: span 2 / span 2;
+  grid-column-start: 4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.player-twitch-chat-frame {
+  grid-column: span 2 / span 2;
+  grid-row: span 2 / span 2;
+  grid-column-start: 4;
+  grid-row-start: 2;
+}
+
+.player-bottom-container {
+  grid-column: span 5 / span 5;
+  grid-row-start: 4;
+  display: grid;
+  grid-template-columns:  repeat(3, 1fr);
+  grid-template-rows: repeat(1, 1fr);
+  /* display: flex;
+  flex-direction: row; */
+}
+
+#player-correct-words-log-container {
+  grid-column: 1 / 3;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding: 0.5rem;
+}
+
+.player-correct-words-log {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  height: 100%;
+  min-height: 225px;
+  /* max-height: 269px; */
+  font-family: var(--font-mono);
+  box-sizing: border-box;
+  color: var(--text-muted);
+  border-radius: var(--border-radius);
+  border: 5px solid var(--border-primary);
+  padding: 0.5rem;
+  background: var(--bg-overlay);
+  container-type: inline-size;
+  container-name: word-log;
+}
+
+.player-correct-words-log::-webkit-scrollbar {
+  display: none;
+}
+
+.player-correct-words-log.auto-scroll {
+  overflow-y: hidden;
+}
+
+.player-level-data-grid-container {
+  /* display: grid; */
+  grid-column: 3 / 3;
+  padding: 0.5rem;
+  color: var(--text-muted);
+  width: 100%;
+  height: 100%;
+}
+
+.level-data-container {
+  padding: 0.5rem;
+  border-radius: var(--border-radius);
+  border: 5px solid var(--border-primary);
+  background: var(--bg-overlay);
+  height: 100%;
+}
+
+.level-data-container label {
+  min-width: 100px;
+}
+
+.player-wos-main-grid:has(.iframe-container:empty) {
+  grid-template-columns: 1fr;
+}
+
+.player-wos-main-grid.chat-hidden .level-data-grid-container {
+  grid-column: 1 / -1;
+}
+
+/* player-specific overrides */
+.player-correct-word {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.35rem 0.65rem;
+  font-family: "Fira Code", monospace;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #f5efff;
+}
+
+#player-twitch-chat-widget {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+#player-wos-board-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  position: absolute;
+  /* inset: 0;
+  transform-origin: center center;
+  transform: scale(1.07); */
+}
+
+.hidden-letter-label,
+.hidden-letter {
+  font-size: 2.5rem;
+}
+
+.fake-letter-label,
+.fake-letter {
+  font-size: 2.5rem;
+}
+
+.letters,
+.letters-label {
+  font-size: 2.5rem;
+}
