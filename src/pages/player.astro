@@ -1,5 +1,5 @@
 ---
-import '../styles/wos-plus-streamer.css';
+import '../styles/wos-plus-player.css';
 import WosBaseLayout from '../layouts/WosBaseLayout.astro';
 import Twitch from '../components/Icons/Twitch.astro';
 import SettingsDialog from '../components/SettingsDialog.astro';
@@ -39,11 +39,11 @@ import SettingsDialog from '../components/SettingsDialog.astro';
     </form>
   </SettingsDialog>
 
-  <div class='streamer-wos-main-grid'>
-    <div class='streamer-wos-board-container' id='wos-board'>
-      <iframe id='streamer-wos-board-iframe' src='' loading='lazy'></iframe>
+  <div class='player-wos-main-grid'>
+    <div class='player-wos-board-container' id='wos-board'>
+      <iframe id='player-wos-board-iframe' src='' loading='lazy'></iframe>
     </div>
-    <div class='streamer-channel-data-container'>
+    <div class='player-channel-data-container'>
       <div id='overlay' class='overlay'>
         <div id='level-current' class='level-current'>
           <span id='level-title' class='level-title'>LEVEL</span>
@@ -95,13 +95,13 @@ import SettingsDialog from '../components/SettingsDialog.astro';
         </div>
       </div>
     </div>
-    <div class='streamer-twitch-chat-frame'>
-      <iframe id='streamer-twitch-chat-widget' src=''></iframe>
+    <div class='player-twitch-chat-frame'>
+      <iframe id='player-twitch-chat-widget' src=''></iframe>
     </div>
-    <div class='streamer-bottom-container'>
-      <div id='streamer-correct-words-log-container'>
+    <div class='player-bottom-container'>
+      <div id='player-correct-words-log-container'>
         <span>Correct Words: (* potential words missed)</span>
-        <div id='correct-words-log' class='correct-words-log'>
+        <div id='correct-words-log' class='player-correct-words-log'>
           <!-- <div class='word-group'>
             <div class='word-group__title'>4:</div><div
               class='word-group__words'
@@ -170,7 +170,7 @@ import SettingsDialog from '../components/SettingsDialog.astro';
           </div> -->
         </div>
       </div>
-      <div class='streamer-level-data-grid-container'>
+      <div class='player-level-data-grid-container'>
         <div class='level-data-container'>
           <div>
             <span id='letters-label' class='letters-label'>Letters:</span>
@@ -206,7 +206,7 @@ import SettingsDialog from '../components/SettingsDialog.astro';
     'wos-board'
   ) as HTMLDivElement | null;
   const boardIframe = document.getElementById(
-    'streamer-wos-board-iframe'
+    'player-wos-board-iframe'
   ) as HTMLIFrameElement | null;
   let currentMirrorUrl = '';
   let twitchChannel = 'clarkio';
@@ -351,10 +351,10 @@ import SettingsDialog from '../components/SettingsDialog.astro';
     if (urlParams.has('chat')) {
       const isChatEnabled = urlParams.get('chat')?.toLowerCase() === 'true';
       const twitchChatWidget = document.getElementById(
-        'streamer-twitch-chat-widget'
+        'player-twitch-chat-widget'
       ) as HTMLIFrameElement;
       const grid = document.querySelector(
-        '.streamer-wos-main-grid'
+        '.player-wos-main-grid'
       ) as HTMLElement;
       if (isChatEnabled) {
         twitchChatWidget.style.display = '';
@@ -368,7 +368,7 @@ import SettingsDialog from '../components/SettingsDialog.astro';
     if (urlParams.has('twitchChannel')) {
       twitchChannel = urlParams.get('twitchChannel') || 'clarkio';
       const twitchChatWidget = document.getElementById(
-        'streamer-twitch-chat-widget'
+        'player-twitch-chat-widget'
       ) as HTMLIFrameElement;
       twitchChatWidget.src = `https://www.twitch.tv/embed/${twitchChannel}/chat?darkpopout&parent=${location.hostname}`;
     }
@@ -401,6 +401,33 @@ import SettingsDialog from '../components/SettingsDialog.astro';
 </script>
 
 <style>
+  :global(html, body) {
+    width: 100%;
+    height: 100%;
+  }
+
+  :global(body) {
+    margin: 0;
+  }
+
+  :global(.wrapper) {
+    max-width: 100%;
+    width: 100%;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+  }
+
+  .player-grid {
+    width: min(100%, 100vw, calc(100vh * 16 / 9));
+    max-width: min(100vw, calc(100vh * 16 / 9));
+    max-height: 100vh;
+    aspect-ratio: 16 / 9;
+  }
+
   /* Override wrapper max-width when in widget mode */
   :global(.widget-mode .wrapper) {
     max-width: 100% !important;
