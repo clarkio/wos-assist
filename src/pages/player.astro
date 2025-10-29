@@ -50,6 +50,20 @@ import SettingsDialog from '../components/SettingsDialog.astro';
         </label>
         <small class='form-help'>Toggle Twitch chat visibility</small>
       </div>
+      <div class='form-group'>
+        <label class='toggle-label'>
+          <input
+            type='checkbox'
+            id='wos-enabled-input'
+            name='wosEnabled'
+            class='toggle-input'
+            checked
+          />
+          <span class='toggle-slider'></span>
+          <span class='toggle-text'>Show Words on Stream</span>
+        </label>
+        <small class='form-help'>Toggle the Words on Stream board visibility</small>
+      </div>
     </form>
   </SettingsDialog>
 
@@ -266,6 +280,43 @@ import SettingsDialog from '../components/SettingsDialog.astro';
   // Initialize dialog API reference
   let settingsDialog: any = null;
 
+  const populateSettingsFormFromUrl = (urlParams: URLSearchParams) => {
+    const mirrorUrlInput = document.getElementById(
+      'mirror-url-input'
+    ) as HTMLInputElement | null;
+    const twitchChannelInput = document.getElementById(
+      'twitch-channel-input'
+    ) as HTMLInputElement | null;
+    const chatEnabledInput = document.getElementById(
+      'chat-enabled-input'
+    ) as HTMLInputElement | null;
+    const wosEnabledInput = document.getElementById(
+      'wos-enabled-input'
+    ) as HTMLInputElement | null;
+
+    if (mirrorUrlInput && urlParams.has('mirrorUrl')) {
+      mirrorUrlInput.value = urlParams.get('mirrorUrl') || '';
+    }
+
+    if (twitchChannelInput && urlParams.has('twitchChannel')) {
+      twitchChannelInput.value = urlParams.get('twitchChannel') || '';
+    }
+
+    if (chatEnabledInput) {
+      const chatParam = urlParams.get('chat');
+      chatEnabledInput.checked = chatParam
+        ? chatParam.toLowerCase() === 'true'
+        : true;
+    }
+
+    if (wosEnabledInput) {
+      const boardParam = urlParams.get('board');
+      wosEnabledInput.checked = boardParam
+        ? boardParam.toLowerCase() === 'true'
+        : true;
+    }
+  };
+
   const initializeSettingsDialog = (event?: Event) => {
     const dialog = document.getElementById(
       'player-settings'
@@ -293,6 +344,8 @@ import SettingsDialog from '../components/SettingsDialog.astro';
       }
       // Handle chat enabled toggle
       params.set('chat', data.chatEnabled ? 'true' : 'false');
+      // Handle WoS board visibility toggle
+      params.set('board', data.wosEnabled ? 'true' : 'false');
 
       // Navigate to the updated URL
       const newUrl = window.location.pathname + '?' + params.toString();
@@ -308,23 +361,7 @@ import SettingsDialog from '../components/SettingsDialog.astro';
     // If either parameter is missing, show the settings dialog
     if (!hasMirrorUrl || !hasTwitchChannel) {
       // Pre-populate any existing values
-      if (hasMirrorUrl) {
-        const mirrorUrlInput = document.getElementById(
-          'mirror-url-input'
-        ) as HTMLInputElement;
-        if (mirrorUrlInput) {
-          mirrorUrlInput.value = urlParams.get('mirrorUrl') || '';
-        }
-      }
-
-      if (hasTwitchChannel) {
-        const twitchChannelInput = document.getElementById(
-          'twitch-channel-input'
-        ) as HTMLInputElement;
-        if (twitchChannelInput) {
-          twitchChannelInput.value = urlParams.get('twitchChannel') || '';
-        }
-      }
+      populateSettingsFormFromUrl(urlParams);
 
       // Ensure dialog is ready and set up callbacks before opening
       const attemptOpenDialog = () => {
@@ -380,22 +417,7 @@ import SettingsDialog from '../components/SettingsDialog.astro';
         if (settingsDialog) {
           // Populate current values before opening
           const urlParams = new URLSearchParams(window.location.search);
-          const mirrorUrlInput = document.getElementById('mirror-url-input') as HTMLInputElement;
-          const twitchChannelInput = document.getElementById('twitch-channel-input') as HTMLInputElement;
-          const chatEnabledInput = document.getElementById('chat-enabled-input') as HTMLInputElement;
-          
-          if (mirrorUrlInput && urlParams.has('mirrorUrl')) {
-            mirrorUrlInput.value = urlParams.get('mirrorUrl') || '';
-          }
-          if (twitchChannelInput && urlParams.has('twitchChannel')) {
-            twitchChannelInput.value = urlParams.get('twitchChannel') || '';
-          }
-          if (chatEnabledInput) {
-            // Default to true if not specified
-            const chatParam = urlParams.get('chat');
-            chatEnabledInput.checked = chatParam ? chatParam.toLowerCase() === 'true' : true;
-          }
-          
+          populateSettingsFormFromUrl(urlParams);
           settingsDialog.open();
         }
       });
@@ -403,6 +425,7 @@ import SettingsDialog from '../components/SettingsDialog.astro';
 
     // check for query parameters in the url
     const urlParams = new URLSearchParams(window.location.search);
+    populateSettingsFormFromUrl(urlParams);
 
     // Check if required parameters are present (this will trigger dialog if needed)
     const hasRequiredParams = checkRequiredParams();
