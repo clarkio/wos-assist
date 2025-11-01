@@ -226,8 +226,10 @@ import SettingsDialog from '../components/SettingsDialog.astro';
             <span id='fake-letter' class='fake-letter'></span>
           </div>
           <div>
-            <span id='daily-clear-title'>Today's Clears:</span>
-            <span id='daily-clear-value'></span>
+            <span id='daily-clear-title' class='daily-clear-title'
+              >Today's Clears:</span
+            >
+            <span id='daily-clear-value' class='daily-clear-value'></span>
           </div>
           <div>
             <span class=''>Made by: <Twitch /> clarkio</span>
@@ -365,7 +367,9 @@ import SettingsDialog from '../components/SettingsDialog.astro';
 
       // Ensure dialog is ready and set up callbacks before opening
       const attemptOpenDialog = () => {
-        const dialog = document.getElementById('player-settings') as HTMLDialogElement;
+        const dialog = document.getElementById(
+          'player-settings'
+        ) as HTMLDialogElement;
         if (dialog && (dialog as any).__api) {
           settingsDialog = (dialog as any).__api;
           setupDialogCallbacks();
@@ -375,7 +379,7 @@ import SettingsDialog from '../components/SettingsDialog.astro';
           setTimeout(attemptOpenDialog, 50);
         }
       };
-      
+
       setTimeout(attemptOpenDialog, 100);
 
       return false;
@@ -388,9 +392,11 @@ import SettingsDialog from '../components/SettingsDialog.astro';
   const initializePage = () => {
     // Reset dialog reference on each navigation
     settingsDialog = null;
-    
+
     // Initialize settings dialog
-    const dialog = document.getElementById('player-settings') as HTMLDialogElement;
+    const dialog = document.getElementById(
+      'player-settings'
+    ) as HTMLDialogElement;
     if (dialog) {
       // Try to get the API immediately if it exists
       if ((dialog as any).__api) {
@@ -398,10 +404,14 @@ import SettingsDialog from '../components/SettingsDialog.astro';
         setupDialogCallbacks();
       } else {
         // If not ready yet, wait for the event
-        dialog.addEventListener('dialog-ready', (event) => {
-          initializeSettingsDialog(event);
-          setupDialogCallbacks();
-        }, { once: true });
+        dialog.addEventListener(
+          'dialog-ready',
+          (event) => {
+            initializeSettingsDialog(event);
+            setupDialogCallbacks();
+          },
+          { once: true }
+        );
       }
     }
 

@@ -71,7 +71,7 @@
   grid-column: span 5 / span 5;
   grid-row-start: 4;
   display: grid;
-  grid-template-columns:  repeat(3, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(1, 1fr);
   /* display: flex;
   flex-direction: row; */
@@ -132,7 +132,7 @@
   overflow: visible;
 }
 
-.level-data-container > div {
+.level-data-container>div {
   display: flex;
   flex-wrap: nowrap;
   gap: 0.25rem;
@@ -147,14 +147,16 @@
 
 .letters-label,
 .hidden-letter-label,
-.fake-letter-label {
+.fake-letter-label,
+.daily-clear-label {
   flex-shrink: 1;
   white-space: nowrap;
 }
 
 .letters,
 .hidden-letter,
-.fake-letter {
+.fake-letter,
+.daily-clear-value {
   flex-shrink: 1;
   white-space: nowrap;
   min-width: 0;
@@ -163,7 +165,7 @@
 .made-by {
   white-space: nowrap;
   overflow: hidden;
-  font-size: clamp(1.85rem, 1.5vw, 1rem);
+  font-size: clamp(1.75rem, 1.5vw, 1rem);
 }
 
 .daily-clear-container {
@@ -219,47 +221,58 @@
 
 .hidden-letter-label,
 .fake-letter-label,
-.letters-label {
+.letters-label,
+.daily-clear-label {
   font-size: clamp(1rem, 2vw, 1.5rem);
   flex-shrink: 0;
 }
 
 .hidden-letter,
 .fake-letter,
-.letters {
+.letters,
+.daily-clear-label {
   font-size: clamp(0.9rem, 2vw, 2.5rem);
 }
 
 /* More aggressive scaling for narrower containers */
 @container level-data (max-width: 350px) {
+
   .hidden-letter-label,
   .hidden-letter,
   .fake-letter-label,
   .fake-letter,
   .letters,
-  .letters-label {
+  .letters-label,
+  .daily-clear-label,
+  .daily-clear-value {
     font-size: clamp(0.4rem, 2.5cqi, 1.8rem);
   }
 }
 
 @container level-data (max-width: 280px) {
+
   .hidden-letter-label,
   .hidden-letter,
   .fake-letter-label,
   .fake-letter,
   .letters,
-  .letters-label {
+  .letters-label,
+  .daily-clear-label,
+  .daily-clear-value {
     font-size: clamp(0.35rem, 2cqi, 1.2rem);
   }
 }
 
 @container level-data (max-width: 200px) {
+
   .hidden-letter-label,
   .hidden-letter,
   .fake-letter-label,
   .fake-letter,
   .letters,
-  .letters-label {
+  .letters-label,
+  .daily-clear-label,
+  .daily-clear-value {
     font-size: clamp(0.3rem, 1.5cqi, 0.9rem);
   }
 }
@@ -269,31 +282,36 @@
   .level-data-container {
     gap: 0.35rem;
   }
-  
+
   .hidden-letter-label,
   .fake-letter-label,
-  .letters-label {
+  .letters-label,
+  .daily-clear-label,
+  .daily-clear-value {
     font-size: clamp(0.95rem, 1.8vw, 1.4rem);
   }
-  
+
   .hidden-letter,
   .fake-letter,
   .letters {
     font-size: clamp(0.85rem, 1.6vw, 2rem);
   }
-  
+
   .daily-clear-container {
     font-size: clamp(0.7rem, 1.25vw, 0.9rem);
   }
 }
 
 @media (max-width: 1440px) {
+
   .hidden-letter-label,
   .fake-letter-label,
-  .letters-label {
+  .letters-label,
+  .daily-clear-label,
+  .daily-clear-value {
     font-size: clamp(0.9rem, 1.6vw, 1.3rem);
   }
-  
+
   .hidden-letter,
   .fake-letter,
   .letters {
@@ -302,12 +320,15 @@
 }
 
 @media (max-width: 1280px) {
+
   .hidden-letter-label,
   .fake-letter-label,
-  .letters-label {
+  .letters-label,
+  .daily-clear-label,
+  .daily-clear-value {
     font-size: clamp(0.85rem, 1.5vw, 1.2rem);
   }
-  
+
   .hidden-letter,
   .fake-letter,
   .letters {
@@ -320,19 +341,21 @@
     font-size: 0.9rem;
     gap: 0.3rem;
   }
-  
+
   .hidden-letter-label,
   .fake-letter-label,
-  .letters-label {
+  .letters-label,
+  .daily-clear-label,
+  .daily-clear-value {
     font-size: clamp(0.8rem, 1.4vw, 1.1rem);
   }
-  
+
   .hidden-letter,
   .fake-letter,
   .letters {
     font-size: clamp(0.7rem, 1.2vw, 1.4rem);
   }
-  
+
   .daily-clear-container {
     font-size: clamp(0.65rem, 1.1vw, 0.85rem);
   }
@@ -343,19 +366,21 @@
     font-size: 0.8rem;
     gap: 0.25rem;
   }
-  
+
   .hidden-letter-label,
   .fake-letter-label,
-  .letters-label {
+  .letters-label,
+  .daily-clear-label,
+  .daily-clear-value {
     font-size: clamp(0.75rem, 1.3vw, 1rem);
   }
-  
+
   .hidden-letter,
   .fake-letter,
   .letters {
     font-size: clamp(0.65rem, 1.1vw, 1.2rem);
   }
-  
+
   .daily-clear-container {
     font-size: clamp(0.6rem, 1vw, 0.8rem);
   }
@@ -366,23 +391,25 @@
     padding: 0.25rem;
     gap: 0.2rem;
   }
-  
-  .level-data-container > div {
+
+  .level-data-container>div {
     gap: 0.125rem;
   }
-  
+
   .hidden-letter-label,
   .fake-letter-label,
-  .letters-label {
+  .letters-label,
+  .daily-clear-label,
+  .daily-clear-value {
     font-size: clamp(0.7rem, 1.2vw, 0.9rem);
   }
-  
+
   .hidden-letter,
   .fake-letter,
   .letters {
     font-size: clamp(0.6rem, 1vw, 1rem);
   }
-  
+
   .daily-clear-container {
     font-size: clamp(0.55rem, 0.9vw, 0.75rem);
   }
