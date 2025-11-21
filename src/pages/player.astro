@@ -129,6 +129,23 @@ import SettingsDialog from '../components/SettingsDialog.astro';
             </span>
             <span id='daily-pb-value' class='level-record-value'></span>
           </div>
+          <div class='level-record'>
+            <span class='icon'>
+              <svg
+                xmlns='http://www.w3.org/2000/svg'
+                width='75%'
+                height='75%'
+                viewBox='0 0 24 24'
+                preserveAspectRatio='xMidYMid meet'
+                fill='currentcolor'
+              >
+                <path
+                  d='M19.36 2.72L20.78 4.14L15.06 9.85C16.13 11.39 16.28 13.24 15.38 14.44L9.06 8.12C10.26 7.22 12.11 7.37 13.65 8.44L19.36 2.72M5.93 17.57C3.92 15.56 2.69 13.16 2.35 10.92L7.23 8.83L14.67 16.27L12.58 21.15C10.34 20.81 7.94 19.58 5.93 17.57Z'
+                ></path>
+              </svg>
+            </span>
+            <span id='daily-clear-value' class='level-record-value'></span>
+          </div>
         </div>
       </div>
     </div>
@@ -224,12 +241,6 @@ import SettingsDialog from '../components/SettingsDialog.astro';
               >Fake Letters:</span
             >
             <span id='fake-letter' class='fake-letter'></span>
-          </div>
-          <div>
-            <span id='daily-clear-title' class='daily-clear-title'
-              >Today's Clears:</span
-            >
-            <span id='daily-clear-value' class='daily-clear-value'></span>
           </div>
           <div>
             <span class='made-by'>Made by: <Twitch /> clarkio</span>

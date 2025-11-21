@@ -92,13 +92,6 @@
   display: none;
 }
 
-.daily-clear-container {
-  margin-top: auto;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
 .made-by {
   display: block;
   text-align: right;

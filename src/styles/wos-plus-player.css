@@ -168,16 +168,14 @@
 
 .letters-label,
 .hidden-letter-label,
-.fake-letter-label,
-.daily-clear-label {
+.fake-letter-label {
   flex-shrink: 1;
   white-space: nowrap;
 }
 
 .letters,
 .hidden-letter,
-.fake-letter,
-.daily-clear-value {
+.fake-letter {
   flex-shrink: 1;
   white-space: nowrap;
   min-width: 0;
@@ -187,24 +185,6 @@
   white-space: nowrap;
   overflow: hidden;
   font-size: clamp(1.75rem, 1.5vw, 1rem);
-}
-
-.daily-clear-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.25rem;
-  align-items: center;
-  font-size: clamp(0.75rem, 1.5vw, 1rem);
-  width: 100%;
-  margin-top: auto;
-}
-
-#daily-clear-title {
-  white-space: nowrap;
-}
-
-#daily-clear-value {
-  font-weight: bold;
 }
 
 .player-wos-main-grid:has(.iframe-container:empty) {
@@ -242,16 +222,14 @@
 
 .hidden-letter-label,
 .fake-letter-label,
-.letters-label,
-.daily-clear-label {
+.letters-label {
   font-size: clamp(0.8rem, 4cqi, 1.75rem);
   flex-shrink: 0;
 }
 
 .hidden-letter,
 .fake-letter,
-.letters,
-.daily-clear-label {
+.letters {
   font-size: clamp(1rem, 7cqi, 3.5rem);
   line-height: 1.2;
 }
@@ -260,8 +238,7 @@
 @container level-data (max-width: 400px) {
   .hidden-letter-label,
   .fake-letter-label,
-  .letters-label,
-  .daily-clear-label {
+  .letters-label {
     font-size: clamp(0.7rem, 5cqi, 1.2rem);
   }
 
