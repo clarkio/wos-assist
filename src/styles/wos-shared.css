@@ -1,9 +1,9 @@
 /* WOS Shared Components - Reusable styles for Words on Stream components */
-@import './base.css';
+@import "./base.css";
 
 /* Font Imports */
-@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
 
 /* Base WOS Styles */
 html {
@@ -49,7 +49,7 @@ body {
   height: 100%;
   min-height: 225px;
   /* max-height: 269px; */
-  width: 1275px;
+  width: 100%;
   font-family: var(--font-mono);
   box-sizing: border-box;
   color: var(--text-muted);
@@ -116,7 +116,7 @@ body {
   padding-right: 0.5rem;
   font-family: var(--font-code);
   /* font-size: 2.0rem; */
-  font-size: clamp(1.75rem, 3cqi, 2.75rem); /* Scales based on container width */
+  font-size: clamp(1rem, 3cqi, 2.75rem); /* Scales based on container width */
   font-weight: 600;
   letter-spacing: 0.08em;
   color: var(--text-lightest);
@@ -141,9 +141,9 @@ body {
 .level-data-container > div:not(#correct-words-log-container) {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  white-space: nowrap;
-  overflow: hidden;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  width: 100%;
 }
 
 /* Overlay Components */
@@ -155,16 +155,16 @@ body {
 }
 
 .level-current {
-  background: #000; 
+  background: #000;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-size: 1.5rem;
+  font-size: clamp(1rem, 2vw, 1.5rem);
   box-sizing: border-box;
   border: 0.1875rem solid #fff;
   border-radius: 0.75rem;
-  padding: 0 1rem;
+  padding: 0.5rem 1rem;
   width: fit-content;
   min-width: 7.5rem;
   transition: width 0.2s;
@@ -172,7 +172,7 @@ body {
 }
 
 .level-title {
-  font-size: 1rem;
+  font-size: 0.8em;
   font-weight: 900;
   letter-spacing: 0.1ch;
   text-align: center;
@@ -180,11 +180,11 @@ body {
 }
 
 .level-title.long {
-  font-size: 0.6rem;
+  font-size: 0.6em;
 }
 
 .level-value {
-  font-size: 2.25rem;
+  font-size: 1.5em;
   font-weight: 700;
 }
 
@@ -197,7 +197,7 @@ body {
 
 .level-record {
   background: #000;
-  font-size: 1.25rem;
+  font-size: clamp(0.8rem, 1.5vw, 1.25rem);
   display: flex;
   align-items: center;
   justify-content: space-between;

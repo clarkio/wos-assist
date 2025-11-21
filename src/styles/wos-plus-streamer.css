@@ -7,8 +7,10 @@
   grid-template-columns: 1fr 1fr 1fr 0.5fr 0.5fr;
   grid-template-rows: 0.25fr 1fr 1fr 1fr;
   gap: 5px;
-  width: 1920px;
-  height: 1080px;
+  width: 100vw;
+  height: 100vh;
+  max-height: 100vh;
+  overflow: hidden;
 }
 
 .streamer-wos-board-container {
@@ -16,6 +18,8 @@
   grid-row: span 3 / span 3;
   position: relative;
   overflow: hidden;
+  border-radius: var(--border-radius);
+  background: #000;
 }
 
 .streamer-channel-data-container {
@@ -24,6 +28,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  background: var(--bg-overlay);
+  border-radius: var(--border-radius);
+  border: 5px solid var(--border-primary);
 }
 
 .streamer-twitch-chat-frame {
@@ -31,32 +38,38 @@
   grid-row: span 2 / span 2;
   grid-column-start: 4;
   grid-row-start: 2;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  background: var(--bg-overlay);
+  border: 5px solid var(--border-primary);
 }
 
 .streamer-bottom-container {
   grid-column: span 5 / span 5;
   grid-row-start: 4;
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 5px;
+  overflow: hidden;
 }
 
 #streamer-correct-words-log-container {
   display: flex;
   flex-direction: column;
   gap: 0.2rem;
-  padding: 0.5rem;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
 }
 
 .streamer-level-data-grid-container {
-  display: grid;
-  grid-column: span 2 / span 2;
-  padding: 0.5rem;
+  display: block;
+  grid-column: auto;
+  padding: 0;
   color: var(--text-muted);
-  /* border-radius: var(--border-radius);
-  border: 5px solid var(--border-primary); */
   width: 100%;
   height: 100%;
-  /* max-height: 313px; */
+  overflow: hidden;
 }
 
 .level-data-container {
@@ -64,10 +77,37 @@
   border-radius: var(--border-radius);
   border: 5px solid var(--border-primary);
   background: var(--bg-overlay);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 0.5rem;
+  box-sizing: border-box;
+  container-type: inline-size;
+  container-name: level-data;
+  overflow-y: auto;
+}
+
+.level-data-container::-webkit-scrollbar {
+  display: none;
+}
+
+.daily-clear-container {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.made-by {
+  display: block;
+  text-align: right;
+  font-size: 0.8em;
+  opacity: 0.8;
 }
 
 .level-data-container label {
-  min-width: 100px;
+  min-width: auto;
 }
 
 .streamer-wos-main-grid:has(.iframe-container:empty) {
@@ -107,21 +147,60 @@
 }
 
 .hidden-letter-label,
-.hidden-letter {
-  font-size: 2.5rem;
-}
-
+.hidden-letter,
 .fake-letter-label,
-.fake-letter {
-  font-size: 2.5rem;
-}
-
+.fake-letter,
 .letters,
 .letters-label {
-  font-size: 2.5rem;
+  font-size: clamp(1rem, 6cqi, 4rem);
+  line-height: 1.2;
 }
 
 /* Level current override for streamer page */
 .level-current {
-  height: 5.25rem;
+  height: auto;
+  padding: 0.5rem 1rem;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 1024px) {
+  .streamer-wos-main-grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto auto auto;
+    height: auto;
+    overflow-y: auto;
+  }
+
+  .streamer-wos-board-container {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    aspect-ratio: 16/9;
+  }
+
+  .streamer-channel-data-container {
+    grid-column: 1 / 2;
+    grid-row: 2;
+    height: 150px;
+  }
+
+  .streamer-twitch-chat-frame {
+    grid-column: 2 / 3;
+    grid-row: 2;
+    height: 150px;
+  }
+
+  .streamer-bottom-container {
+    grid-column: 1 / -1;
+    grid-row: 3;
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+
+  #streamer-correct-words-log-container {
+    height: 300px;
+  }
+
+  .streamer-level-data-grid-container {
+    height: auto;
+  }
 }
