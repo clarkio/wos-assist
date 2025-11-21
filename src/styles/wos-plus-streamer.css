@@ -97,6 +97,7 @@
   text-align: right;
   font-size: 0.8em;
   opacity: 0.8;
+  margin-top: auto;
 }
 
 .level-data-container label {

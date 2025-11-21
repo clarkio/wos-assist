@@ -149,13 +149,13 @@
   display: none;
 }
 
-.level-data-container > div:nth-last-child(2) {
+.level-data-container > div:last-child {
   margin-top: auto;
 }
 
 .level-data-container > div {
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   gap: 0.25rem;
   align-items: center;
   min-width: 0;
@@ -221,16 +221,12 @@
 }
 
 .hidden-letter-label,
-.fake-letter-label,
-.letters-label {
-  font-size: clamp(0.8rem, 4cqi, 1.75rem);
-  flex-shrink: 0;
-}
-
 .hidden-letter,
+.fake-letter-label,
 .fake-letter,
-.letters {
-  font-size: clamp(1rem, 7cqi, 3.5rem);
+.letters,
+.letters-label {
+  font-size: clamp(1rem, 6cqi, 4rem);
   line-height: 1.2;
 }
 
