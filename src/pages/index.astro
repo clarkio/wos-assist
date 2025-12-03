@@ -292,10 +292,14 @@ import Twitch from "../components/Icons/Twitch.astro";
 </WosBaseLayout>
 
 <style>
+  /* Landing Page Styles */
   .landing-page {
     min-height: 100vh;
     overflow-x: hidden;
-    background-color: var(--bg-dark);
+    background-color: var(--bg-primary);
+    background-image: 
+      radial-gradient(circle at 15% 50%, rgba(139, 92, 246, 0.08), transparent 25%),
+      radial-gradient(circle at 85% 30%, rgba(236, 72, 153, 0.08), transparent 25%);
   }
 
   /* Header */
@@ -303,9 +307,10 @@ import Twitch from "../components/Icons/Twitch.astro";
     position: sticky;
     top: 0;
     z-index: 100;
-    background: rgba(22, 22, 37, 0.8);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(15, 15, 26, 0.7);
+    backdrop-filter: blur(var(--backdrop-blur));
+    -webkit-backdrop-filter: blur(var(--backdrop-blur));
+    border-bottom: 1px solid var(--glass-border);
   }
 
   .header-content {
@@ -323,26 +328,11 @@ import Twitch from "../components/Icons/Twitch.astro";
     gap: 0.75rem;
   }
 
-  .logo {
-    width: 40px;
-    height: 40px;
-  }
-
-  .logo.small {
-    width: 32px;
-    height: 32px;
-  }
-
-  .brand-name {
+  .brand-name, #brand-name {
     font-size: 1.5rem;
     font-weight: 700;
-    color: rgba(255, 255, 255, 0.9);
-  }
-
-  #brand-name {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: rgba(255, 255, 255, 0.9);
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
   }
 
   .brand-name.small {
@@ -350,21 +340,15 @@ import Twitch from "../components/Icons/Twitch.astro";
   }
 
   .brand-name .plus {
-    color: #8b5cf6;
+    color: var(--accent-purple);
     font-weight: 800;
-  }
-
-  .nav {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
   }
 
   /* Hero Section */
   .hero {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 4rem 2rem;
+    padding: 6rem 2rem;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 4rem;
@@ -384,44 +368,46 @@ import Twitch from "../components/Icons/Twitch.astro";
     gap: 0.5rem;
     padding: 0.5rem 1rem;
     background: rgba(139, 92, 246, 0.1);
-    border: 1px solid rgba(139, 92, 246, 0.3);
+    border: 1px solid rgba(139, 92, 246, 0.2);
     border-radius: 2rem;
     font-size: 0.875rem;
     font-weight: 500;
-    color: #8b5cf6;
+    color: var(--accent-purple);
     width: fit-content;
+    backdrop-filter: blur(4px);
   }
 
   .hero-title {
-    font-size: 3.5rem;
+    font-size: clamp(3rem, 5vw, 4.5rem);
     font-weight: 800;
     line-height: 1.1;
     margin: 0;
-    color: rgba(255, 255, 255, 0.95);
+    color: var(--text-primary);
+    letter-spacing: -0.03em;
   }
 
   .gradient-text {
-    background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+    background: linear-gradient(135deg, var(--accent-purple) 0%, var(--accent-pink) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    font-size: 4.5rem;
+    font-size: inherit;
     margin-left: 0.25rem;
-    vertical-align: baseline;
-    line-height: 1;
   }
 
   .hero-subtitle {
     font-size: 1.25rem;
     line-height: 1.6;
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--text-secondary);
     margin: 0;
+    max-width: 540px;
   }
 
   .hero-cta {
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
+    margin-top: 1rem;
   }
 
   /* Launch Menu */
@@ -445,21 +431,22 @@ import Twitch from "../components/Icons/Twitch.astro";
 
   .launch-menu-dropdown {
     position: absolute;
-    top: calc(100% + 0.5rem);
+    top: calc(100% + 0.75rem);
     left: 0;
-    min-width: 280px;
-    background: #1e1e2e;
-    border: 1px solid rgba(139, 92, 246, 0.3);
-    border-radius: 0.75rem;
-    box-shadow:
-      0 10px 25px rgba(0, 0, 0, 0.3),
-      0 0 0 1px rgba(139, 92, 246, 0.1);
+    min-width: 300px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--backdrop-blur));
+    -webkit-backdrop-filter: blur(var(--backdrop-blur));
+    border: 1px solid var(--glass-border);
+    border-radius: 1rem;
+    box-shadow: var(--glass-shadow);
     opacity: 0;
     visibility: hidden;
     transform: translateY(-0.5rem);
-    transition: all 0.2s ease;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     z-index: 100;
     overflow: hidden;
+    padding: 0.5rem;
   }
 
   .launch-menu-dropdown.show {
@@ -472,46 +459,44 @@ import Twitch from "../components/Icons/Twitch.astro";
     display: flex;
     align-items: flex-start;
     gap: 1rem;
-    padding: 1rem 1.25rem;
+    padding: 1rem;
     text-decoration: none;
-    color: rgba(255, 255, 255, 0.9);
+    color: var(--text-primary);
     transition: all 0.2s ease;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  }
-
-  .launch-menu-item:last-child {
-    border-bottom: none;
+    border-radius: 0.75rem;
   }
 
   .launch-menu-item:hover {
-    background: rgba(139, 92, 246, 0.1);
+    background: rgba(255, 255, 255, 0.05);
   }
 
   .launch-menu-item svg {
     flex-shrink: 0;
     margin-top: 0.125rem;
+    color: var(--accent-purple);
   }
 
   .launch-menu-title {
     font-weight: 600;
     font-size: 1rem;
     margin-bottom: 0.25rem;
-    color: rgba(255, 255, 255, 0.95);
+    color: var(--text-primary);
   }
 
   .launch-menu-desc {
     font-size: 0.875rem;
-    color: rgba(255, 255, 255, 0.5);
-    line-height: 1.3;
+    color: var(--text-muted);
+    line-height: 1.4;
   }
 
   /* Buttons */
   .btn {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 0.5rem;
     padding: 0.875rem 1.75rem;
-    border-radius: 0.5rem;
+    border-radius: 0.75rem;
     font-weight: 600;
     font-size: 1rem;
     text-decoration: none;
@@ -521,146 +506,192 @@ import Twitch from "../components/Icons/Twitch.astro";
   }
 
   .btn-primary {
-    background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+    background: linear-gradient(135deg, var(--accent-purple) 0%, #7c3aed 100%);
     color: white;
     box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
   }
 
   .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
+    box-shadow: 0 8px 24px rgba(139, 92, 246, 0.4);
   }
 
   .btn-secondary {
-    background: transparent;
-    color: #8b5cf6;
-    border: 2px solid #8b5cf6;
+    background: rgba(255, 255, 255, 0.03);
+    color: var(--text-primary);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(4px);
   }
 
   .btn-secondary:hover {
-    background: rgba(139, 92, 246, 0.1);
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
   }
 
   .btn-large {
-    padding: 1.125rem 2.25rem;
+    padding: 1.125rem 2.5rem;
     font-size: 1.125rem;
   }
 
   /* Hero Visual */
   .hero-visual {
     position: relative;
-    height: 400px;
+    height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero-visual::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, rgba(139, 92, 246, 0.15) 0%, transparent 70%);
+    filter: blur(40px);
+    z-index: -1;
   }
 
   .floating-card {
     position: absolute;
-    background: #1e1e2e;
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--backdrop-blur));
+    -webkit-backdrop-filter: blur(var(--backdrop-blur));
     padding: 1.25rem 1.5rem;
     border-radius: 1rem;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
     display: flex;
     align-items: center;
     gap: 1rem;
-    animation: float 3s ease-in-out infinite;
+    animation: float 6s ease-in-out infinite;
   }
 
   .card-icon {
     font-size: 2rem;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
   }
 
   .card-text {
     font-weight: 600;
-    color: rgba(255, 255, 255, 0.9);
+    color: var(--text-primary);
+    font-size: 1.125rem;
   }
 
   .card-1 {
-    top: 20%;
-    left: 10%;
+    top: 15%;
+    left: 5%;
     animation-delay: 0s;
+    z-index: 2;
   }
 
   .card-2 {
-    top: 50%;
-    right: 5%;
-    animation-delay: 1s;
+    top: 45%;
+    right: 0%;
+    animation-delay: 2s;
+    z-index: 3;
+    background: rgba(30, 30, 46, 0.85);
   }
 
   .card-3 {
     bottom: 15%;
-    left: 20%;
-    animation-delay: 2s;
+    left: 15%;
+    animation-delay: 4s;
+    z-index: 1;
   }
 
   @keyframes float {
-    0%,
-    100% {
-      transform: translateY(0px);
-    }
-    50% {
-      transform: translateY(-20px);
-    }
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
   }
 
   /* Features Section */
   .features {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 6rem 2rem;
+    padding: 8rem 2rem;
   }
 
   .section-header {
     text-align: center;
-    margin-bottom: 4rem;
+    margin-bottom: 5rem;
   }
 
   .section-title {
-    font-size: 2.5rem;
+    font-size: clamp(2rem, 4vw, 3rem);
     font-weight: 700;
     margin: 0 0 1rem 0;
-    color: rgba(255, 255, 255, 0.95);
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
   }
 
   .section-subtitle {
     font-size: 1.125rem;
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--text-secondary);
     margin: 0;
+    max-width: 600px;
+    margin-inline: auto;
   }
 
   .features-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
     gap: 2rem;
   }
 
   .feature-card {
-    padding: 2rem;
-    background: #1e1e2e;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 1rem;
+    padding: 2.5rem;
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--backdrop-blur));
+    -webkit-backdrop-filter: blur(var(--backdrop-blur));
+    border: 1px solid var(--glass-border);
+    border-radius: 1.5rem;
     transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, transparent 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
   }
 
   .feature-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    border-color: rgba(139, 92, 246, 0.3);
+  }
+
+  .feature-card:hover::before {
+    opacity: 1;
   }
 
   .feature-icon {
     font-size: 3rem;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    display: inline-block;
   }
 
   .feature-title {
-    font-size: 1.25rem;
-    font-weight: 600;
-    margin: 0 0 0.75rem 0;
-    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0 0 1rem 0;
+    color: var(--text-primary);
   }
 
   .feature-description {
     font-size: 1rem;
     line-height: 1.6;
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--text-secondary);
     margin: 0;
   }
 
@@ -675,100 +706,136 @@ import Twitch from "../components/Icons/Twitch.astro";
       rgba(236, 72, 153, 0.05) 100%
     );
     border-radius: 2rem;
+    border: 1px solid var(--glass-border);
   }
 
   .steps {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
-    gap: 2rem;
+    gap: 3rem;
     flex-wrap: wrap;
+    margin-top: 4rem;
   }
 
   .step {
     flex: 1;
     min-width: 250px;
     text-align: center;
+    position: relative;
   }
 
   .step-number {
-    width: 60px;
-    height: 60px;
+    width: 64px;
+    height: 64px;
     margin: 0 auto 1.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+    background: linear-gradient(135deg, var(--accent-purple) 0%, #7c3aed 100%);
     color: white;
     font-size: 1.5rem;
     font-weight: 700;
     border-radius: 50%;
+    box-shadow: 0 8px 16px rgba(139, 92, 246, 0.3);
+    position: relative;
+    z-index: 2;
   }
 
   .step-connector {
-    width: 60px;
-    height: 2px;
-    background: linear-gradient(90deg, #8b5cf6 0%, #ec4899 100%);
-    margin-top: -100px;
+    display: none; /* Hidden on mobile */
+  }
+
+  @media (min-width: 900px) {
+    .step-connector {
+      display: block;
+      width: 100px;
+      height: 2px;
+      background: linear-gradient(90deg, rgba(139, 92, 246, 0.3) 0%, rgba(236, 72, 153, 0.3) 100%);
+      margin-top: 32px;
+    }
   }
 
   .step-title {
     font-size: 1.25rem;
-    font-weight: 600;
+    font-weight: 700;
     margin: 0 0 0.75rem 0;
-    color: rgba(255, 255, 255, 0.9);
+    color: var(--text-primary);
   }
 
   .step-description {
     font-size: 1rem;
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--text-secondary);
     margin: 0;
+    line-height: 1.5;
   }
 
   /* CTA Section */
   .cta-section {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 6rem 2rem;
+    padding: 8rem 2rem;
   }
 
   .cta-content {
     text-align: center;
-    padding: 4rem 2rem;
-    background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+    padding: 5rem 2rem;
+    background: linear-gradient(135deg, var(--accent-purple) 0%, var(--accent-pink) 100%);
     border-radius: 2rem;
     color: white;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(139, 92, 246, 0.3);
+  }
+
+  .cta-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
   }
 
   .cta-title {
-    color: rgba(255, 255, 255, 0.9);
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin: 0 0 1rem 0;
+    color: white;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    margin: 0 0 1.5rem 0;
+    position: relative;
+    z-index: 1;
   }
 
   .cta-subtitle {
     color: rgba(255, 255, 255, 0.9);
-    font-size: 1.125rem;
-    margin: 0 0 2rem 0;
-    opacity: 0.9;
+    font-size: 1.25rem;
+    margin: 0 auto 2.5rem auto;
+    max-width: 600px;
+    position: relative;
+    z-index: 1;
   }
 
   .cta-content .btn-primary {
     background: white;
-    color: #8b5cf6;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    color: var(--accent-purple);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    position: relative;
+    z-index: 1;
+    border: none;
   }
 
   .cta-content .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+    background: white;
   }
 
   /* Footer */
   .footer {
-    background: #0f0f1a;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    background: var(--bg-dark);
+    border-top: 1px solid var(--glass-border);
+    padding-top: 2rem;
   }
 
   .footer-content {
@@ -787,7 +854,7 @@ import Twitch from "../components/Icons/Twitch.astro";
 
   .footer-tagline {
     margin: 1rem 0 0 0;
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--text-muted);
     font-size: 0.875rem;
   }
 
@@ -798,9 +865,8 @@ import Twitch from "../components/Icons/Twitch.astro";
   }
 
   .footer-link {
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--text-secondary);
     text-decoration: none;
-    font-weight: 500;
     transition: color 0.2s ease;
     display: flex;
     align-items: center;
@@ -808,32 +874,66 @@ import Twitch from "../components/Icons/Twitch.astro";
   }
 
   .footer-link:hover {
-    color: #8b5cf6;
+    color: var(--accent-purple);
   }
 
   .footer-bottom {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 1.5rem 2rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
     text-align: center;
-  }
-
-  .footer-bottom p {
-    margin: 0;
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--text-muted);
     font-size: 0.875rem;
   }
 
   .footer-bottom a {
-    color: #8b5cf6;
+    color: var(--accent-purple);
     text-decoration: none;
-    font-weight: 600;
   }
 
-  .footer-bottom a:hover {
-    text-decoration: underline;
+  /* Responsive Adjustments */
+  @media (max-width: 768px) {
+    .hero {
+      grid-template-columns: 1fr;
+      text-align: center;
+      padding: 4rem 1.5rem;
+      gap: 3rem;
+    }
+
+    .hero-content {
+      align-items: center;
+    }
+
+    .hero-subtitle {
+      margin: 0 auto;
+    }
+
+    .hero-cta {
+      justify-content: center;
+    }
+
+    .hero-visual {
+      height: 300px;
+    }
+
+    .card-1 { left: 0; }
+    .card-2 { right: 0; }
+    .card-3 { left: 10%; }
+
+    .header-content {
+      padding: 1rem;
+    }
+
+    .features {
+      padding: 4rem 1.5rem;
+    }
+
+    .cta-section {
+      padding: 4rem 1.5rem;
+    }
   }
+
 
   /* Responsive Design */
   @media (max-width: 968px) {

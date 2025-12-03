@@ -3,36 +3,41 @@
 /* CSS Custom Properties */
 :root {
   /* Colors */
-  --bg-primary: #420072;
-  --bg-secondary: #7736c6;
-  --bg-tertiary: #4b1a81;
-  --bg-dark: #161625;
-  --bg-overlay: rgba(12, 0, 28, 0.9);
+  --bg-primary: #0f0f1a; /* Deep dark purple/black */
+  --bg-secondary: #1e1e2e; /* Slightly lighter for cards */
+  --bg-tertiary: #2d2d44; /* Inputs/secondary elements */
+  --bg-dark: #0a0a12; /* Darkest background */
+  --bg-overlay: rgba(15, 15, 26, 0.8); /* Glassmorphism base */
   
-  --text-primary: #dacfe6;
-  --text-secondary: #ddcdf1;
-  --text-light: #f2e8ff;
-  --text-lightest: #f5efff;
-  --text-muted: #e1e4e8;
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.7);
+  --text-light: #e2e8f0;
+  --text-lightest: #f8fafc;
+  --text-muted: rgba(255, 255, 255, 0.5);
   
-  --border-primary: rgba(199, 156, 255, 0.4);
-  --border-secondary: rgba(199, 156, 255, 0.2);
+  --border-primary: rgba(139, 92, 246, 0.3); /* Purple border */
+  --border-secondary: rgba(255, 255, 255, 0.1);
   
-  --accent-purple: #410071;
-  --accent-violet: #c79cff;
+  --accent-purple: #8b5cf6; /* Vibrant purple */
+  --accent-violet: #c084fc; /* Lighter violet */
+  --accent-pink: #ec4899; /* Pink accent for gradients */
   
   /* Missing word colors */
-  --missing-bg: rgba(217, 84, 144, 0.2);
-  --missing-border: rgba(255, 99, 146, 0.65);
-  --missing-text: #ff9ebb;
+  --missing-bg: rgba(236, 72, 153, 0.2);
+  --missing-border: rgba(236, 72, 153, 0.5);
+  --missing-text: #fbcfe8;
   
   /* Fonts */
   --font-main: 'Inter', sans-serif;
   --font-mono: 'Share Tech Mono', monospace;
   --font-code: 'Fira Code', monospace;
   
-  /* Spacing */
-  --border-radius: 8px;
+  /* Spacing & Effects */
+  --border-radius: 12px;
+  --glass-bg: rgba(30, 30, 46, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  --backdrop-blur: 12px;
 }
 
 /* Base HTML Elements */
