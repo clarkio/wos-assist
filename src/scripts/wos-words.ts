@@ -120,3 +120,124 @@ function findWosWordsByLetters(letters: string, length?: number): string[] {
   // Sort words by length (descending)
   return possibleWords.sort((a, b) => b.length - a.length);
 }
+
+/**
+ * Checks if a candidate word fits alphabetically between two boundary words
+ * @param word The word to check
+ * @param lowerBound The word that should come before (or null if no lower bound)
+ * @param upperBound The word that should come after (or null if no upper bound)
+ * @returns true if the word fits within the alphabetical boundaries
+ */
+export function wordFitsAlphabetically(word: string, lowerBound: string | null, upperBound: string | null): boolean {
+  const wordLower = word.toLowerCase();
+  
+  // Check lower bound (word must be greater than lowerBound alphabetically)
+  if (lowerBound !== null) {
+    const lowerBoundLower = lowerBound.toLowerCase();
+    if (wordLower.localeCompare(lowerBoundLower) <= 0) {
+      return false;
+    }
+  }
+  
+  // Check upper bound (word must be less than upperBound alphabetically)
+  if (upperBound !== null) {
+    const upperBoundLower = upperBound.toLowerCase();
+    if (wordLower.localeCompare(upperBoundLower) >= 0) {
+      return false;
+    }
+  }
+  
+  return true;
+}
+
+/**
+ * Slot data structure for slot-based missed words detection
+ */
+export interface SlotInfo {
+  letters: string[];
+  user?: string;
+  hitMax: boolean;
+  originalIndex: number;
+  isFilled: boolean;
+}
+
+/**
+ * Finds missed words that fit alphabetically within empty slots based on adjacent filled slots
+ * @param slots Array of slot information including filled/empty status
+ * @param possibleWords Array of possible words that can be formed from available letters
+ * @returns Array of candidate missed words with their slot indices
+ */
+export function findSlotMatchedMissedWords(
+  slots: SlotInfo[],
+  possibleWords: string[]
+): { word: string; slotIndex: number; candidates: string[] }[] {
+  const results: { word: string; slotIndex: number; candidates: string[] }[] = [];
+  
+  for (let i = 0; i < slots.length; i++) {
+    const slot = slots[i];
+    
+    // Skip filled slots
+    if (slot.isFilled) {
+      continue;
+    }
+    
+    const slotLength = slot.letters.length;
+    
+    // Find lower bound (previous filled slot with same length)
+    let lowerBound: string | null = null;
+    for (let j = i - 1; j >= 0; j--) {
+      if (slots[j].isFilled && slots[j].letters.length === slotLength) {
+        lowerBound = slots[j].letters.join('');
+        break;
+      }
+    }
+    
+    // Find upper bound (next filled slot with same length)
+    let upperBound: string | null = null;
+    for (let j = i + 1; j < slots.length; j++) {
+      if (slots[j].isFilled && slots[j].letters.length === slotLength) {
+        upperBound = slots[j].letters.join('');
+        break;
+      }
+    }
+    
+    // Filter possible words that:
+    // 1. Have the correct length
+    // 2. Fit alphabetically between the boundaries
+    // 3. Match any revealed letters in the slot (handle '.' or '?' placeholders)
+    const candidates = possibleWords.filter(word => {
+      // Check length
+      if (word.length !== slotLength) {
+        return false;
+      }
+      
+      // Check alphabetical boundaries
+      if (!wordFitsAlphabetically(word, lowerBound, upperBound)) {
+        return false;
+      }
+      
+      // Check revealed letters (letters that are not '.' or '?')
+      const wordLower = word.toLowerCase();
+      for (let k = 0; k < slot.letters.length; k++) {
+        const slotLetter = slot.letters[k].toLowerCase();
+        if (slotLetter !== '.' && slotLetter !== '?') {
+          if (wordLower[k] !== slotLetter) {
+            return false;
+          }
+        }
+      }
+      
+      return true;
+    });
+    
+    if (candidates.length > 0) {
+      results.push({
+        word: candidates.length === 1 ? candidates[0] : '',
+        slotIndex: slot.originalIndex,
+        candidates: candidates
+      });
+    }
+  }
+  
+  return results;
+}

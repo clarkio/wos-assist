@@ -1,7 +1,7 @@
 import tmi, { type Client as tmiClient } from '@tmi.js/chat';
 import io from 'socket.io-client';
 
-import { findAllMissingWords, loadWosDictionary, updateWosDictionary } from './wos-words';
+import { findAllMissingWords, findSlotMatchedMissedWords, loadWosDictionary, updateWosDictionary, type SlotInfo } from './wos-words';
 
 const twitchWorker = new Worker(
   new URL('../scripts/twitch-chat-worker.ts', import.meta.url),
@@ -41,7 +41,7 @@ export class GameSpectator {
   isProcessingTwitch: boolean = false;
   currentLevelHiddenLetters: string[] = [];
   currentLevelFakeLetters: string[] = [];
-  currentLevelSlots: { letters: string[], user?: string, hitMax: boolean; }[] = [];
+  currentLevelSlots: { letters: string[], user?: string, hitMax: boolean, originalIndex: number, isFilled: boolean }[] = [];
   currentLevelEmptySlotsCount: { [key: number]: number; } = {};
 
   constructor () {
@@ -246,7 +246,13 @@ export class GameSpectator {
       this.clearBoard();
       console.log('[WOS Helper] Game Initialized with slots:', slots);
     }
-    this.currentLevelSlots = slots;
+    // Initialize slots with originalIndex and isFilled properties
+    // Slots are already sorted alphabetically by the game
+    this.currentLevelSlots = slots.map((slot: any, index: number) => ({
+      ...slot,
+      originalIndex: index,
+      isFilled: slot.user !== undefined && slot.user !== null
+    }));
     this.log(`Level ${level} ${wosEventType === 1 ? 'Started' : 'In Progress'}`, this.wosGameLogId);
     this.currentLevel = parseInt(level);
     this.updateChannelAllTimeRecord(this.currentLevel);
@@ -271,13 +277,45 @@ export class GameSpectator {
     console.log('Known Letters:', knownLetters);
     console.log('Minimum Word Length:', minLength);
     console.log('Calculating missing words...');
-    const missingWords = findAllMissingWords(this.currentLevelCorrectWords, knownLetters, minLength);
-
-    if (missingWords.length > 0) {
-      missingWords.forEach(word => {
+    
+    // Get all possible words from the dictionary
+    const allMissingWords = findAllMissingWords(this.currentLevelCorrectWords, knownLetters, minLength);
+    
+    // Use slot-based matching to find words that fit alphabetically in empty slots
+    const slotMatchedResults = findSlotMatchedMissedWords(
+      this.currentLevelSlots as SlotInfo[],
+      allMissingWords
+    );
+    
+    // Collect all matched words (prioritize single-candidate matches)
+    const displayedWords = new Set<string>();
+    
+    slotMatchedResults.forEach(result => {
+      if (result.candidates.length === 1) {
+        // Single candidate - high confidence match
+        const word = result.candidates[0];
+        if (!displayedWords.has(word)) {
+          this.updateCorrectWordsDisplayed(word + "*");
+          displayedWords.add(word);
+        }
+      } else if (result.candidates.length > 1) {
+        // Multiple candidates - show all with indicator
+        result.candidates.forEach(word => {
+          if (!displayedWords.has(word)) {
+            this.updateCorrectWordsDisplayed(word + "*");
+            displayedWords.add(word);
+          }
+        });
+      }
+    });
+    
+    // Fall back to showing remaining dictionary-based missing words that weren't matched to slots
+    allMissingWords.forEach(word => {
+      if (!displayedWords.has(word)) {
         this.updateCorrectWordsDisplayed(word + "*");
-      });
-    }
+        displayedWords.add(word);
+      }
+    });
   }
 
   private clearBoard() {
@@ -457,10 +495,14 @@ export class GameSpectator {
   private updateCurrentLevelSlots(username: string, letters: string[], index: number, hitMax: boolean) {
     // Update the current level slots with the correct guess word
     if (this.currentLevelSlots.length > 0 && index >= 0 && index < this.currentLevelSlots.length) {
+      // Preserve originalIndex when updating the slot
+      const originalIndex = this.currentLevelSlots[index].originalIndex;
       this.currentLevelSlots[index] = {
         letters: letters,
         user: username,
-        hitMax: hitMax
+        hitMax: hitMax,
+        originalIndex: originalIndex,
+        isFilled: true
       };
     } else {
       console.warn(`Invalid index ${index} for current level slots`);
