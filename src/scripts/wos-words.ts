@@ -170,8 +170,8 @@ export interface SlotInfo {
 export function findSlotMatchedMissedWords(
   slots: SlotInfo[],
   possibleWords: string[]
-): { word: string; slotIndex: number; candidates: string[] }[] {
-  const results: { word: string; slotIndex: number; candidates: string[] }[] = [];
+): { slotIndex: number; candidates: string[] }[] {
+  const results: { slotIndex: number; candidates: string[] }[] = [];
   
   for (let i = 0; i < slots.length; i++) {
     const slot = slots[i];
@@ -232,7 +232,6 @@ export function findSlotMatchedMissedWords(
     
     if (candidates.length > 0) {
       results.push({
-        word: candidates.length === 1 ? candidates[0] : '',
         slotIndex: slot.originalIndex,
         candidates: candidates
       });

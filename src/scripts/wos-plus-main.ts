@@ -41,7 +41,7 @@ export class GameSpectator {
   isProcessingTwitch: boolean = false;
   currentLevelHiddenLetters: string[] = [];
   currentLevelFakeLetters: string[] = [];
-  currentLevelSlots: { letters: string[], user?: string, hitMax: boolean, originalIndex: number, isFilled: boolean }[] = [];
+  currentLevelSlots: SlotInfo[] = [];
   currentLevelEmptySlotsCount: { [key: number]: number; } = {};
 
   constructor () {
@@ -283,39 +283,28 @@ export class GameSpectator {
     
     // Use slot-based matching to find words that fit alphabetically in empty slots
     const slotMatchedResults = findSlotMatchedMissedWords(
-      this.currentLevelSlots as SlotInfo[],
+      this.currentLevelSlots,
       allMissingWords
     );
     
-    // Collect all matched words (prioritize single-candidate matches)
+    // Collect all matched words
     const displayedWords = new Set<string>();
     
-    slotMatchedResults.forEach(result => {
-      if (result.candidates.length === 1) {
-        // Single candidate - high confidence match
-        const word = result.candidates[0];
-        if (!displayedWords.has(word)) {
-          this.updateCorrectWordsDisplayed(word + "*");
-          displayedWords.add(word);
-        }
-      } else if (result.candidates.length > 1) {
-        // Multiple candidates - show all with indicator
-        result.candidates.forEach(word => {
-          if (!displayedWords.has(word)) {
-            this.updateCorrectWordsDisplayed(word + "*");
-            displayedWords.add(word);
-          }
-        });
-      }
-    });
-    
-    // Fall back to showing remaining dictionary-based missing words that weren't matched to slots
-    allMissingWords.forEach(word => {
+    // Helper function to add a word if not already displayed
+    const addMissingWord = (word: string) => {
       if (!displayedWords.has(word)) {
         this.updateCorrectWordsDisplayed(word + "*");
         displayedWords.add(word);
       }
+    };
+    
+    // Display all slot-matched candidates
+    slotMatchedResults.forEach(result => {
+      result.candidates.forEach(addMissingWord);
     });
+    
+    // Fall back to showing remaining dictionary-based missing words that weren't matched to slots
+    allMissingWords.forEach(addMissingWord);
   }
 
   private clearBoard() {
