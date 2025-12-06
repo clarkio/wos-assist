@@ -2,6 +2,7 @@ import tmi, { type Client as tmiClient } from '@tmi.js/chat';
 import io from 'socket.io-client';
 
 import { findAllMissingWords, loadWosDictionary, updateWosDictionary } from './wos-words';
+import { saveBoard } from './db-service';
 
 const twitchWorker = new Worker(
   new URL('../scripts/twitch-chat-worker.ts', import.meta.url),
@@ -44,7 +45,7 @@ export class GameSpectator {
   currentLevelSlots: { letters: string[], user?: string, hitMax: boolean; }[] = [];
   currentLevelEmptySlotsCount: { [key: number]: number; } = {};
 
-  constructor () {
+  constructor() {
     this.twitchChatLog = new Map();
     this.wosSocket = null;
     loadWosDictionary();
@@ -202,6 +203,12 @@ export class GameSpectator {
     if (stars === 5) {
       // Level completed successfully with all words found on the board (CLEAR)
       this.recordBoardClear();
+
+      // Capture board data
+      if (this.currentLevelBigWord && this.currentLevelSlots) {
+        saveBoard(this.currentLevelBigWord, this.currentLevelSlots);
+      }
+
       const audio = new Audio('/assets/clear.mp3');
       audio.play().catch((error) => {
         console.error('Error playing audio:', error);
