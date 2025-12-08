@@ -12,6 +12,8 @@ const wosWorker = new Worker(
   { type: 'module' }
 );
 
+type Slots = { letters: string[], word?: string, user?: string, hitMax: boolean; index: number, length: number };
+
 export class GameSpectator {
   private msgProcessDelay = parseInt(import.meta.env.WOS_MSG_PROCESS_DELAY || '400');
   private lastTwitchMessage: {
@@ -41,10 +43,10 @@ export class GameSpectator {
   isProcessingTwitch: boolean = false;
   currentLevelHiddenLetters: string[] = [];
   currentLevelFakeLetters: string[] = [];
-  currentLevelSlots: { letters: string[], user?: string, hitMax: boolean; }[] = [];
+  currentLevelSlots: Slots[] = [];
   currentLevelEmptySlotsCount: { [key: number]: number; } = {};
 
-  constructor () {
+  constructor() {
     this.twitchChatLog = new Map();
     this.wosSocket = null;
     loadWosDictionary();
@@ -459,8 +461,11 @@ export class GameSpectator {
     if (this.currentLevelSlots.length > 0 && index >= 0 && index < this.currentLevelSlots.length) {
       this.currentLevelSlots[index] = {
         letters: letters,
+        word: letters.join(''),
         user: username,
-        hitMax: hitMax
+        hitMax: hitMax,
+        index,
+        length: letters.length
       };
     } else {
       console.warn(`Invalid index ${index} for current level slots`);
