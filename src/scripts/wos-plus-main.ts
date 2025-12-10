@@ -2,6 +2,8 @@ import tmi, { type Client as tmiClient } from '@tmi.js/chat';
 import io from 'socket.io-client';
 
 import { findAllMissingWords, loadWosDictionary, updateWosDictionary } from './wos-words';
+import { saveBoard } from './db-service';
+
 
 const twitchWorker = new Worker(
   new URL('../scripts/twitch-chat-worker.ts', import.meta.url),
@@ -12,7 +14,7 @@ const wosWorker = new Worker(
   { type: 'module' }
 );
 
-type Slots = { letters: string[], word?: string, user?: string, hitMax: boolean; index: number, length: number };
+type Slots = { letters: string[], word: string, user?: string, hitMax: boolean; index: number, length: number };
 
 export class GameSpectator {
   private msgProcessDelay = parseInt(import.meta.env.WOS_MSG_PROCESS_DELAY || '400');
@@ -189,7 +191,7 @@ export class GameSpectator {
     this.logMissingWords();
   }
 
-  private handleLevelResults(stars: any) {
+  private async handleLevelResults(stars: any) {
     this.log(`Level ${this.currentLevel} ended with ${stars} stars`, this.wosGameLogId);
     console.log(`[WOS Helper] Level ${this.currentLevel} ended`);
     this.log(`[WOS Helper] Total slots for level ${this.currentLevel}: ${this.currentLevelSlots.length}`, this.wosGameLogId);
@@ -204,6 +206,15 @@ export class GameSpectator {
     if (stars === 5) {
       // Level completed successfully with all words found on the board (CLEAR)
       this.recordBoardClear();
+
+      // Capture board data
+      if (this.currentLevelBigWord && this.currentLevelSlots) {
+        console.log('[WOS Helper] Saving board data to database...');
+        console.log('[WOS Helper] Board ID:', this.currentLevelBigWord);
+        console.log('[WOS Helper] Board Slots:', this.currentLevelSlots);
+        await saveBoard(this.currentLevelBigWord, this.currentLevelSlots);
+      }
+
       const audio = new Audio('/assets/clear.mp3');
       audio.play().catch((error) => {
         console.error('Error playing audio:', error);
@@ -338,6 +349,7 @@ export class GameSpectator {
     // Add to correct words list
     this.updateCorrectWordsDisplayed(word);
     updateWosDictionary(word);
+    this.updateCurrentLevelSlots(username, word.split(''), index, hitMax);
 
     // If hitMax is true, set the current level big word
     if (hitMax) {
@@ -348,7 +360,6 @@ export class GameSpectator {
       this.calculateFakeLetters(this.currentLevelBigWord);
     }
 
-    this.updateCurrentLevelSlots(username, word.split(''), index, hitMax);
 
     // Try to determine hidden letters
     // Use letters found in this.currentLevelCorrectWords
@@ -458,7 +469,7 @@ export class GameSpectator {
 
   private updateCurrentLevelSlots(username: string, letters: string[], index: number, hitMax: boolean) {
     // Update the current level slots with the correct guess word
-    if (this.currentLevelSlots.length > 0 && index >= 0 && index < this.currentLevelSlots.length) {
+    if (index >= 0 && index < this.currentLevelSlots.length) {
       this.currentLevelSlots[index] = {
         letters: letters,
         word: letters.join(''),
@@ -467,6 +478,7 @@ export class GameSpectator {
         index,
         length: letters.length
       };
+      console.log(`[WOS Helper] Updated slot at index ${index}:`, this.currentLevelSlots[index]);
     } else {
       console.warn(`Invalid index ${index} for current level slots`);
     }
