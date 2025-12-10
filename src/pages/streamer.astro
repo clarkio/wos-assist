@@ -36,6 +36,20 @@ import SettingsDialog from '../components/SettingsDialog.astro';
         />
         <small class='form-help'>The Twitch channel name to connect to</small>
       </div>
+      <div class='form-group'>
+        <label class='toggle-label'>
+          <input
+            type='checkbox'
+            id='streamer-clear-sound-input'
+            name='clearSound'
+            class='toggle-input'
+            checked
+          />
+          <span class='toggle-slider'></span>
+          <span class='toggle-text'>Play Clear Sound</span>
+        </label>
+        <small class='form-help'>Play a sound when all words are found on a level</small>
+      </div>
     </form>
   </SettingsDialog>
 
@@ -278,6 +292,8 @@ import SettingsDialog from '../components/SettingsDialog.astro';
       if (data.twitchChannel) {
         params.set('twitchChannel', data.twitchChannel);
       }
+      // Handle clear sound toggle
+      params.set('clearSound', data.clearSound ? 'true' : 'false');
 
       // Reload the page with new parameters
       window.location.href = window.location.pathname + '?' + params.toString();
@@ -308,6 +324,17 @@ import SettingsDialog from '../components/SettingsDialog.astro';
         if (twitchChannelInput) {
           twitchChannelInput.value = urlParams.get('twitchChannel') || '';
         }
+      }
+
+      // Pre-populate clear sound checkbox
+      const clearSoundInput = document.getElementById(
+        'streamer-clear-sound-input'
+      ) as HTMLInputElement;
+      if (clearSoundInput) {
+        const clearSoundParam = urlParams.get('clearSound');
+        clearSoundInput.checked = clearSoundParam
+          ? clearSoundParam.toLowerCase() === 'true'
+          : true;
       }
 
       // Ensure dialog is ready and set up callbacks before opening
@@ -387,6 +414,11 @@ import SettingsDialog from '../components/SettingsDialog.astro';
 
     // Only connect if we have required parameters
     if (hasRequiredParams) {
+      // Handle clear sound setting
+      if (urlParams.has('clearSound')) {
+        spectator.clearSoundEnabled = urlParams.get('clearSound')?.toLowerCase() === 'true';
+      }
+
       spectator.connectToWosGame(currentMirrorUrl);
       spectator.connectToTwitch(twitchChannel);
     }
@@ -467,5 +499,66 @@ import SettingsDialog from '../components/SettingsDialog.astro';
     color: rgba(218, 207, 230, 0.7);
     font-size: 0.85rem;
     font-style: italic;
+  }
+
+  /* Toggle switch styles */
+  .toggle-label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+    position: relative;
+  }
+
+  .toggle-input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .toggle-slider {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 26px;
+    background: var(--bg-tertiary, #4b1a81);
+    border: 2px solid var(--border-primary, rgba(199, 156, 255, 0.4));
+    border-radius: 26px;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+  }
+
+  .toggle-slider::before {
+    content: '';
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    left: 2px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--text-primary, #dacfe6);
+    border-radius: 50%;
+    transition: all 0.3s ease;
+  }
+
+  .toggle-input:checked + .toggle-slider {
+    background: var(--bg-secondary, #7736c6);
+    border-color: var(--accent-violet, #c79cff);
+  }
+
+  .toggle-input:checked + .toggle-slider::before {
+    left: 26px;
+    background: var(--text-lightest, #f5efff);
+  }
+
+  .toggle-input:focus + .toggle-slider {
+    box-shadow: 0 0 0 3px rgba(199, 156, 255, 0.3);
+  }
+
+  .toggle-text {
+    color: var(--text-lightest, #f5efff);
+    font-weight: 600;
+    font-size: 0.95rem;
   }
 </style>

@@ -64,6 +64,20 @@ import SettingsDialog from '../components/SettingsDialog.astro';
         </label>
         <small class='form-help'>Toggle the Words on Stream board visibility</small>
       </div>
+      <div class='form-group'>
+        <label class='toggle-label'>
+          <input
+            type='checkbox'
+            id='clear-sound-input'
+            name='clearSound'
+            class='toggle-input'
+            checked
+          />
+          <span class='toggle-slider'></span>
+          <span class='toggle-text'>Play Clear Sound</span>
+        </label>
+        <small class='form-help'>Play a sound when all words are found on a level</small>
+      </div>
     </form>
   </SettingsDialog>
 
@@ -306,6 +320,9 @@ import SettingsDialog from '../components/SettingsDialog.astro';
     const wosEnabledInput = document.getElementById(
       'wos-enabled-input'
     ) as HTMLInputElement | null;
+    const clearSoundInput = document.getElementById(
+      'clear-sound-input'
+    ) as HTMLInputElement | null;
 
     if (mirrorUrlInput && urlParams.has('mirrorUrl')) {
       mirrorUrlInput.value = urlParams.get('mirrorUrl') || '';
@@ -326,6 +343,13 @@ import SettingsDialog from '../components/SettingsDialog.astro';
       const boardParam = urlParams.get('board');
       wosEnabledInput.checked = boardParam
         ? boardParam.toLowerCase() === 'true'
+        : true;
+    }
+
+    if (clearSoundInput) {
+      const clearSoundParam = urlParams.get('clearSound');
+      clearSoundInput.checked = clearSoundParam
+        ? clearSoundParam.toLowerCase() === 'true'
         : true;
     }
   };
@@ -359,6 +383,8 @@ import SettingsDialog from '../components/SettingsDialog.astro';
       params.set('chat', data.chatEnabled ? 'true' : 'false');
       // Handle WoS board visibility toggle
       params.set('board', data.wosEnabled ? 'true' : 'false');
+      // Handle clear sound toggle
+      params.set('clearSound', data.clearSound ? 'true' : 'false');
 
       // Navigate to the updated URL
       const newUrl = window.location.pathname + '?' + params.toString();
@@ -485,6 +511,11 @@ import SettingsDialog from '../components/SettingsDialog.astro';
 
     // Only connect if we have required parameters
     if (hasRequiredParams) {
+      // Handle clear sound setting
+      if (urlParams.has('clearSound')) {
+        spectator.clearSoundEnabled = urlParams.get('clearSound')?.toLowerCase() === 'true';
+      }
+
       spectator.connectToWosGame(currentMirrorUrl);
       spectator.connectToTwitch(twitchChannel);
     }

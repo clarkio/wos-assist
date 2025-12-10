@@ -47,6 +47,7 @@ export class GameSpectator {
   currentLevelFakeLetters: string[] = [];
   currentLevelSlots: Slots[] = [];
   currentLevelEmptySlotsCount: { [key: number]: number; } = {};
+  clearSoundEnabled: boolean = true;
 
   constructor() {
     this.twitchChatLog = new Map();
@@ -215,10 +216,12 @@ export class GameSpectator {
         await saveBoard(this.currentLevelBigWord, this.currentLevelSlots);
       }
 
-      const audio = new Audio('/assets/clear.mp3');
-      audio.play().catch((error) => {
-        console.error('Error playing audio:', error);
-      });
+      if (this.clearSoundEnabled) {
+        const audio = new Audio('/assets/clear.mp3');
+        audio.play().catch((error) => {
+          console.error('Error playing audio:', error);
+        });
+      }
     } else {
       this.logMissingWords();
       this.logEmptySlots();
