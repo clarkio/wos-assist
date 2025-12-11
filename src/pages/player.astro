@@ -7,9 +7,9 @@ import SettingsDialog from '../components/SettingsDialog.astro';
 ---
 
 <WosBaseLayout
-  title="Clarkio's Words on Stream Tool"
-  description="Clarkio's Words on Stream Tool"
-  keywords='clarkio, words on stream, wos, twitch, streaming, helper, wordsonstream, tool'
+  title="WoS+ | Words on Stream Plus - Player"
+  description="WoS+ | Words on Stream Plus - Player - An enhanced spectator interface for Words on Stream with Twitch chat integration and customizable settings."
+  keywords='clarkio, words on stream, wos, twitch, streaming, helper, wordsonstream, tool, wos plus, player'
 >
   <SettingsDialog id='player-settings' title='Player Settings'>
     <form id='player-settings-form' class='settings-form'>
@@ -19,7 +19,7 @@ import SettingsDialog from '../components/SettingsDialog.astro';
           type='url'
           id='mirror-url-input'
           name='mirrorUrl'
-          placeholder='https://example.com/game-mirror'
+          placeholder='https://wos.gg/r/game-mirror-value-here'
           required
         />
         <small class='form-help'
@@ -277,6 +277,16 @@ import SettingsDialog from '../components/SettingsDialog.astro';
   let currentMirrorUrl = '';
   let twitchChannel = 'clarkio';
 
+  const normalizeMirrorUrl = (input: string): string => {
+    const trimmed = input.trim();
+    // If it already starts with http:// or https://, return as-is
+    if (trimmed.startsWith('http://') || trimmed.startsWith('https://')) {
+      return trimmed;
+    }
+    // Otherwise, prepend the base URL
+    return `https://wos.gg/r/${trimmed}`;
+  };
+
   const isBoardVisible = () =>
     boardContainer
       ? window.getComputedStyle(boardContainer).display !== 'none'
@@ -479,9 +489,9 @@ import SettingsDialog from '../components/SettingsDialog.astro';
 
     if (urlParams.has('mirrorUrl')) {
       const url = urlParams.get('mirrorUrl') || '';
-      currentMirrorUrl = url.trim();
+      currentMirrorUrl = normalizeMirrorUrl(url);
       loadBoardIframeIfVisible();
-      console.log(url);
+      console.log(currentMirrorUrl);
     }
 
     if (urlParams.has('chat')) {
