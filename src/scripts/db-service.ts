@@ -32,7 +32,6 @@ export async function saveBoard(boardId: string, slots: Slot[]) {
     slot &&
     typeof slot === 'object' &&
     Array.isArray(slot.letters) &&
-    slot.letters.every((letter: unknown) => typeof letter === 'string') &&
     typeof slot.hitMax === 'boolean' &&
     typeof slot.word === 'string'
   );
