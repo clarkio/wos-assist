@@ -319,7 +319,7 @@ export class GameSpectator {
       const wordLength = word.length;
 
       // Find empty slots that match this word's length
-      const matchingEmptySlots = emptySlots.filter(slot => slot.length === wordLength);
+      const matchingEmptySlots = emptySlots.filter(slot => slot.letters.length === wordLength);
 
       if (matchingEmptySlots.length === 0) {
         console.log(`[WOS Helper] No empty slots for word "${word}" (length ${wordLength})`);
@@ -437,7 +437,8 @@ export class GameSpectator {
         console.warn(
           `[WOS Helper] Could not find matching message for ${lowerUsername}`,
           `[WOS Helper] Last message: ${JSON.stringify(this.lastTwitchMessage)}`,
-          `[WOS Helper] Chat log entry: ${JSON.stringify(latestMessage)}`
+          `[WOS Helper] Chat log entry: ${JSON.stringify(latestMessage)}`,
+          `[WOS Helper] Expected word length: ${this.twitchChatLog.entries()}`
         );
         return; // Skip updating UI if we can't find the word
       }
