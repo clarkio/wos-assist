@@ -226,6 +226,8 @@ export class GameSpectator {
       this.logMissingWords();
       this.logEmptySlots();
     }
+
+    console.log(`[WOS Helper] Current Level Slots:`, this.currentLevelSlots);
   }
   logEmptySlots() {
     // slots missed/empty will have user property set to null
