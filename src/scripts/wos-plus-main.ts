@@ -204,7 +204,7 @@ export class GameSpectator {
     levelTitleEl.classList.add('long');
     document.getElementById('level-value')!.innerText = `${this.currentLevel}`;
 
-    if (stars === 5) {
+    if (stars === 5 || this.currentLevelSlots.every(slot => slot.user)) {
       // Level completed successfully with all words found on the board (CLEAR)
       this.recordBoardClear();
 
